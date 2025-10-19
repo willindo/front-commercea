@@ -1,0 +1,36 @@
+{
+  "name": "front-commerce",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --turbopack",
+    "start": "next start",
+    "build": "next build",
+    "prebuild": "npm run ensure:zod",
+    "ensure:zod": "if [ ! -d src/generated/zod ]; then echo '❌ Zod schemas missing! Copy them from backend or run sync-types locally.'; fi",
+    "fetch:zod": "echo '❌ (optional) Implement fetch from backend repo or run prisma:generate in monorepo'"
+  },
+  "dependencies": {
+    "@hookform/resolvers": "^5.2.2",
+    "@tanstack/react-query": "^5.90.2",
+    "axios": "^1.12.2",
+    "cookies-next": "^6.1.0",
+    "lucide-react": "^0.544.0",
+    "next": "15.5.4",
+    "react": "19.1.0",
+    "react-dom": "19.1.0",
+    "react-hook-form": "^7.63.0",
+    "zod": "^4.1.11"
+  },
+  "devDependencies": {
+    "@prisma/client": "^6.16.2",
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "autoprefixer": "^10.4.21",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^4",
+    "typescript": "^5"
+  }
+}
