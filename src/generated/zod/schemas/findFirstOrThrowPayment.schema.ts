@@ -1,3 +1,4 @@
+import type { Prisma } from '@prisma/client';
 import * as z from 'zod';
 import { PaymentIncludeObjectSchema as PaymentIncludeObjectSchema } from './objects/PaymentInclude.schema';
 import { PaymentOrderByWithRelationInputObjectSchema as PaymentOrderByWithRelationInputObjectSchema } from './objects/PaymentOrderByWithRelationInput.schema';
@@ -8,7 +9,7 @@ import { PaymentScalarFieldEnumSchema } from './enums/PaymentScalarFieldEnum.sch
 // Select schema needs to be in file to prevent circular imports
 //------------------------------------------------------
 
-export const PaymentFindFirstOrThrowSelectSchema: z.ZodType<any> = z.object({
+export const PaymentFindFirstOrThrowSelectSchema: z.ZodType<Prisma.PaymentSelect> = z.object({
     id: z.boolean().optional(),
     userId: z.boolean().optional(),
     orderId: z.boolean().optional(),
@@ -20,7 +21,7 @@ export const PaymentFindFirstOrThrowSelectSchema: z.ZodType<any> = z.object({
     status: z.boolean().optional(),
     createdAt: z.boolean().optional(),
     user: z.boolean().optional()
-  }).strict() as unknown as z.ZodType<any>;
+  }).strict() as unknown as z.ZodType<Prisma.PaymentSelect>;
 
 export const PaymentFindFirstOrThrowSelectZodSchema = z.object({
     id: z.boolean().optional(),
@@ -36,6 +37,6 @@ export const PaymentFindFirstOrThrowSelectZodSchema = z.object({
     user: z.boolean().optional()
   }).strict();
 
-export const PaymentFindFirstOrThrowSchema: z.ZodType<any> = z.object({ select: PaymentFindFirstOrThrowSelectSchema.optional(), include: PaymentIncludeObjectSchema.optional(), orderBy: z.union([PaymentOrderByWithRelationInputObjectSchema, PaymentOrderByWithRelationInputObjectSchema.array()]).optional(), where: PaymentWhereInputObjectSchema.optional(), cursor: PaymentWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), distinct: z.union([PaymentScalarFieldEnumSchema, PaymentScalarFieldEnumSchema.array()]).optional() }).strict() as unknown as z.ZodType<any>;
+export const PaymentFindFirstOrThrowSchema: z.ZodType<Prisma.PaymentFindFirstOrThrowArgs> = z.object({ select: PaymentFindFirstOrThrowSelectSchema.optional(), include: PaymentIncludeObjectSchema.optional(), orderBy: z.union([PaymentOrderByWithRelationInputObjectSchema, PaymentOrderByWithRelationInputObjectSchema.array()]).optional(), where: PaymentWhereInputObjectSchema.optional(), cursor: PaymentWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), distinct: z.union([PaymentScalarFieldEnumSchema, PaymentScalarFieldEnumSchema.array()]).optional() }).strict() as unknown as z.ZodType<Prisma.PaymentFindFirstOrThrowArgs>;
 
 export const PaymentFindFirstOrThrowZodSchema = z.object({ select: PaymentFindFirstOrThrowSelectSchema.optional(), include: PaymentIncludeObjectSchema.optional(), orderBy: z.union([PaymentOrderByWithRelationInputObjectSchema, PaymentOrderByWithRelationInputObjectSchema.array()]).optional(), where: PaymentWhereInputObjectSchema.optional(), cursor: PaymentWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), distinct: z.union([PaymentScalarFieldEnumSchema, PaymentScalarFieldEnumSchema.array()]).optional() }).strict();

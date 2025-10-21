@@ -1,4 +1,5 @@
 import * as z from 'zod';
+import type { Prisma } from '@prisma/client';
 import { PaymentSelectObjectSchema as PaymentSelectObjectSchema } from './PaymentSelect.schema';
 import { PaymentIncludeObjectSchema as PaymentIncludeObjectSchema } from './PaymentInclude.schema'
 

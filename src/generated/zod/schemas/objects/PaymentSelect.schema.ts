@@ -1,4 +1,5 @@
 import * as z from 'zod';
+import type { Prisma } from '@prisma/client';
 import { UserArgsObjectSchema as UserArgsObjectSchema } from './UserArgs.schema'
 
 const makeSchema = () => z.object({
@@ -14,5 +15,5 @@ const makeSchema = () => z.object({
   createdAt: z.boolean().optional(),
   user: z.union([z.boolean(), z.lazy(() => UserArgsObjectSchema)]).optional()
 }).strict();
-export const PaymentSelectObjectSchema: z.ZodType<any> = makeSchema() as unknown as z.ZodType<any>;
+export const PaymentSelectObjectSchema: z.ZodType<Prisma.PaymentSelect> = makeSchema() as unknown as z.ZodType<Prisma.PaymentSelect>;
 export const PaymentSelectObjectZodSchema = makeSchema();

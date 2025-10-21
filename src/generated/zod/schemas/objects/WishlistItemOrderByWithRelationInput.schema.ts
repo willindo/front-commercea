@@ -1,4 +1,5 @@
 import * as z from 'zod';
+import type { Prisma } from '@prisma/client';
 import { SortOrderSchema } from '../enums/SortOrder.schema';
 import { ProductOrderByWithRelationInputObjectSchema as ProductOrderByWithRelationInputObjectSchema } from './ProductOrderByWithRelationInput.schema';
 import { WishlistOrderByWithRelationInputObjectSchema as WishlistOrderByWithRelationInputObjectSchema } from './WishlistOrderByWithRelationInput.schema'
@@ -10,5 +11,5 @@ const makeSchema = () => z.object({
   product: z.lazy(() => ProductOrderByWithRelationInputObjectSchema).optional(),
   wishlist: z.lazy(() => WishlistOrderByWithRelationInputObjectSchema).optional()
 }).strict();
-export const WishlistItemOrderByWithRelationInputObjectSchema: z.ZodType<any> = makeSchema() as unknown as z.ZodType<any>;
+export const WishlistItemOrderByWithRelationInputObjectSchema: z.ZodType<Prisma.WishlistItemOrderByWithRelationInput> = makeSchema() as unknown as z.ZodType<Prisma.WishlistItemOrderByWithRelationInput>;
 export const WishlistItemOrderByWithRelationInputObjectZodSchema = makeSchema();

@@ -1,4 +1,5 @@
 import * as z from 'zod';
+import type { Prisma } from '@prisma/client';
 import { PaymentStatusSchema } from '../enums/PaymentStatus.schema';
 import { NestedEnumPaymentStatusFilterObjectSchema as NestedEnumPaymentStatusFilterObjectSchema } from './NestedEnumPaymentStatusFilter.schema'
 
@@ -8,5 +9,5 @@ const makeSchema = () => z.object({
   notIn: PaymentStatusSchema.array().optional(),
   not: z.union([PaymentStatusSchema, z.lazy(() => NestedEnumPaymentStatusFilterObjectSchema)]).optional()
 }).strict();
-export const EnumPaymentStatusFilterObjectSchema: z.ZodType<any> = makeSchema() as unknown as z.ZodType<any>;
+export const EnumPaymentStatusFilterObjectSchema: z.ZodType<Prisma.EnumPaymentStatusFilter> = makeSchema() as unknown as z.ZodType<Prisma.EnumPaymentStatusFilter>;
 export const EnumPaymentStatusFilterObjectZodSchema = makeSchema();

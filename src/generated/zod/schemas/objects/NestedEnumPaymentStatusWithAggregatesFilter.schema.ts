@@ -1,4 +1,5 @@
 import * as z from 'zod';
+import type { Prisma } from '@prisma/client';
 import { PaymentStatusSchema } from '../enums/PaymentStatus.schema';
 import { NestedIntFilterObjectSchema as NestedIntFilterObjectSchema } from './NestedIntFilter.schema';
 import { NestedEnumPaymentStatusFilterObjectSchema as NestedEnumPaymentStatusFilterObjectSchema } from './NestedEnumPaymentStatusFilter.schema'
@@ -12,5 +13,5 @@ const nestedenumpaymentstatuswithaggregatesfilterSchema = z.object({
   _min: z.lazy(() => NestedEnumPaymentStatusFilterObjectSchema).optional(),
   _max: z.lazy(() => NestedEnumPaymentStatusFilterObjectSchema).optional()
 }).strict();
-export const NestedEnumPaymentStatusWithAggregatesFilterObjectSchema: z.ZodType<any> = nestedenumpaymentstatuswithaggregatesfilterSchema as unknown as z.ZodType<any>;
+export const NestedEnumPaymentStatusWithAggregatesFilterObjectSchema: z.ZodType<Prisma.NestedEnumPaymentStatusWithAggregatesFilter> = nestedenumpaymentstatuswithaggregatesfilterSchema as unknown as z.ZodType<Prisma.NestedEnumPaymentStatusWithAggregatesFilter>;
 export const NestedEnumPaymentStatusWithAggregatesFilterObjectZodSchema = nestedenumpaymentstatuswithaggregatesfilterSchema;

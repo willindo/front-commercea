@@ -1,4 +1,5 @@
 import * as z from 'zod';
+import type { Prisma } from '@prisma/client';
 import { CartItemCartIdProductIdSizeCompoundUniqueInputObjectSchema as CartItemCartIdProductIdSizeCompoundUniqueInputObjectSchema } from './CartItemCartIdProductIdSizeCompoundUniqueInput.schema'
 
 const makeSchema = () => z.object({
@@ -38,5 +39,5 @@ const makeSchema = () => z.object({
           ctx.addIssue({ code: 'custom', message: 'Provide at least one unique selector' });
         }
       });
-export const CartItemWhereUniqueInputObjectSchema: z.ZodType<any> = makeSchema() as unknown as z.ZodType<any>;
+export const CartItemWhereUniqueInputObjectSchema: z.ZodType<Prisma.CartItemWhereUniqueInput> = makeSchema() as unknown as z.ZodType<Prisma.CartItemWhereUniqueInput>;
 export const CartItemWhereUniqueInputObjectZodSchema = makeSchema();

@@ -1,4 +1,5 @@
 import * as z from 'zod';
+import type { Prisma } from '@prisma/client';
 import { NestedIntFilterObjectSchema as NestedIntFilterObjectSchema } from './NestedIntFilter.schema'
 
 const makeSchema = () => z.object({
@@ -11,5 +12,5 @@ const makeSchema = () => z.object({
   gte: z.number().int().optional(),
   not: z.union([z.number().int(), z.lazy(() => NestedIntFilterObjectSchema)]).optional()
 }).strict();
-export const IntFilterObjectSchema: z.ZodType<any> = makeSchema() as unknown as z.ZodType<any>;
+export const IntFilterObjectSchema: z.ZodType<Prisma.IntFilter> = makeSchema() as unknown as z.ZodType<Prisma.IntFilter>;
 export const IntFilterObjectZodSchema = makeSchema();

@@ -1,4 +1,5 @@
 import * as z from 'zod';
+import type { Prisma } from '@prisma/client';
 import { PaymentStatusSchema } from '../enums/PaymentStatus.schema'
 
 const makeSchema = () => z.object({
@@ -13,5 +14,5 @@ const makeSchema = () => z.object({
   status: PaymentStatusSchema,
   createdAt: z.coerce.date().optional()
 }).strict();
-export const PaymentCreateManyInputObjectSchema: z.ZodType<any> = makeSchema() as unknown as z.ZodType<any>;
+export const PaymentCreateManyInputObjectSchema: z.ZodType<Prisma.PaymentCreateManyInput> = makeSchema() as unknown as z.ZodType<Prisma.PaymentCreateManyInput>;
 export const PaymentCreateManyInputObjectZodSchema = makeSchema();

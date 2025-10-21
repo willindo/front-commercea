@@ -1,4 +1,5 @@
 import * as z from 'zod';
+import type { Prisma } from '@prisma/client';
 import { SortOrderSchema } from '../enums/SortOrder.schema';
 import { ProductSizeCountOrderByAggregateInputObjectSchema as ProductSizeCountOrderByAggregateInputObjectSchema } from './ProductSizeCountOrderByAggregateInput.schema';
 import { ProductSizeAvgOrderByAggregateInputObjectSchema as ProductSizeAvgOrderByAggregateInputObjectSchema } from './ProductSizeAvgOrderByAggregateInput.schema';
@@ -17,5 +18,5 @@ const makeSchema = () => z.object({
   _min: z.lazy(() => ProductSizeMinOrderByAggregateInputObjectSchema).optional(),
   _sum: z.lazy(() => ProductSizeSumOrderByAggregateInputObjectSchema).optional()
 }).strict();
-export const ProductSizeOrderByWithAggregationInputObjectSchema: z.ZodType<any> = makeSchema() as unknown as z.ZodType<any>;
+export const ProductSizeOrderByWithAggregationInputObjectSchema: z.ZodType<Prisma.ProductSizeOrderByWithAggregationInput> = makeSchema() as unknown as z.ZodType<Prisma.ProductSizeOrderByWithAggregationInput>;
 export const ProductSizeOrderByWithAggregationInputObjectZodSchema = makeSchema();

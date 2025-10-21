@@ -1,86 +1,49 @@
-"use client";
-
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { productsApi, PaginatedProducts } from "@/lib/api/products";
 import {
-  fetchProducts,
-  fetchProductById,
-  createProduct,
-  updateProduct,
-  deleteProduct,
-} from "@/lib/api/products";
-// import type { PaginatedProducts } from "@/lib/api/products";
-import type {
   CreateProductDto,
   UpdateProductDto,
-  PaginatedProducts,
+  Product,
 } from "@/lib/types/products";
 
-/** products list (paginated) */
 export function useProducts(page = 1, limit = 10) {
   return useQuery<PaginatedProducts>({
     queryKey: ["products", page, limit],
-    queryFn: () => fetchProducts(page, limit),
-    staleTime: 1000 * 60 * 5,
+    queryFn: () => productsApi.getAll(page, limit),
   });
 }
 
-/** single product */
-export function useProduct(id?: string) {
-  return useQuery({
+export function useProduct(id: string) {
+  return useQuery<Product>({
     queryKey: ["product", id],
-    queryFn: () => {
-      if (!id) throw new Error("Missing id");
-      return fetchProductById(id);
-    },
+    queryFn: () => productsApi.getOne(id),
     enabled: !!id,
   });
 }
 
-/** create */
 export function useCreateProduct() {
   const qc = useQueryClient();
   return useMutation({
-    mutationFn: (payload: CreateProductDto) => createProduct(payload),
-    onSuccess: () => {
-      console.log("✅ Product created successfully");
-      qc.invalidateQueries({ queryKey: ["products"] });
-    },
-    onError: (err: any) =>
-      console.error(
-        "Create product error:",
-        err?.response?.data ?? err?.message ?? err
-      ),
+    mutationFn: (dto: CreateProductDto) => productsApi.create(dto),
+    onSuccess: () => qc.invalidateQueries({ queryKey: ["products"] }),
   });
 }
 
-/** update */
-export function useUpdateProduct() {
+export function useUpdateProduct(id: string) {
   const qc = useQueryClient();
   return useMutation({
-    mutationFn: ({ id, data }: { id: string; data: UpdateProductDto }) =>
-      updateProduct(id, data),
-    onSuccess: (_, { id }) => {
+    mutationFn: (dto: UpdateProductDto) => productsApi.update(id, dto),
+    onSuccess: () => {
       qc.invalidateQueries({ queryKey: ["products"] });
       qc.invalidateQueries({ queryKey: ["product", id] });
     },
-    onError: (err: any) =>
-      console.error(
-        "Update product error:",
-        err?.response?.data ?? err?.message ?? err
-      ),
   });
 }
 
-/** delete */
 export function useDeleteProduct() {
   const qc = useQueryClient();
   return useMutation({
-    mutationFn: (id: string) => deleteProduct(id),
+    mutationFn: (id: string) => productsApi.remove(id),
     onSuccess: () => qc.invalidateQueries({ queryKey: ["products"] }),
-    onError: (err: any) =>
-      console.error(
-        "Delete product error:",
-        err?.response?.data ?? err?.message ?? err
-      ),
   });
 }

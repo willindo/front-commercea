@@ -1,4 +1,5 @@
 import * as z from 'zod';
+import type { Prisma } from '@prisma/client';
 import { SortOrderSchema } from '../enums/SortOrder.schema';
 import { CategoryCountOrderByAggregateInputObjectSchema as CategoryCountOrderByAggregateInputObjectSchema } from './CategoryCountOrderByAggregateInput.schema';
 import { CategoryMaxOrderByAggregateInputObjectSchema as CategoryMaxOrderByAggregateInputObjectSchema } from './CategoryMaxOrderByAggregateInput.schema';
@@ -11,5 +12,5 @@ const makeSchema = () => z.object({
   _max: z.lazy(() => CategoryMaxOrderByAggregateInputObjectSchema).optional(),
   _min: z.lazy(() => CategoryMinOrderByAggregateInputObjectSchema).optional()
 }).strict();
-export const CategoryOrderByWithAggregationInputObjectSchema: z.ZodType<any> = makeSchema() as unknown as z.ZodType<any>;
+export const CategoryOrderByWithAggregationInputObjectSchema: z.ZodType<Prisma.CategoryOrderByWithAggregationInput> = makeSchema() as unknown as z.ZodType<Prisma.CategoryOrderByWithAggregationInput>;
 export const CategoryOrderByWithAggregationInputObjectZodSchema = makeSchema();

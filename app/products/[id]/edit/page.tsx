@@ -1,109 +1,65 @@
 "use client";
 
-import React, { useEffect } from "react";
+import { useRouter, useParams } from "next/navigation";
+import { useProduct, useUpdateProduct } from "@/hooks/useProducts";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { UpdateProductDto, UpdateProductSchema } from "@/lib/types/products";
-import { useProduct, useUpdateProduct } from "@/hooks/useProducts";
-import { useParams, useRouter } from "next/navigation";
+import { UpdateProductSchema, UpdateProductDto } from "@/lib/types/products";
 
 export default function EditProductPage() {
-  const { id } = useParams<{ id: string }>();
   const router = useRouter();
-  const productQuery = useProduct(id);
-  const updateMutation = useUpdateProduct();
+  const params = useParams<{ id: string }>();
+  const { data, isLoading } = useProduct(params.id);
+  const { mutateAsync, isPending } = useUpdateProduct(params.id);
 
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { isSubmitting, errors },
-  } = useForm<UpdateProductDto>({
-    resolver: zodResolver(UpdateProductSchema as any),
+  const form = useForm<UpdateProductDto>({
+    resolver: zodResolver(UpdateProductSchema),
+    values: data ?? {},
   });
 
-  useEffect(() => {
-    if (productQuery.data) {
-      console.log(productQuery.data);
-      reset(productQuery.data as any);
-    }
-  }, [productQuery.data, reset]);
-
-  if (productQuery.isLoading) return <p>Loading...</p>;
-  if (!productQuery.data) return <p>Product not found.</p>;
-
-  const onSubmit = async (formData: UpdateProductDto) => {
-    console.log("Form submitted with data:", formData);
-    try {
-      await updateMutation.mutateAsync({ id: id!, data: formData as any });
-      router.push("/admin/products");
-    } catch (err: any) {
-      console.error(
-        "Update failed:",
-        err?.response?.data ?? err?.message ?? err
-      );
-      alert(
-        "Update failed: " +
-          (err?.response?.data?.message ?? err?.message ?? "Unknown")
-      );
-    }
+  const onSubmit = async (values: UpdateProductDto) => {
+    await mutateAsync(values);
+    router.push("/products");
   };
 
+  if (isLoading) return <p>Loading...</p>;
+
   return (
-    <form
-      onSubmit={handleSubmit(onSubmit)}
-      className="max-w-md mx-auto mt-6 space-y-4"
-    >
-      <div>
+    <div className="max-w-xl mx-auto py-10">
+      <h1 className="text-2xl font-semibold mb-4">Edit Product</h1>
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="flex flex-col gap-3"
+      >
         <input
-          {...register("name")}
+          {...form.register("name")}
           placeholder="Name"
-          className="border p-2 w-full"
+          className="border rounded p-2"
         />
-        {errors?.name && (
-          <p className="text-red-600 text-sm">{String(errors.name.message)}</p>
-        )}
-      </div>
-
-      <div>
-        <input
-          {...register("price", { valueAsNumber: true })}
-          type="number"
-          placeholder="Price"
-          className="border p-2 w-full"
-        />
-        {errors?.price && (
-          <p className="text-red-600 text-sm">{String(errors.price.message)}</p>
-        )}
-      </div>
-
-      <div>
-        <input
-          {...register("stock", { valueAsNumber: true })}
-          type="number"
-          placeholder="Stock"
-          className="border p-2 w-full"
-        />
-      </div>
-
-      <div>
         <textarea
-          {...register("description")}
+          {...form.register("description")}
           placeholder="Description"
-          className="border p-2 w-full"
+          className="border rounded p-2"
         />
-      </div>
-
-      <div>
+        <input
+          type="number"
+          {...form.register("price", { valueAsNumber: true })}
+          placeholder="Price"
+          className="border rounded p-2"
+        />
+        <input
+          type="number"
+          {...form.register("stock", { valueAsNumber: true })}
+          placeholder="Stock"
+          className="border rounded p-2"
+        />
         <button
-          type="submit"
-          onClick={() => console.log("Clicked test")}
-          disabled={isSubmitting || updateMutation.isPending}
-          className=" bg-green-500 text-white px-4 py-2 cursor-pointer rounded"
+          disabled={isPending}
+          className="bg-green-600 text-white px-4 py-2 rounded"
         >
-          {isSubmitting || updateMutation.isPending ? "Updating..." : "Update"}
+          {isPending ? "Saving..." : "Save Changes"}
         </button>
-      </div>
-    </form>
+      </form>
+    </div>
   );
 }

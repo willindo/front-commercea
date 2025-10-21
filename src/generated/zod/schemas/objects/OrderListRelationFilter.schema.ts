@@ -1,4 +1,5 @@
 import * as z from 'zod';
+import type { Prisma } from '@prisma/client';
 import { OrderWhereInputObjectSchema as OrderWhereInputObjectSchema } from './OrderWhereInput.schema'
 
 const makeSchema = () => z.object({
@@ -6,5 +7,5 @@ const makeSchema = () => z.object({
   some: z.lazy(() => OrderWhereInputObjectSchema).optional(),
   none: z.lazy(() => OrderWhereInputObjectSchema).optional()
 }).strict();
-export const OrderListRelationFilterObjectSchema: z.ZodType<any> = makeSchema() as unknown as z.ZodType<any>;
+export const OrderListRelationFilterObjectSchema: z.ZodType<Prisma.OrderListRelationFilter> = makeSchema() as unknown as z.ZodType<Prisma.OrderListRelationFilter>;
 export const OrderListRelationFilterObjectZodSchema = makeSchema();

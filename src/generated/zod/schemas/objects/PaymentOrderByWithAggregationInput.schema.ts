@@ -1,4 +1,5 @@
 import * as z from 'zod';
+import type { Prisma } from '@prisma/client';
 import { SortOrderSchema } from '../enums/SortOrder.schema';
 import { SortOrderInputObjectSchema as SortOrderInputObjectSchema } from './SortOrderInput.schema';
 import { PaymentCountOrderByAggregateInputObjectSchema as PaymentCountOrderByAggregateInputObjectSchema } from './PaymentCountOrderByAggregateInput.schema';
@@ -24,5 +25,5 @@ const makeSchema = () => z.object({
   _min: z.lazy(() => PaymentMinOrderByAggregateInputObjectSchema).optional(),
   _sum: z.lazy(() => PaymentSumOrderByAggregateInputObjectSchema).optional()
 }).strict();
-export const PaymentOrderByWithAggregationInputObjectSchema: z.ZodType<any> = makeSchema() as unknown as z.ZodType<any>;
+export const PaymentOrderByWithAggregationInputObjectSchema: z.ZodType<Prisma.PaymentOrderByWithAggregationInput> = makeSchema() as unknown as z.ZodType<Prisma.PaymentOrderByWithAggregationInput>;
 export const PaymentOrderByWithAggregationInputObjectZodSchema = makeSchema();

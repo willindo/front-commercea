@@ -1,4 +1,5 @@
 import * as z from 'zod';
+import type { Prisma } from '@prisma/client';
 
 
 const makeSchema = () => z.object({
@@ -6,5 +7,5 @@ const makeSchema = () => z.object({
   productId: z.string(),
   wishlistId: z.string()
 }).strict();
-export const WishlistItemUncheckedCreateInputObjectSchema: z.ZodType<any> = makeSchema() as unknown as z.ZodType<any>;
+export const WishlistItemUncheckedCreateInputObjectSchema: z.ZodType<Prisma.WishlistItemUncheckedCreateInput> = makeSchema() as unknown as z.ZodType<Prisma.WishlistItemUncheckedCreateInput>;
 export const WishlistItemUncheckedCreateInputObjectZodSchema = makeSchema();

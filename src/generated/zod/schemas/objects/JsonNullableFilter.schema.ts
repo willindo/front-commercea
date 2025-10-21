@@ -1,4 +1,5 @@
 import * as z from 'zod';
+import type { Prisma } from '@prisma/client';
 import { QueryModeSchema } from '../enums/QueryMode.schema'
 
 import { JsonValueSchema as jsonSchema } from '../../helpers/json-helpers';
@@ -19,5 +20,5 @@ const makeSchema = () => z.object({
   gte: jsonSchema.optional(),
   not: jsonSchema.optional()
 }).strict();
-export const JsonNullableFilterObjectSchema: z.ZodType<any> = makeSchema() as unknown as z.ZodType<any>;
+export const JsonNullableFilterObjectSchema: z.ZodType<Prisma.JsonNullableFilter> = makeSchema() as unknown as z.ZodType<Prisma.JsonNullableFilter>;
 export const JsonNullableFilterObjectZodSchema = makeSchema();

@@ -1,4 +1,5 @@
 import * as z from 'zod';
+import type { Prisma } from '@prisma/client';
 import { QueryModeSchema } from '../enums/QueryMode.schema';
 import { NestedIntNullableFilterObjectSchema as NestedIntNullableFilterObjectSchema } from './NestedIntNullableFilter.schema';
 import { NestedJsonNullableFilterObjectSchema as NestedJsonNullableFilterObjectSchema } from './NestedJsonNullableFilter.schema'
@@ -24,5 +25,5 @@ const makeSchema = () => z.object({
   _min: z.lazy(() => NestedJsonNullableFilterObjectSchema).optional(),
   _max: z.lazy(() => NestedJsonNullableFilterObjectSchema).optional()
 }).strict();
-export const JsonNullableWithAggregatesFilterObjectSchema: z.ZodType<any> = makeSchema() as unknown as z.ZodType<any>;
+export const JsonNullableWithAggregatesFilterObjectSchema: z.ZodType<Prisma.JsonNullableWithAggregatesFilter> = makeSchema() as unknown as z.ZodType<Prisma.JsonNullableWithAggregatesFilter>;
 export const JsonNullableWithAggregatesFilterObjectZodSchema = makeSchema();

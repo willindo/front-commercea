@@ -1,4 +1,5 @@
 import * as z from 'zod';
+import type { Prisma } from '@prisma/client';
 import { WishlistItemCreateWithoutWishlistInputObjectSchema as WishlistItemCreateWithoutWishlistInputObjectSchema } from './WishlistItemCreateWithoutWishlistInput.schema';
 import { WishlistItemUncheckedCreateWithoutWishlistInputObjectSchema as WishlistItemUncheckedCreateWithoutWishlistInputObjectSchema } from './WishlistItemUncheckedCreateWithoutWishlistInput.schema';
 import { WishlistItemCreateOrConnectWithoutWishlistInputObjectSchema as WishlistItemCreateOrConnectWithoutWishlistInputObjectSchema } from './WishlistItemCreateOrConnectWithoutWishlistInput.schema';
@@ -11,5 +12,5 @@ const makeSchema = () => z.object({
   createMany: z.lazy(() => WishlistItemCreateManyWishlistInputEnvelopeObjectSchema).optional(),
   connect: z.union([z.lazy(() => WishlistItemWhereUniqueInputObjectSchema), z.lazy(() => WishlistItemWhereUniqueInputObjectSchema).array()]).optional()
 }).strict();
-export const WishlistItemUncheckedCreateNestedManyWithoutWishlistInputObjectSchema: z.ZodType<any> = makeSchema() as unknown as z.ZodType<any>;
+export const WishlistItemUncheckedCreateNestedManyWithoutWishlistInputObjectSchema: z.ZodType<Prisma.WishlistItemUncheckedCreateNestedManyWithoutWishlistInput> = makeSchema() as unknown as z.ZodType<Prisma.WishlistItemUncheckedCreateNestedManyWithoutWishlistInput>;
 export const WishlistItemUncheckedCreateNestedManyWithoutWishlistInputObjectZodSchema = makeSchema();

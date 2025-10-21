@@ -1,4 +1,5 @@
 import * as z from 'zod';
+import type { Prisma } from '@prisma/client';
 
 
 const nesteddatetimefilterSchema = z.object({
@@ -11,5 +12,5 @@ const nesteddatetimefilterSchema = z.object({
   gte: z.date().optional(),
   not: z.union([z.date(), z.lazy(() => NestedDateTimeFilterObjectSchema)]).optional()
 }).strict();
-export const NestedDateTimeFilterObjectSchema: z.ZodType<any> = nesteddatetimefilterSchema as unknown as z.ZodType<any>;
+export const NestedDateTimeFilterObjectSchema: z.ZodType<Prisma.NestedDateTimeFilter> = nesteddatetimefilterSchema as unknown as z.ZodType<Prisma.NestedDateTimeFilter>;
 export const NestedDateTimeFilterObjectZodSchema = nesteddatetimefilterSchema;

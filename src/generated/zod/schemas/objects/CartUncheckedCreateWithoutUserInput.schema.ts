@@ -1,4 +1,5 @@
 import * as z from 'zod';
+import type { Prisma } from '@prisma/client';
 import { CartItemUncheckedCreateNestedManyWithoutCartInputObjectSchema as CartItemUncheckedCreateNestedManyWithoutCartInputObjectSchema } from './CartItemUncheckedCreateNestedManyWithoutCartInput.schema'
 
 const makeSchema = () => z.object({
@@ -7,5 +8,5 @@ const makeSchema = () => z.object({
   updatedAt: z.coerce.date().optional(),
   items: z.lazy(() => CartItemUncheckedCreateNestedManyWithoutCartInputObjectSchema).optional()
 }).strict();
-export const CartUncheckedCreateWithoutUserInputObjectSchema: z.ZodType<any> = makeSchema() as unknown as z.ZodType<any>;
+export const CartUncheckedCreateWithoutUserInputObjectSchema: z.ZodType<Prisma.CartUncheckedCreateWithoutUserInput> = makeSchema() as unknown as z.ZodType<Prisma.CartUncheckedCreateWithoutUserInput>;
 export const CartUncheckedCreateWithoutUserInputObjectZodSchema = makeSchema();

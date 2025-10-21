@@ -1,4 +1,5 @@
 import * as z from 'zod';
+import type { Prisma } from '@prisma/client';
 import { WishlistItemSelectObjectSchema as WishlistItemSelectObjectSchema } from './WishlistItemSelect.schema';
 import { WishlistItemIncludeObjectSchema as WishlistItemIncludeObjectSchema } from './WishlistItemInclude.schema'
 

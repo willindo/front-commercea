@@ -1,4 +1,5 @@
 import * as z from 'zod';
+import type { Prisma } from '@prisma/client';
 import { SortOrderSchema } from '../enums/SortOrder.schema'
 
 const makeSchema = () => z.object({
@@ -12,5 +13,5 @@ const makeSchema = () => z.object({
   productDescription: SortOrderSchema.optional(),
   productImage: SortOrderSchema.optional()
 }).strict();
-export const CartItemCountOrderByAggregateInputObjectSchema: z.ZodType<any> = makeSchema() as unknown as z.ZodType<any>;
+export const CartItemCountOrderByAggregateInputObjectSchema: z.ZodType<Prisma.CartItemCountOrderByAggregateInput> = makeSchema() as unknown as z.ZodType<Prisma.CartItemCountOrderByAggregateInput>;
 export const CartItemCountOrderByAggregateInputObjectZodSchema = makeSchema();

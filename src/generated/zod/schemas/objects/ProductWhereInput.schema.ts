@@ -1,4 +1,5 @@
 import * as z from 'zod';
+import type { Prisma } from '@prisma/client';
 import { StringFilterObjectSchema as StringFilterObjectSchema } from './StringFilter.schema';
 import { StringNullableFilterObjectSchema as StringNullableFilterObjectSchema } from './StringNullableFilter.schema';
 import { DecimalFilterObjectSchema as DecimalFilterObjectSchema } from './DecimalFilter.schema';
@@ -34,5 +35,5 @@ const productwhereinputSchema = z.object({
   wishlistItems: z.lazy(() => WishlistItemListRelationFilterObjectSchema).optional(),
   orderItems: z.lazy(() => OrderItemListRelationFilterObjectSchema).optional()
 }).strict();
-export const ProductWhereInputObjectSchema: z.ZodType<any> = productwhereinputSchema as unknown as z.ZodType<any>;
+export const ProductWhereInputObjectSchema: z.ZodType<Prisma.ProductWhereInput> = productwhereinputSchema as unknown as z.ZodType<Prisma.ProductWhereInput>;
 export const ProductWhereInputObjectZodSchema = productwhereinputSchema;

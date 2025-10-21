@@ -1,4 +1,5 @@
 import * as z from 'zod';
+import type { Prisma } from '@prisma/client';
 
 
 const makeSchema = () => z.object({
@@ -8,5 +9,5 @@ const makeSchema = () => z.object({
   hasSome: z.string().array().optional(),
   isEmpty: z.boolean().optional()
 }).strict();
-export const StringNullableListFilterObjectSchema: z.ZodType<any> = makeSchema() as unknown as z.ZodType<any>;
+export const StringNullableListFilterObjectSchema: z.ZodType<Prisma.StringNullableListFilter> = makeSchema() as unknown as z.ZodType<Prisma.StringNullableListFilter>;
 export const StringNullableListFilterObjectZodSchema = makeSchema();

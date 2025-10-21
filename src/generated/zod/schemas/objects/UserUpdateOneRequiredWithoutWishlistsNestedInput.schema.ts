@@ -1,4 +1,5 @@
 import * as z from 'zod';
+import type { Prisma } from '@prisma/client';
 import { UserCreateWithoutWishlistsInputObjectSchema as UserCreateWithoutWishlistsInputObjectSchema } from './UserCreateWithoutWishlistsInput.schema';
 import { UserUncheckedCreateWithoutWishlistsInputObjectSchema as UserUncheckedCreateWithoutWishlistsInputObjectSchema } from './UserUncheckedCreateWithoutWishlistsInput.schema';
 import { UserCreateOrConnectWithoutWishlistsInputObjectSchema as UserCreateOrConnectWithoutWishlistsInputObjectSchema } from './UserCreateOrConnectWithoutWishlistsInput.schema';
@@ -15,5 +16,5 @@ const makeSchema = () => z.object({
   connect: z.lazy(() => UserWhereUniqueInputObjectSchema).optional(),
   update: z.union([z.lazy(() => UserUpdateToOneWithWhereWithoutWishlistsInputObjectSchema), z.lazy(() => UserUpdateWithoutWishlistsInputObjectSchema), z.lazy(() => UserUncheckedUpdateWithoutWishlistsInputObjectSchema)]).optional()
 }).strict();
-export const UserUpdateOneRequiredWithoutWishlistsNestedInputObjectSchema: z.ZodType<any> = makeSchema() as unknown as z.ZodType<any>;
+export const UserUpdateOneRequiredWithoutWishlistsNestedInputObjectSchema: z.ZodType<Prisma.UserUpdateOneRequiredWithoutWishlistsNestedInput> = makeSchema() as unknown as z.ZodType<Prisma.UserUpdateOneRequiredWithoutWishlistsNestedInput>;
 export const UserUpdateOneRequiredWithoutWishlistsNestedInputObjectZodSchema = makeSchema();

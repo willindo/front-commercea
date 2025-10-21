@@ -1,4 +1,5 @@
 import * as z from 'zod';
+import type { Prisma } from '@prisma/client';
 import { SizeSchema } from '../enums/Size.schema';
 import { NestedEnumSizeNullableFilterObjectSchema as NestedEnumSizeNullableFilterObjectSchema } from './NestedEnumSizeNullableFilter.schema'
 
@@ -8,5 +9,5 @@ const makeSchema = () => z.object({
   notIn: SizeSchema.array().optional().nullable(),
   not: z.union([SizeSchema, z.lazy(() => NestedEnumSizeNullableFilterObjectSchema)]).optional().nullable()
 }).strict();
-export const EnumSizeNullableFilterObjectSchema: z.ZodType<any> = makeSchema() as unknown as z.ZodType<any>;
+export const EnumSizeNullableFilterObjectSchema: z.ZodType<Prisma.EnumSizeNullableFilter> = makeSchema() as unknown as z.ZodType<Prisma.EnumSizeNullableFilter>;
 export const EnumSizeNullableFilterObjectZodSchema = makeSchema();

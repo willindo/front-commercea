@@ -1,4 +1,5 @@
 import * as z from 'zod';
+import type { Prisma } from '@prisma/client';
 import { StringFilterObjectSchema as StringFilterObjectSchema } from './StringFilter.schema';
 import { EnumSizeNullableFilterObjectSchema as EnumSizeNullableFilterObjectSchema } from './EnumSizeNullableFilter.schema';
 import { SizeSchema } from '../enums/Size.schema';
@@ -20,5 +21,5 @@ const cartitemscalarwhereinputSchema = z.object({
   productDescription: z.union([z.lazy(() => StringNullableFilterObjectSchema), z.string()]).optional().nullable(),
   productImage: z.union([z.lazy(() => StringNullableFilterObjectSchema), z.string()]).optional().nullable()
 }).strict();
-export const CartItemScalarWhereInputObjectSchema: z.ZodType<any> = cartitemscalarwhereinputSchema as unknown as z.ZodType<any>;
+export const CartItemScalarWhereInputObjectSchema: z.ZodType<Prisma.CartItemScalarWhereInput> = cartitemscalarwhereinputSchema as unknown as z.ZodType<Prisma.CartItemScalarWhereInput>;
 export const CartItemScalarWhereInputObjectZodSchema = cartitemscalarwhereinputSchema;

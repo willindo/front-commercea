@@ -1,4 +1,5 @@
 import * as z from 'zod';
+import type { Prisma } from '@prisma/client';
 import { NestedIntNullableFilterObjectSchema as NestedIntNullableFilterObjectSchema } from './NestedIntNullableFilter.schema';
 import { NestedStringNullableFilterObjectSchema as NestedStringNullableFilterObjectSchema } from './NestedStringNullableFilter.schema'
 
@@ -18,5 +19,5 @@ const nestedstringnullablewithaggregatesfilterSchema = z.object({
   _min: z.lazy(() => NestedStringNullableFilterObjectSchema).optional(),
   _max: z.lazy(() => NestedStringNullableFilterObjectSchema).optional()
 }).strict();
-export const NestedStringNullableWithAggregatesFilterObjectSchema: z.ZodType<any> = nestedstringnullablewithaggregatesfilterSchema as unknown as z.ZodType<any>;
+export const NestedStringNullableWithAggregatesFilterObjectSchema: z.ZodType<Prisma.NestedStringNullableWithAggregatesFilter> = nestedstringnullablewithaggregatesfilterSchema as unknown as z.ZodType<Prisma.NestedStringNullableWithAggregatesFilter>;
 export const NestedStringNullableWithAggregatesFilterObjectZodSchema = nestedstringnullablewithaggregatesfilterSchema;

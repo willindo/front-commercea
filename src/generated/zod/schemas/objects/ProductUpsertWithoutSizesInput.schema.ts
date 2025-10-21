@@ -1,4 +1,5 @@
 import * as z from 'zod';
+import type { Prisma } from '@prisma/client';
 import { ProductUpdateWithoutSizesInputObjectSchema as ProductUpdateWithoutSizesInputObjectSchema } from './ProductUpdateWithoutSizesInput.schema';
 import { ProductUncheckedUpdateWithoutSizesInputObjectSchema as ProductUncheckedUpdateWithoutSizesInputObjectSchema } from './ProductUncheckedUpdateWithoutSizesInput.schema';
 import { ProductCreateWithoutSizesInputObjectSchema as ProductCreateWithoutSizesInputObjectSchema } from './ProductCreateWithoutSizesInput.schema';
@@ -10,5 +11,5 @@ const makeSchema = () => z.object({
   create: z.union([z.lazy(() => ProductCreateWithoutSizesInputObjectSchema), z.lazy(() => ProductUncheckedCreateWithoutSizesInputObjectSchema)]),
   where: z.lazy(() => ProductWhereInputObjectSchema).optional()
 }).strict();
-export const ProductUpsertWithoutSizesInputObjectSchema: z.ZodType<any> = makeSchema() as unknown as z.ZodType<any>;
+export const ProductUpsertWithoutSizesInputObjectSchema: z.ZodType<Prisma.ProductUpsertWithoutSizesInput> = makeSchema() as unknown as z.ZodType<Prisma.ProductUpsertWithoutSizesInput>;
 export const ProductUpsertWithoutSizesInputObjectZodSchema = makeSchema();

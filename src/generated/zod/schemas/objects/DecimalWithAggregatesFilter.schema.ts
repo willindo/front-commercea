@@ -1,4 +1,5 @@
 import * as z from 'zod';
+import type { Prisma } from '@prisma/client';
 import { NestedDecimalWithAggregatesFilterObjectSchema as NestedDecimalWithAggregatesFilterObjectSchema } from './NestedDecimalWithAggregatesFilter.schema';
 import { NestedIntFilterObjectSchema as NestedIntFilterObjectSchema } from './NestedIntFilter.schema';
 import { NestedDecimalFilterObjectSchema as NestedDecimalFilterObjectSchema } from './NestedDecimalFilter.schema'
@@ -18,5 +19,5 @@ const makeSchema = () => z.object({
   _min: z.lazy(() => NestedDecimalFilterObjectSchema).optional(),
   _max: z.lazy(() => NestedDecimalFilterObjectSchema).optional()
 }).strict();
-export const DecimalWithAggregatesFilterObjectSchema: z.ZodType<any> = makeSchema() as unknown as z.ZodType<any>;
+export const DecimalWithAggregatesFilterObjectSchema: z.ZodType<Prisma.DecimalWithAggregatesFilter> = makeSchema() as unknown as z.ZodType<Prisma.DecimalWithAggregatesFilter>;
 export const DecimalWithAggregatesFilterObjectZodSchema = makeSchema();

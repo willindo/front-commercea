@@ -1,4 +1,5 @@
 import * as z from 'zod';
+import type { Prisma } from '@prisma/client';
 
 
 const makeSchema = () => z.object({
@@ -37,5 +38,5 @@ const makeSchema = () => z.object({
           ctx.addIssue({ code: 'custom', message: 'Provide at least one unique selector' });
         }
       });
-export const WishlistWhereUniqueInputObjectSchema: z.ZodType<any> = makeSchema() as unknown as z.ZodType<any>;
+export const WishlistWhereUniqueInputObjectSchema: z.ZodType<Prisma.WishlistWhereUniqueInput> = makeSchema() as unknown as z.ZodType<Prisma.WishlistWhereUniqueInput>;
 export const WishlistWhereUniqueInputObjectZodSchema = makeSchema();

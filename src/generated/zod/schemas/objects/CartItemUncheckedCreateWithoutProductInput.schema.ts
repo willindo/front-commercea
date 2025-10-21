@@ -1,4 +1,5 @@
 import * as z from 'zod';
+import type { Prisma } from '@prisma/client';
 import { SizeSchema } from '../enums/Size.schema'
 
 const makeSchema = () => z.object({
@@ -11,5 +12,5 @@ const makeSchema = () => z.object({
   productDescription: z.string().optional().nullable(),
   productImage: z.string().optional().nullable()
 }).strict();
-export const CartItemUncheckedCreateWithoutProductInputObjectSchema: z.ZodType<any> = makeSchema() as unknown as z.ZodType<any>;
+export const CartItemUncheckedCreateWithoutProductInputObjectSchema: z.ZodType<Prisma.CartItemUncheckedCreateWithoutProductInput> = makeSchema() as unknown as z.ZodType<Prisma.CartItemUncheckedCreateWithoutProductInput>;
 export const CartItemUncheckedCreateWithoutProductInputObjectZodSchema = makeSchema();

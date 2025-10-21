@@ -1,4 +1,5 @@
 import * as z from 'zod';
+import type { Prisma } from '@prisma/client';
 import { StringFilterObjectSchema as StringFilterObjectSchema } from './StringFilter.schema';
 import { ProductScalarRelationFilterObjectSchema as ProductScalarRelationFilterObjectSchema } from './ProductScalarRelationFilter.schema';
 import { ProductWhereInputObjectSchema as ProductWhereInputObjectSchema } from './ProductWhereInput.schema';
@@ -15,5 +16,5 @@ const wishlistitemwhereinputSchema = z.object({
   product: z.union([z.lazy(() => ProductScalarRelationFilterObjectSchema), z.lazy(() => ProductWhereInputObjectSchema)]).optional(),
   wishlist: z.union([z.lazy(() => WishlistScalarRelationFilterObjectSchema), z.lazy(() => WishlistWhereInputObjectSchema)]).optional()
 }).strict();
-export const WishlistItemWhereInputObjectSchema: z.ZodType<any> = wishlistitemwhereinputSchema as unknown as z.ZodType<any>;
+export const WishlistItemWhereInputObjectSchema: z.ZodType<Prisma.WishlistItemWhereInput> = wishlistitemwhereinputSchema as unknown as z.ZodType<Prisma.WishlistItemWhereInput>;
 export const WishlistItemWhereInputObjectZodSchema = wishlistitemwhereinputSchema;

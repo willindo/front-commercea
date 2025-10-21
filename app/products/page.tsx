@@ -4,14 +4,14 @@ import {
   HydrationBoundary,
   QueryClient,
 } from "@tanstack/react-query";
-import { fetchProducts } from "@/lib/api/products";
+import { productsApi } from "@/lib/api/products";
 import ProductList from "./ProductList";
 
 export default async function ProductsPage() {
   const qc = new QueryClient();
   await qc.prefetchQuery({
     queryKey: ["products", 1],
-    queryFn: () => fetchProducts(1, 10),
+    queryFn: () => productsApi.getAll(1, 10),
   });
 
   return (

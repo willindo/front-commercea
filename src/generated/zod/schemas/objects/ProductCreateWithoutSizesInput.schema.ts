@@ -1,4 +1,5 @@
 import * as z from 'zod';
+import type { Prisma } from '@prisma/client';
 import { ProductCreateimagesInputObjectSchema as ProductCreateimagesInputObjectSchema } from './ProductCreateimagesInput.schema';
 import { GenderSchema } from '../enums/Gender.schema';
 import { CategoryCreateNestedOneWithoutProductsInputObjectSchema as CategoryCreateNestedOneWithoutProductsInputObjectSchema } from './CategoryCreateNestedOneWithoutProductsInput.schema';
@@ -21,5 +22,5 @@ const makeSchema = () => z.object({
   wishlistItems: z.lazy(() => WishlistItemCreateNestedManyWithoutProductInputObjectSchema).optional(),
   orderItems: z.lazy(() => OrderItemCreateNestedManyWithoutProductInputObjectSchema).optional()
 }).strict();
-export const ProductCreateWithoutSizesInputObjectSchema: z.ZodType<any> = makeSchema() as unknown as z.ZodType<any>;
+export const ProductCreateWithoutSizesInputObjectSchema: z.ZodType<Prisma.ProductCreateWithoutSizesInput> = makeSchema() as unknown as z.ZodType<Prisma.ProductCreateWithoutSizesInput>;
 export const ProductCreateWithoutSizesInputObjectZodSchema = makeSchema();

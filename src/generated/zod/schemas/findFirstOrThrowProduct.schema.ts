@@ -1,3 +1,4 @@
+import type { Prisma } from '@prisma/client';
 import * as z from 'zod';
 import { ProductIncludeObjectSchema as ProductIncludeObjectSchema } from './objects/ProductInclude.schema';
 import { ProductOrderByWithRelationInputObjectSchema as ProductOrderByWithRelationInputObjectSchema } from './objects/ProductOrderByWithRelationInput.schema';
@@ -8,7 +9,7 @@ import { ProductScalarFieldEnumSchema } from './enums/ProductScalarFieldEnum.sch
 // Select schema needs to be in file to prevent circular imports
 //------------------------------------------------------
 
-export const ProductFindFirstOrThrowSelectSchema: z.ZodType<any> = z.object({
+export const ProductFindFirstOrThrowSelectSchema: z.ZodType<Prisma.ProductSelect> = z.object({
     id: z.boolean().optional(),
     name: z.boolean().optional(),
     description: z.boolean().optional(),
@@ -25,7 +26,7 @@ export const ProductFindFirstOrThrowSelectSchema: z.ZodType<any> = z.object({
     wishlistItems: z.boolean().optional(),
     orderItems: z.boolean().optional(),
     _count: z.boolean().optional()
-  }).strict() as unknown as z.ZodType<any>;
+  }).strict() as unknown as z.ZodType<Prisma.ProductSelect>;
 
 export const ProductFindFirstOrThrowSelectZodSchema = z.object({
     id: z.boolean().optional(),
@@ -46,6 +47,6 @@ export const ProductFindFirstOrThrowSelectZodSchema = z.object({
     _count: z.boolean().optional()
   }).strict();
 
-export const ProductFindFirstOrThrowSchema: z.ZodType<any> = z.object({ select: ProductFindFirstOrThrowSelectSchema.optional(), include: ProductIncludeObjectSchema.optional(), orderBy: z.union([ProductOrderByWithRelationInputObjectSchema, ProductOrderByWithRelationInputObjectSchema.array()]).optional(), where: ProductWhereInputObjectSchema.optional(), cursor: ProductWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), distinct: z.union([ProductScalarFieldEnumSchema, ProductScalarFieldEnumSchema.array()]).optional() }).strict() as unknown as z.ZodType<any>;
+export const ProductFindFirstOrThrowSchema: z.ZodType<Prisma.ProductFindFirstOrThrowArgs> = z.object({ select: ProductFindFirstOrThrowSelectSchema.optional(), include: ProductIncludeObjectSchema.optional(), orderBy: z.union([ProductOrderByWithRelationInputObjectSchema, ProductOrderByWithRelationInputObjectSchema.array()]).optional(), where: ProductWhereInputObjectSchema.optional(), cursor: ProductWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), distinct: z.union([ProductScalarFieldEnumSchema, ProductScalarFieldEnumSchema.array()]).optional() }).strict() as unknown as z.ZodType<Prisma.ProductFindFirstOrThrowArgs>;
 
 export const ProductFindFirstOrThrowZodSchema = z.object({ select: ProductFindFirstOrThrowSelectSchema.optional(), include: ProductIncludeObjectSchema.optional(), orderBy: z.union([ProductOrderByWithRelationInputObjectSchema, ProductOrderByWithRelationInputObjectSchema.array()]).optional(), where: ProductWhereInputObjectSchema.optional(), cursor: ProductWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), distinct: z.union([ProductScalarFieldEnumSchema, ProductScalarFieldEnumSchema.array()]).optional() }).strict();

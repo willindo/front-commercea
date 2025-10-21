@@ -1,4 +1,5 @@
 import * as z from 'zod';
+import type { Prisma } from '@prisma/client';
 import { PaymentCreateWithoutUserInputObjectSchema as PaymentCreateWithoutUserInputObjectSchema } from './PaymentCreateWithoutUserInput.schema';
 import { PaymentUncheckedCreateWithoutUserInputObjectSchema as PaymentUncheckedCreateWithoutUserInputObjectSchema } from './PaymentUncheckedCreateWithoutUserInput.schema';
 import { PaymentCreateOrConnectWithoutUserInputObjectSchema as PaymentCreateOrConnectWithoutUserInputObjectSchema } from './PaymentCreateOrConnectWithoutUserInput.schema';
@@ -11,5 +12,5 @@ const makeSchema = () => z.object({
   createMany: z.lazy(() => PaymentCreateManyUserInputEnvelopeObjectSchema).optional(),
   connect: z.union([z.lazy(() => PaymentWhereUniqueInputObjectSchema), z.lazy(() => PaymentWhereUniqueInputObjectSchema).array()]).optional()
 }).strict();
-export const PaymentUncheckedCreateNestedManyWithoutUserInputObjectSchema: z.ZodType<any> = makeSchema() as unknown as z.ZodType<any>;
+export const PaymentUncheckedCreateNestedManyWithoutUserInputObjectSchema: z.ZodType<Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput> = makeSchema() as unknown as z.ZodType<Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput>;
 export const PaymentUncheckedCreateNestedManyWithoutUserInputObjectZodSchema = makeSchema();

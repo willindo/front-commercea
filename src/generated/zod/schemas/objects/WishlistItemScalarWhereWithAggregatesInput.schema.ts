@@ -1,4 +1,5 @@
 import * as z from 'zod';
+import type { Prisma } from '@prisma/client';
 import { StringWithAggregatesFilterObjectSchema as StringWithAggregatesFilterObjectSchema } from './StringWithAggregatesFilter.schema'
 
 const wishlistitemscalarwherewithaggregatesinputSchema = z.object({
@@ -9,5 +10,5 @@ const wishlistitemscalarwherewithaggregatesinputSchema = z.object({
   productId: z.union([z.lazy(() => StringWithAggregatesFilterObjectSchema), z.string()]).optional(),
   wishlistId: z.union([z.lazy(() => StringWithAggregatesFilterObjectSchema), z.string()]).optional()
 }).strict();
-export const WishlistItemScalarWhereWithAggregatesInputObjectSchema: z.ZodType<any> = wishlistitemscalarwherewithaggregatesinputSchema as unknown as z.ZodType<any>;
+export const WishlistItemScalarWhereWithAggregatesInputObjectSchema: z.ZodType<Prisma.WishlistItemScalarWhereWithAggregatesInput> = wishlistitemscalarwherewithaggregatesinputSchema as unknown as z.ZodType<Prisma.WishlistItemScalarWhereWithAggregatesInput>;
 export const WishlistItemScalarWhereWithAggregatesInputObjectZodSchema = wishlistitemscalarwherewithaggregatesinputSchema;

@@ -1,4 +1,5 @@
 import * as z from 'zod';
+import type { Prisma } from '@prisma/client';
 import { StringFieldUpdateOperationsInputObjectSchema as StringFieldUpdateOperationsInputObjectSchema } from './StringFieldUpdateOperationsInput.schema';
 import { DecimalFieldUpdateOperationsInputObjectSchema as DecimalFieldUpdateOperationsInputObjectSchema } from './DecimalFieldUpdateOperationsInput.schema';
 import { OrderStatusSchema } from '../enums/OrderStatus.schema';
@@ -22,5 +23,5 @@ const makeSchema = () => z.object({
   createdAt: z.union([z.coerce.date(), z.lazy(() => DateTimeFieldUpdateOperationsInputObjectSchema)]).optional(),
   updatedAt: z.union([z.coerce.date(), z.lazy(() => DateTimeFieldUpdateOperationsInputObjectSchema)]).optional()
 }).strict();
-export const OrderUpdateManyMutationInputObjectSchema: z.ZodType<any> = makeSchema() as unknown as z.ZodType<any>;
+export const OrderUpdateManyMutationInputObjectSchema: z.ZodType<Prisma.OrderUpdateManyMutationInput> = makeSchema() as unknown as z.ZodType<Prisma.OrderUpdateManyMutationInput>;
 export const OrderUpdateManyMutationInputObjectZodSchema = makeSchema();

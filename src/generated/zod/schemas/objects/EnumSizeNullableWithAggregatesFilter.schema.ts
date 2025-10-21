@@ -1,4 +1,5 @@
 import * as z from 'zod';
+import type { Prisma } from '@prisma/client';
 import { SizeSchema } from '../enums/Size.schema';
 import { NestedEnumSizeNullableWithAggregatesFilterObjectSchema as NestedEnumSizeNullableWithAggregatesFilterObjectSchema } from './NestedEnumSizeNullableWithAggregatesFilter.schema';
 import { NestedIntNullableFilterObjectSchema as NestedIntNullableFilterObjectSchema } from './NestedIntNullableFilter.schema';
@@ -13,5 +14,5 @@ const makeSchema = () => z.object({
   _min: z.lazy(() => NestedEnumSizeNullableFilterObjectSchema).optional(),
   _max: z.lazy(() => NestedEnumSizeNullableFilterObjectSchema).optional()
 }).strict();
-export const EnumSizeNullableWithAggregatesFilterObjectSchema: z.ZodType<any> = makeSchema() as unknown as z.ZodType<any>;
+export const EnumSizeNullableWithAggregatesFilterObjectSchema: z.ZodType<Prisma.EnumSizeNullableWithAggregatesFilter> = makeSchema() as unknown as z.ZodType<Prisma.EnumSizeNullableWithAggregatesFilter>;
 export const EnumSizeNullableWithAggregatesFilterObjectZodSchema = makeSchema();

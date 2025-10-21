@@ -1,38 +1,40 @@
-// lib/api/products.ts
 import { api } from "./axios";
-import { Product, PaginatedProducts } from "@/lib/types/products";
+import {
+  CreateProductDto,
+  UpdateProductDto,
+  Product,
+} from "@/lib/types/products";
 
-export async function fetchProducts(
-  page = 1,
-  limit = 10
-): Promise<PaginatedProducts> {
-  const { data } = await api.get("/products", { params: { page, limit } });
-  return data;
-}
+export type PaginatedProducts = {
+  data: Product[];
+  total: number;
+  page: number;
+  limit: number;
+};
 
-export async function fetchProductById(id: string): Promise<Product> {
-  const { data } = await api.get(`/products/${id}`);
-  return data;
-}
+export const productsApi = {
+  async getAll(page = 1, limit = 10): Promise<PaginatedProducts> {
+    const res = await api.get(`/products`, { params: { page, limit } });
+    return res.data;
+  },
 
-export async function createProduct(
-  product: Omit<Product, "id">
-): Promise<Product> {
-  console.log("🚀 Sending create product payload:", product);
-  const { data } = await api.post("/products", product);
-  console.log("📦 API response:", data);
-  // controller returns { message, data }
-  return data.data;
-}
+  async getOne(id: string): Promise<Product> {
+    const res = await api.get(`/products/${id}`);
+    return res.data;
+  },
 
-export async function updateProduct(
-  id: string,
-  product: Partial<Product>
-): Promise<Product> {
-  const { data } = await api.put(`/products/${id}`, product);
-  return data.data;
-}
+  async create(data: CreateProductDto): Promise<Product> {
+    const res = await api.post(`/products`, data);
+    return res.data;
+  },
 
-export async function deleteProduct(id: string): Promise<void> {
-  await api.delete(`/products/${id}`);
-}
+  async update(id: string, data: UpdateProductDto): Promise<Product> {
+    const res = await api.patch(`/products/${id}`, data);
+    return res.data;
+  },
+
+  async remove(id: string): Promise<Product> {
+    const res = await api.delete(`/products/${id}`);
+    return res.data;
+  },
+};

@@ -1,4 +1,5 @@
 import * as z from 'zod';
+import type { Prisma } from '@prisma/client';
 import { OrderStatusSchema } from '../enums/OrderStatus.schema';
 import { PaymentStatusSchema } from '../enums/PaymentStatus.schema';
 import { NullableJsonNullValueInputSchema } from '../enums/NullableJsonNullValueInput.schema'
@@ -16,5 +17,5 @@ const makeSchema = () => z.object({
   createdAt: z.coerce.date().optional(),
   updatedAt: z.coerce.date().optional()
 }).strict();
-export const OrderCreateManyUserInputObjectSchema: z.ZodType<any> = makeSchema() as unknown as z.ZodType<any>;
+export const OrderCreateManyUserInputObjectSchema: z.ZodType<Prisma.OrderCreateManyUserInput> = makeSchema() as unknown as z.ZodType<Prisma.OrderCreateManyUserInput>;
 export const OrderCreateManyUserInputObjectZodSchema = makeSchema();
