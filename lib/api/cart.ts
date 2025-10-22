@@ -5,6 +5,7 @@ export type CartItem = {
   id: string;
   productId: string;
   quantity: number;
+  size: string;
   product: {
     name: string;
     price: number;
@@ -29,6 +30,7 @@ export type VerifyCartResponse = {
     productName: string;
     productImage: string | null;
     price: number;
+    size: string;
     quantity: number;
     subtotal: number;
     reason?: string;
@@ -38,6 +40,7 @@ export type VerifyCartResponse = {
   invalidItems: {
     id: string;
     productId: string;
+    size: string;
     productName: string;
     reason: string;
   }[];
@@ -53,17 +56,19 @@ export async function getCart(): Promise<Cart> {
 
 export async function addToCart(
   productId: string,
-  quantity = 1
+  quantity = 1,
+  size: string
 ): Promise<Cart> {
-  const { data } = await api.post(`/cart/add`, { productId, quantity });
+  const { data } = await api.post(`/cart/add`, { productId, quantity, size });
   return data;
 }
 
 export async function updateCartItem(
   itemId: string,
+  size: string,
   quantity: number
 ): Promise<Cart> {
-  const { data } = await api.put(`/cart/update`, { itemId, quantity });
+  const { data } = await api.put(`/cart/update`, { itemId, quantity, size });
   return data;
 }
 

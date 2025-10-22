@@ -2,13 +2,23 @@
 
 import { Heart } from "lucide-react";
 import { Product } from "@/lib/types/products";
+import { useState } from "react";
 
-type Props = {
+interface ProductCardProps {
   product: Product;
-  onAddToCart?: () => void;
-};
+  selectedSizes: string[];
+  onAddToCart: (size: string) => void;
+  disabled?: boolean;
+}
 
-export default function ProductCard({ product, onAddToCart }: Props) {
+export default function ProductCard({
+  product,
+  selectedSizes,
+  onAddToCart,
+  disabled = false,
+}: ProductCardProps) {
+  const [size, setSize] = useState<string>("");
+
   return (
     <div className="border rounded-lg p-4 flex flex-col hover:shadow-md transition">
       <img
@@ -18,10 +28,22 @@ export default function ProductCard({ product, onAddToCart }: Props) {
       />
       <h3 className="font-medium text-lg">{product.name}</h3>
       <p className="text-gray-600">₹{product.price}</p>
-
+      <select
+        value={size}
+        onChange={(e) => setSize(e.target.value)}
+        className="border p-1 mb-2"
+      >
+        <option value="">Select size</option>
+        {(product.sizes ?? []).map((s) => (
+          <option key={s.size} value={s.size}>
+            {s.size}
+          </option>
+        ))}
+      </select>
       <div className="mt-auto flex justify-between items-center pt-3">
         <button
-          onClick={onAddToCart}
+          onClick={() => onAddToCart(size)}
+          disabled={disabled || product.stock === 0}
           className="bg-green-600 text-white px-3 py-1 rounded"
         >
           Add to Cart

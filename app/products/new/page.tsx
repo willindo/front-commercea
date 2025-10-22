@@ -1,29 +1,45 @@
 "use client";
 
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { useCreateProduct } from "@/hooks/useProducts";
+import { CreateProductDto, CreateProductSchema } from "@/lib/types/products";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { CreateProductSchema, CreateProductDto } from "@/lib/types/products";
-import { useCreateProduct } from "@/hooks/useProducts";
-import { useRouter } from "next/navigation";
-import { z } from "zod";
+
+const ALL_SIZES = ["XS", "S", "M", "L", "XL", "XXL"] as const;
+const GENDERS = ["MENS", "WOMENS", "BOYS", "GIRLS", "UNISEX"] as const;
 
 export default function NewProductPage() {
   const router = useRouter();
   const { mutateAsync, isPending } = useCreateProduct();
-  // type CreateProductDto = z.infer<typeof CreateProductSchema>;
-  const form = useForm<z.infer<typeof CreateProductSchema>>({
-    resolver: zodResolver(CreateProductSchema as any),
+
+  const form = useForm<CreateProductDto>({
+    resolver: zodResolver(CreateProductSchema) as any,
     defaultValues: {
       name: "",
       description: "",
       price: 0,
       stock: 0,
-      images: [],
+      gender: null,
+      sizes: ALL_SIZES.map((s) => ({ size: s, quantity: 0 })),
     },
   });
 
-  const onSubmit = async (data: CreateProductDto) => {
-    await mutateAsync(data);
+  const [sizeQuantities, setSizeQuantities] = useState<Record<string, number>>(
+    Object.fromEntries(ALL_SIZES.map((s) => [s, 0]))
+  );
+
+  const handleSizeChange = (size: string, value: string) => {
+    setSizeQuantities((prev) => ({ ...prev, [size]: parseInt(value) || 0 }));
+  };
+
+  const onSubmit = async (values: CreateProductDto) => {
+    const sizes = Object.entries(sizeQuantities)
+      .filter(([_, qty]) => qty > 0)
+      .map(([size, quantity]) => ({ size, quantity }));
+
+    await mutateAsync({ ...values, sizes });
     router.push("/products");
   };
 
@@ -56,6 +72,31 @@ export default function NewProductPage() {
           placeholder="Stock"
           className="border rounded p-2"
         />
+
+        <select {...form.register("gender")} className="border rounded p-2">
+          <option value="">Select Gender</option>
+          {GENDERS.map((g) => (
+            <option key={g} value={g}>
+              {g}
+            </option>
+          ))}
+        </select>
+
+        <div className="border rounded p-3">
+          <h3 className="font-semibold mb-2">Available Sizes</h3>
+          {ALL_SIZES.map((size) => (
+            <div key={size} className="flex items-center gap-2 mb-1">
+              <label className="w-12">{size}</label>
+              <input
+                type="number"
+                className="border p-1 w-24 rounded"
+                value={sizeQuantities[size]}
+                onChange={(e) => handleSizeChange(size, e.target.value)}
+              />
+            </div>
+          ))}
+        </div>
+
         <button
           disabled={isPending}
           className="bg-blue-600 text-white px-4 py-2 rounded"

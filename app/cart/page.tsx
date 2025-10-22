@@ -1,12 +1,27 @@
 "use client";
 
 import { useCart } from "@/hooks/useCart";
+import { useCheckout } from "@/hooks/useCheckout";
 import { useProtectedRoute } from "@/hooks/useProtectedRoute";
 
 export default function CartPage() {
+  useCheckout();
   useProtectedRoute();
+  const checkout = useCheckout();
   const { cart, isLoading, addToCart, updateItem, removeItem, clearCart } =
     useCart();
+
+  const handleCheckout = async () => {
+    try {
+      const result = await checkout.mutateAsync();
+      console.log("Checkout result:", result);
+      alert(`Order ${result.orderId} created! Proceed to payment.`);
+      // optional: redirect to /checkout or /payment/${result.orderId}
+      window.location.href = `/checkout?order=${result.orderId}`;
+    } catch (err: any) {
+      alert(err.response?.data?.message || "Checkout failed");
+    }
+  };
 
   if (isLoading) return <p>Loading cart...</p>;
   if (!cart || cart.items.length === 0) return <p>Your cart is empty.</p>;
@@ -43,6 +58,7 @@ export default function CartPage() {
                     updateItem.mutate({
                       itemId: item.id,
                       quantity: item.quantity - 1,
+                      size: item.size,
                     })
                   }
                   disabled={item.quantity <= 1}
@@ -56,6 +72,7 @@ export default function CartPage() {
                     updateItem.mutate({
                       itemId: item.id,
                       quantity: item.quantity + 1,
+                      size: item.size,
                     })
                   }
                   className="px-2 py-1 border rounded"
@@ -87,8 +104,12 @@ export default function CartPage() {
           >
             Clear Cart
           </button>
-          <button className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">
-            Checkout
+          <button
+            className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
+            onClick={handleCheckout}
+            disabled={checkout.isPending}
+          >
+            {checkout.isPending ? "Processing..." : "Checkout"}
           </button>
         </div>
       </div>

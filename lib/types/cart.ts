@@ -1,12 +1,13 @@
 // lib/types/cart.ts
-import { z } from "zod";
+import { size, z } from "zod";
 
 // --- Cart Item Type ---
 export const CartItemSchema = z.object({
   id: z.string(),
   productId: z.string(),
   quantity: z.number(),
-  size: z.string().nullable().optional(),
+  // size: z.string().nullable().optional(),
+  size: z.string(),
   productName: z.string().optional(),
   productPrice: z.number().optional(),
   productDescription: z.string().nullable().optional(),
@@ -36,12 +37,13 @@ export type CartDto = z.infer<typeof CartSchema>;
 export const AddToCartSchema = z.object({
   productId: z.string(),
   quantity: z.number().min(1),
-  size: z.string().optional().nullable(),
+  size: z.string(),
 });
 
 export const UpdateCartItemSchema = z.object({
   itemId: z.string(),
   quantity: z.number().min(1),
+  size: z.string(),
 });
 
 export type AddToCartDto = z.infer<typeof AddToCartSchema>;

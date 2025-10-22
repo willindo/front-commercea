@@ -6,6 +6,13 @@ export const ProductSchema = z.object({
   description: z.string().nullable().optional(),
   price: z.number(),
   stock: z.number().default(0),
+  sizes: z.array(
+    z.object({
+      id: z.string().optional(),
+      size: z.string(),
+      quantity: z.number().optional(),
+    })
+  ),
   images: z.array(z.string()).optional(),
   categoryId: z.string().nullable().optional(),
   gender: z.enum(["MALE", "FEMALE", "UNISEX"]).nullable().optional(),
