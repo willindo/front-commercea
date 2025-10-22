@@ -1,42 +1,43 @@
+"use client";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { addToCart, updateCartItem, removeCartItem } from "@/lib/api/cart";
-import type { Cart, CartItem } from "@/lib/types/cart";
-import { AddToCartInput, UpdateCartItemInput } from "@/lib/schemas/cart";
+import { AddToCartDto, UpdateCartItemDto, CartDto } from "@/lib/types/cart";
+import { api } from "@/lib/api/axios";
+
 export function useCart() {
   const queryClient = useQueryClient();
 
-  // ✅ Query
-  const cartQuery = useQuery<Cart>({
+  const { data, isLoading, isError } = useQuery<CartDto>({
     queryKey: ["cart"],
-    staleTime: 1000 * 60, // 1 min cache
+    queryFn: async () => (await api.get("/cart")).data,
   });
 
-  // ✅ Mutations
-  const addMutation = useMutation<Cart, Error, AddToCartInput>({
-    // mutationFn: ({ productId, quantity }) => addToCart(productId, quantity),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["cart"] });
-    },
+  const addToCart = useMutation({
+    mutationFn: (dto: AddToCartDto) => api.post("/cart/add", dto),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["cart"] }),
   });
 
-  const updateMutation = useMutation<Cart, Error, UpdateCartItemInput>({
-    // mutationFn: updateCartItem,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["cart"] });
-    },
+  const updateItem = useMutation({
+    mutationFn: (dto: UpdateCartItemDto) => api.put("/cart/update", dto),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["cart"] }),
   });
 
-  const removeMutation = useMutation<Cart, Error, string>({
-    // mutationFn: removeCartItem,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["cart"] });
-    },
+  const removeItem = useMutation({
+    mutationFn: (id: string) => api.delete(`/cart/item/${id}`),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["cart"] }),
+  });
+
+  const clearCart = useMutation({
+    mutationFn: () => api.delete("/cart/clear"),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["cart"] }),
   });
 
   return {
-    cartQuery,
-    addMutation,
-    updateMutation,
-    removeMutation,
+    cart: data,
+    isLoading,
+    isError,
+    addToCart,
+    updateItem,
+    removeItem,
+    clearCart,
   };
 }

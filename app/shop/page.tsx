@@ -63,7 +63,7 @@ export default function ShopPage() {
               <ProductCard
                 key={p.id}
                 product={p}
-                onAddToCart={() => handleAddToCart(p.id)}
+                onAddToCart={() => p.id && handleAddToCart(p.id)}
               />
             ))}
           </div>

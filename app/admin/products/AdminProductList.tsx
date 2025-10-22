@@ -47,7 +47,7 @@ export default function AdminProductList() {
                   Edit
                 </Link>
                 <button
-                  onClick={() => deleteMutation.mutate(p.id)}
+                  onClick={() => p.id && deleteMutation.mutate(p.id)}
                   className="px-3 py-1 bg-red-500 text-white rounded"
                 >
                   Delete
