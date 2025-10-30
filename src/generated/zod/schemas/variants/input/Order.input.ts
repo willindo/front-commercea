@@ -8,14 +8,12 @@ export const OrderInputSchema = z.object({
     userId: z.string(),
     total: z.number(),
     status: OrderStatusSchema,
-    paymentId: z.string().optional().nullable(),
     paymentStatus: PaymentStatusSchema,
-    address: z.unknown().optional().nullable(),
-    notes: z.string().optional().nullable(),
+    createdAt: z.date(),
+    updatedAt: z.date(),
     user: z.unknown(),
     items: z.array(z.unknown()),
-    createdAt: z.date(),
-    updatedAt: z.date()
+    payments: z.array(z.unknown())
 }).strict();
 
 export type OrderInputType = z.infer<typeof OrderInputSchema>;

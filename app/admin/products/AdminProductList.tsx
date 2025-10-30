@@ -3,11 +3,13 @@
 import Link from "next/link";
 import { useProducts, useDeleteProduct } from "@/hooks/useProducts";
 import { useAdminRoute } from "@/hooks/useAdminRoute";
+import { useRouter } from "next/navigation";
 
 export default function AdminProductList() {
   useAdminRoute(); // ✅ Redirects if not admin
   const { data, isLoading } = useProducts(1);
   const deleteMutation = useDeleteProduct();
+  const router = useRouter();
 
   if (isLoading) return <p>Loading...</p>;
   if (!data) return <p>No products found.</p>;
@@ -47,7 +49,12 @@ export default function AdminProductList() {
                   Edit
                 </Link>
                 <button
-                  onClick={() => p.id && deleteMutation.mutate(p.id)}
+                  onClick={() =>
+                    p.id &&
+                    deleteMutation.mutate(p.id, {
+                      onSuccess: () => router.refresh(),
+                    })
+                  }
                   className="px-3 py-1 bg-red-500 text-white rounded"
                 >
                   Delete

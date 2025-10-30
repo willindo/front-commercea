@@ -4,9 +4,9 @@ import * as z from 'zod';
 export const WishlistInputSchema = z.object({
     id: z.string(),
     userId: z.string(),
+    createdAt: z.date(),
     user: z.unknown(),
-    items: z.array(z.unknown()),
-    createdAt: z.date()
+    items: z.array(z.unknown())
 }).strict();
 
 export type WishlistInputType = z.infer<typeof WishlistInputSchema>;

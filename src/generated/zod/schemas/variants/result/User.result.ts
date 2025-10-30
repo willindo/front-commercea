@@ -12,8 +12,8 @@ export const UserResultSchema = z.object({
     updatedAt: z.date(),
     cart: z.unknown().nullable(),
     orders: z.array(z.unknown()),
-    wishlists: z.array(z.unknown()),
-    payments: z.array(z.unknown())
+    payments: z.array(z.unknown()),
+    wishlists: z.array(z.unknown())
 }).strict();
 
 export type UserResultType = z.infer<typeof UserResultSchema>;

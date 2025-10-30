@@ -3,9 +3,9 @@ export const WishlistFindManyResultSchema = z.object({
   data: z.array(z.object({
   id: z.string(),
   userId: z.string(),
+  createdAt: z.date(),
   user: z.unknown(),
-  items: z.array(z.unknown()),
-  createdAt: z.date()
+  items: z.array(z.unknown())
 })),
   pagination: z.object({
   page: z.number().int().min(1),

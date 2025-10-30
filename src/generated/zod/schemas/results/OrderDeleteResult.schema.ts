@@ -4,12 +4,10 @@ export const OrderDeleteResultSchema = z.nullable(z.object({
   userId: z.string(),
   total: z.number(),
   status: z.unknown(),
-  paymentId: z.string().optional(),
   paymentStatus: z.unknown(),
-  address: z.unknown().optional(),
-  notes: z.string().optional(),
+  createdAt: z.date(),
+  updatedAt: z.date(),
   user: z.unknown(),
   items: z.array(z.unknown()),
-  createdAt: z.date(),
-  updatedAt: z.date()
+  payments: z.array(z.unknown())
 }));

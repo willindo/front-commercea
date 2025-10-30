@@ -8,16 +8,16 @@ export const ProductModelSchema = z.object({
     description: z.string().nullable(),
     price: z.number(),
     stock: z.number().int(),
-    images: z.array(z.string()),
-    categoryId: z.string().nullable(),
-    category: z.unknown().nullable(),
-    gender: GenderSchema.nullable(),
-    sizes: z.array(z.unknown()),
     createdAt: z.date(),
     updatedAt: z.date(),
+    images: z.array(z.string()),
+    categoryId: z.string().nullable(),
+    gender: GenderSchema.nullable(),
     cartItems: z.array(z.unknown()),
-    wishlistItems: z.array(z.unknown()),
-    orderItems: z.array(z.unknown())
+    orderItems: z.array(z.unknown()),
+    category: z.unknown().nullable(),
+    sizes: z.array(z.unknown()),
+    wishlistItems: z.array(z.unknown())
 }).strict();
 
 export type ProductPureType = z.infer<typeof ProductModelSchema>;

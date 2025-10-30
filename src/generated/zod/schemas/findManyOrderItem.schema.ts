@@ -15,6 +15,7 @@ export const OrderItemFindManySelectSchema: z.ZodType<Prisma.OrderItemSelect> = 
     productId: z.boolean().optional(),
     quantity: z.boolean().optional(),
     priceAtPurchase: z.boolean().optional(),
+    size: z.boolean().optional(),
     order: z.boolean().optional(),
     product: z.boolean().optional()
   }).strict() as unknown as z.ZodType<Prisma.OrderItemSelect>;
@@ -25,6 +26,7 @@ export const OrderItemFindManySelectZodSchema = z.object({
     productId: z.boolean().optional(),
     quantity: z.boolean().optional(),
     priceAtPurchase: z.boolean().optional(),
+    size: z.boolean().optional(),
     order: z.boolean().optional(),
     product: z.boolean().optional()
   }).strict();

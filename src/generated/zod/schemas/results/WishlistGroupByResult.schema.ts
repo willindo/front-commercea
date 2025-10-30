@@ -6,9 +6,9 @@ export const WishlistGroupByResultSchema = z.array(z.object({
   _count: z.object({
     id: z.number(),
     userId: z.number(),
+    createdAt: z.number(),
     user: z.number(),
-    items: z.number(),
-    createdAt: z.number()
+    items: z.number()
   }).optional(),
   _min: z.object({
     id: z.string().nullable(),

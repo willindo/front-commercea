@@ -3,15 +3,16 @@ export const PaymentFindManyResultSchema = z.object({
   data: z.array(z.object({
   id: z.string(),
   userId: z.string(),
-  orderId: z.string(),
+  orderId: z.string().optional(),
+  signature: z.string().optional(),
+  amount: z.number(),
+  currency: z.string(),
+  createdAt: z.date(),
   razorpayOrderId: z.string().optional(),
   razorpayPaymentId: z.string().optional(),
-  signature: z.string().optional(),
-  amount: z.number().int(),
-  currency: z.string(),
   status: z.unknown(),
-  createdAt: z.date(),
-  user: z.unknown()
+  user: z.unknown(),
+  order: z.unknown().optional()
 })),
   pagination: z.object({
   page: z.number().int().min(1),

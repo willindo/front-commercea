@@ -9,6 +9,7 @@ const makeSchema = () => z.object({
   productId: z.boolean().optional(),
   quantity: z.boolean().optional(),
   priceAtPurchase: z.boolean().optional(),
+  size: z.boolean().optional(),
   order: z.union([z.boolean(), z.lazy(() => OrderArgsObjectSchema)]).optional(),
   product: z.union([z.boolean(), z.lazy(() => ProductArgsObjectSchema)]).optional()
 }).strict();

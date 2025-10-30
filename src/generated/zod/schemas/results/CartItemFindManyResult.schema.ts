@@ -4,14 +4,14 @@ export const CartItemFindManyResultSchema = z.object({
   id: z.string(),
   cartId: z.string(),
   productId: z.string(),
-  size: z.unknown().optional(),
   quantity: z.number().int(),
-  cart: z.unknown(),
-  product: z.unknown(),
-  productName: z.string(),
-  productPrice: z.number(),
+  size: z.unknown().optional(),
   productDescription: z.string().optional(),
-  productImage: z.string().optional()
+  productImage: z.string().optional(),
+  productName: z.string().optional(),
+  productPrice: z.number().optional(),
+  cart: z.unknown(),
+  product: z.unknown()
 })),
   pagination: z.object({
   page: z.number().int().min(1),

@@ -5,12 +5,12 @@ import { ProductCreateNestedOneWithoutCartItemsInputObjectSchema as ProductCreat
 
 const makeSchema = () => z.object({
   id: z.string().optional(),
-  size: SizeSchema.optional().nullable(),
   quantity: z.number().int().optional(),
-  productName: z.string(),
-  productPrice: z.number(),
+  size: SizeSchema.optional().nullable(),
   productDescription: z.string().optional().nullable(),
   productImage: z.string().optional().nullable(),
+  productName: z.string().optional().nullable(),
+  productPrice: z.number().optional().nullable(),
   product: z.lazy(() => ProductCreateNestedOneWithoutCartItemsInputObjectSchema)
 }).strict();
 export const CartItemCreateWithoutCartInputObjectSchema: z.ZodType<Prisma.CartItemCreateWithoutCartInput> = makeSchema() as unknown as z.ZodType<Prisma.CartItemCreateWithoutCartInput>;

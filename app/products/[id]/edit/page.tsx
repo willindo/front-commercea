@@ -4,11 +4,22 @@ import { useState, useEffect } from "react";
 import { useRouter, useParams } from "next/navigation";
 import { useProduct, useUpdateProduct } from "@/hooks/useProducts";
 import { useForm } from "react-hook-form";
-import { UpdateProductDto, UpdateProductSchema } from "@/lib/types/products";
+import {
+  UpdateProductDto,
+  UpdateProductSchema,
+  Size,
+  Gender,
+} from "@/lib/types/products";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-const ALL_SIZES = ["XS", "S", "M", "L", "XL", "XXL"] as const;
-const GENDERS = ["MENS", "WOMENS", "BOYS", "GIRLS", "UNISEX"] as const;
+const ALL_SIZES: Size[] = ["XS", "S", "M", "L", "XL", "XXL"] as const;
+const GENDERS: Gender[] = [
+  "MENS",
+  "WOMENS",
+  "BOYS",
+  "GIRLS",
+  "UNISEX",
+] as const;
 
 export default function EditProductPage() {
   const router = useRouter();
@@ -17,7 +28,7 @@ export default function EditProductPage() {
   const { mutateAsync, isPending } = useUpdateProduct(params.id);
 
   const form = useForm<UpdateProductDto>({
-    resolver: zodResolver(UpdateProductSchema),
+    resolver: zodResolver(UpdateProductSchema) as any,
     defaultValues: data ?? {},
   });
 
@@ -27,15 +38,19 @@ export default function EditProductPage() {
 
   useEffect(() => {
     if (data) {
-      // Reset form values when product data is loaded
-      form.reset(data);
+      const normalized = {
+        ...data,
+        description: data.description ?? "",
+        gender: data.gender ?? null,
 
-      // Initialize sizes
+        sizes: data.sizes ?? [],
+      };
+      form.reset(normalized);
       setSizeQuantities(
         Object.fromEntries(
           ALL_SIZES.map((size) => [
             size,
-            data.sizes.find((s) => s.size === size)?.quantity || 0,
+            (data.sizes ?? []).find((s) => s.size === size)?.quantity || 0,
           ])
         )
       );
@@ -49,10 +64,17 @@ export default function EditProductPage() {
   const onSubmit = async (values: UpdateProductDto) => {
     const sizes = Object.entries(sizeQuantities)
       .filter(([_, qty]) => qty > 0)
-      .map(([size, quantity]) => ({ size, quantity }));
+      .map(([size, quantity]) => ({ size: size as Size, quantity }));
 
-    await mutateAsync({ ...values, sizes });
-    router.push("/products");
+    try {
+      const updated = await mutateAsync({ ...values, sizes });
+      console.log("✅ Updated product:", updated);
+
+      await new Promise((r) => setTimeout(r, 100));
+      router.push("/products");
+    } catch (err) {
+      console.error("❌ Update failed:", err);
+    }
   };
 
   if (isLoading) return <p>Loading...</p>;

@@ -8,11 +8,11 @@ const makeSchema = () => z.object({
   name: z.string(),
   description: z.string().optional().nullable(),
   price: z.number(),
-  stock: z.number().int().optional(),
-  images: z.union([z.lazy(() => ProductCreateimagesInputObjectSchema), z.string().array()]).optional(),
-  gender: GenderSchema.optional().nullable(),
+  stock: z.number().int(),
   createdAt: z.coerce.date().optional(),
-  updatedAt: z.coerce.date().optional()
+  updatedAt: z.coerce.date().optional(),
+  images: z.union([z.lazy(() => ProductCreateimagesInputObjectSchema), z.string().array()]).optional(),
+  gender: GenderSchema.optional().nullable()
 }).strict();
 export const ProductCreateManyCategoryInputObjectSchema: z.ZodType<Prisma.ProductCreateManyCategoryInput> = makeSchema() as unknown as z.ZodType<Prisma.ProductCreateManyCategoryInput>;
 export const ProductCreateManyCategoryInputObjectZodSchema = makeSchema();

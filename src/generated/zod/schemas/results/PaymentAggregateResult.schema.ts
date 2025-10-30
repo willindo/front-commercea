@@ -3,14 +3,15 @@ export const PaymentAggregateResultSchema = z.object({  _count: z.object({
     id: z.number(),
     userId: z.number(),
     orderId: z.number(),
-    razorpayOrderId: z.number(),
-    razorpayPaymentId: z.number(),
     signature: z.number(),
     amount: z.number(),
     currency: z.number(),
-    status: z.number(),
     createdAt: z.number(),
-    user: z.number()
+    razorpayOrderId: z.number(),
+    razorpayPaymentId: z.number(),
+    status: z.number(),
+    user: z.number(),
+    order: z.number()
   }).optional(),
   _sum: z.object({
     amount: z.number().nullable()
@@ -22,21 +23,21 @@ export const PaymentAggregateResultSchema = z.object({  _count: z.object({
     id: z.string().nullable(),
     userId: z.string().nullable(),
     orderId: z.string().nullable(),
-    razorpayOrderId: z.string().nullable(),
-    razorpayPaymentId: z.string().nullable(),
     signature: z.string().nullable(),
-    amount: z.number().int().nullable(),
+    amount: z.number().nullable(),
     currency: z.string().nullable(),
-    createdAt: z.date().nullable()
+    createdAt: z.date().nullable(),
+    razorpayOrderId: z.string().nullable(),
+    razorpayPaymentId: z.string().nullable()
   }).nullable().optional(),
   _max: z.object({
     id: z.string().nullable(),
     userId: z.string().nullable(),
     orderId: z.string().nullable(),
-    razorpayOrderId: z.string().nullable(),
-    razorpayPaymentId: z.string().nullable(),
     signature: z.string().nullable(),
-    amount: z.number().int().nullable(),
+    amount: z.number().nullable(),
     currency: z.string().nullable(),
-    createdAt: z.date().nullable()
+    createdAt: z.date().nullable(),
+    razorpayOrderId: z.string().nullable(),
+    razorpayPaymentId: z.string().nullable()
   }).nullable().optional()});

@@ -7,7 +7,8 @@ const makeSchema = () => z.object({
   orderId: z.literal(true).optional(),
   productId: z.literal(true).optional(),
   quantity: z.literal(true).optional(),
-  priceAtPurchase: z.literal(true).optional()
+  priceAtPurchase: z.literal(true).optional(),
+  size: z.literal(true).optional()
 }).strict();
 export const OrderItemMaxAggregateInputObjectSchema: z.ZodType<Prisma.OrderItemMaxAggregateInputType> = makeSchema() as unknown as z.ZodType<Prisma.OrderItemMaxAggregateInputType>;
 export const OrderItemMaxAggregateInputObjectZodSchema = makeSchema();

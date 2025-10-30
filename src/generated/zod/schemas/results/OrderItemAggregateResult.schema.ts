@@ -5,6 +5,7 @@ export const OrderItemAggregateResultSchema = z.object({  _count: z.object({
     productId: z.number(),
     quantity: z.number(),
     priceAtPurchase: z.number(),
+    size: z.number(),
     order: z.number(),
     product: z.number()
   }).optional(),

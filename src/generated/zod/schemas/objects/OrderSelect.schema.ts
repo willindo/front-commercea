@@ -2,6 +2,7 @@ import * as z from 'zod';
 import type { Prisma } from '@prisma/client';
 import { UserArgsObjectSchema as UserArgsObjectSchema } from './UserArgs.schema';
 import { OrderItemFindManySchema as OrderItemFindManySchema } from '../findManyOrderItem.schema';
+import { PaymentFindManySchema as PaymentFindManySchema } from '../findManyPayment.schema';
 import { OrderCountOutputTypeArgsObjectSchema as OrderCountOutputTypeArgsObjectSchema } from './OrderCountOutputTypeArgs.schema'
 
 const makeSchema = () => z.object({
@@ -9,14 +10,12 @@ const makeSchema = () => z.object({
   userId: z.boolean().optional(),
   total: z.boolean().optional(),
   status: z.boolean().optional(),
-  paymentId: z.boolean().optional(),
   paymentStatus: z.boolean().optional(),
-  address: z.boolean().optional(),
-  notes: z.boolean().optional(),
-  user: z.union([z.boolean(), z.lazy(() => UserArgsObjectSchema)]).optional(),
-  items: z.union([z.boolean(), z.lazy(() => OrderItemFindManySchema)]).optional(),
   createdAt: z.boolean().optional(),
   updatedAt: z.boolean().optional(),
+  user: z.union([z.boolean(), z.lazy(() => UserArgsObjectSchema)]).optional(),
+  items: z.union([z.boolean(), z.lazy(() => OrderItemFindManySchema)]).optional(),
+  payments: z.union([z.boolean(), z.lazy(() => PaymentFindManySchema)]).optional(),
   _count: z.union([z.boolean(), z.lazy(() => OrderCountOutputTypeArgsObjectSchema)]).optional()
 }).strict();
 export const OrderSelectObjectSchema: z.ZodType<Prisma.OrderSelect> = makeSchema() as unknown as z.ZodType<Prisma.OrderSelect>;

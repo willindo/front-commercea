@@ -12,8 +12,8 @@ export const UserModelSchema = z.object({
     updatedAt: z.date(),
     cart: z.unknown().nullable(),
     orders: z.array(z.unknown()),
-    wishlists: z.array(z.unknown()),
-    payments: z.array(z.unknown())
+    payments: z.array(z.unknown()),
+    wishlists: z.array(z.unknown())
 }).strict();
 
 export type UserPureType = z.infer<typeof UserModelSchema>;

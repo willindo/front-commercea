@@ -7,9 +7,9 @@ import { WishlistCountOutputTypeArgsObjectSchema as WishlistCountOutputTypeArgsO
 const makeSchema = () => z.object({
   id: z.boolean().optional(),
   userId: z.boolean().optional(),
+  createdAt: z.boolean().optional(),
   user: z.union([z.boolean(), z.lazy(() => UserArgsObjectSchema)]).optional(),
   items: z.union([z.boolean(), z.lazy(() => WishlistItemFindManySchema)]).optional(),
-  createdAt: z.boolean().optional(),
   _count: z.union([z.boolean(), z.lazy(() => WishlistCountOutputTypeArgsObjectSchema)]).optional()
 }).strict();
 export const WishlistSelectObjectSchema: z.ZodType<Prisma.WishlistSelect> = makeSchema() as unknown as z.ZodType<Prisma.WishlistSelect>;

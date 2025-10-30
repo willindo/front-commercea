@@ -15,6 +15,7 @@ export const OrderItemFindFirstOrThrowSelectSchema: z.ZodType<Prisma.OrderItemSe
     productId: z.boolean().optional(),
     quantity: z.boolean().optional(),
     priceAtPurchase: z.boolean().optional(),
+    size: z.boolean().optional(),
     order: z.boolean().optional(),
     product: z.boolean().optional()
   }).strict() as unknown as z.ZodType<Prisma.OrderItemSelect>;
@@ -25,6 +26,7 @@ export const OrderItemFindFirstOrThrowSelectZodSchema = z.object({
     productId: z.boolean().optional(),
     quantity: z.boolean().optional(),
     priceAtPurchase: z.boolean().optional(),
+    size: z.boolean().optional(),
     order: z.boolean().optional(),
     product: z.boolean().optional()
   }).strict();

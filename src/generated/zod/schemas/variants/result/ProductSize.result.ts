@@ -6,8 +6,8 @@ export const ProductSizeResultSchema = z.object({
     id: z.string(),
     size: SizeSchema,
     quantity: z.number().int(),
-    product: z.unknown(),
-    productId: z.string()
+    productId: z.string(),
+    product: z.unknown()
 }).strict();
 
 export type ProductSizeResultType = z.infer<typeof ProductSizeResultSchema>;

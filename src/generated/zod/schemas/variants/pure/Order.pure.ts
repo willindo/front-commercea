@@ -8,14 +8,12 @@ export const OrderModelSchema = z.object({
     userId: z.string(),
     total: z.number(),
     status: OrderStatusSchema,
-    paymentId: z.string().nullable(),
     paymentStatus: PaymentStatusSchema,
-    address: z.unknown().nullable(),
-    notes: z.string().nullable(),
+    createdAt: z.date(),
+    updatedAt: z.date(),
     user: z.unknown(),
     items: z.array(z.unknown()),
-    createdAt: z.date(),
-    updatedAt: z.date()
+    payments: z.array(z.unknown())
 }).strict();
 
 export type OrderPureType = z.infer<typeof OrderModelSchema>;

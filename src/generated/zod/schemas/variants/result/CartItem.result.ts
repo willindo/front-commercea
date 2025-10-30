@@ -6,14 +6,14 @@ export const CartItemResultSchema = z.object({
     id: z.string(),
     cartId: z.string(),
     productId: z.string(),
-    size: SizeSchema.nullable(),
     quantity: z.number().int(),
-    cart: z.unknown(),
-    product: z.unknown(),
-    productName: z.string(),
-    productPrice: z.number(),
+    size: SizeSchema.nullable(),
     productDescription: z.string().nullable(),
-    productImage: z.string().nullable()
+    productImage: z.string().nullable(),
+    productName: z.string().nullable(),
+    productPrice: z.number().nullable(),
+    cart: z.unknown(),
+    product: z.unknown()
 }).strict();
 
 export type CartItemResultType = z.infer<typeof CartItemResultSchema>;

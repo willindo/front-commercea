@@ -9,12 +9,12 @@ const makeSchema = () => z.object({
   id: SortOrderSchema.optional(),
   cartId: SortOrderSchema.optional(),
   productId: SortOrderSchema.optional(),
-  size: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional(),
   quantity: SortOrderSchema.optional(),
-  productName: SortOrderSchema.optional(),
-  productPrice: SortOrderSchema.optional(),
+  size: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional(),
   productDescription: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional(),
   productImage: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional(),
+  productName: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional(),
+  productPrice: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional(),
   cart: z.lazy(() => CartOrderByWithRelationInputObjectSchema).optional(),
   product: z.lazy(() => ProductOrderByWithRelationInputObjectSchema).optional()
 }).strict();

@@ -12,18 +12,18 @@ import { WishlistScalarFieldEnumSchema } from './enums/WishlistScalarFieldEnum.s
 export const WishlistFindFirstOrThrowSelectSchema: z.ZodType<Prisma.WishlistSelect> = z.object({
     id: z.boolean().optional(),
     userId: z.boolean().optional(),
+    createdAt: z.boolean().optional(),
     user: z.boolean().optional(),
     items: z.boolean().optional(),
-    createdAt: z.boolean().optional(),
     _count: z.boolean().optional()
   }).strict() as unknown as z.ZodType<Prisma.WishlistSelect>;
 
 export const WishlistFindFirstOrThrowSelectZodSchema = z.object({
     id: z.boolean().optional(),
     userId: z.boolean().optional(),
+    createdAt: z.boolean().optional(),
     user: z.boolean().optional(),
     items: z.boolean().optional(),
-    createdAt: z.boolean().optional(),
     _count: z.boolean().optional()
   }).strict();
 

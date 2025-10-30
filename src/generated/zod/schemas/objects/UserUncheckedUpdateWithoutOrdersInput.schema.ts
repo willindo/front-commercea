@@ -6,8 +6,8 @@ import { RoleSchema } from '../enums/Role.schema';
 import { EnumRoleFieldUpdateOperationsInputObjectSchema as EnumRoleFieldUpdateOperationsInputObjectSchema } from './EnumRoleFieldUpdateOperationsInput.schema';
 import { DateTimeFieldUpdateOperationsInputObjectSchema as DateTimeFieldUpdateOperationsInputObjectSchema } from './DateTimeFieldUpdateOperationsInput.schema';
 import { CartUncheckedUpdateOneWithoutUserNestedInputObjectSchema as CartUncheckedUpdateOneWithoutUserNestedInputObjectSchema } from './CartUncheckedUpdateOneWithoutUserNestedInput.schema';
-import { WishlistUncheckedUpdateManyWithoutUserNestedInputObjectSchema as WishlistUncheckedUpdateManyWithoutUserNestedInputObjectSchema } from './WishlistUncheckedUpdateManyWithoutUserNestedInput.schema';
-import { PaymentUncheckedUpdateManyWithoutUserNestedInputObjectSchema as PaymentUncheckedUpdateManyWithoutUserNestedInputObjectSchema } from './PaymentUncheckedUpdateManyWithoutUserNestedInput.schema'
+import { PaymentUncheckedUpdateManyWithoutUserNestedInputObjectSchema as PaymentUncheckedUpdateManyWithoutUserNestedInputObjectSchema } from './PaymentUncheckedUpdateManyWithoutUserNestedInput.schema';
+import { WishlistUncheckedUpdateManyWithoutUserNestedInputObjectSchema as WishlistUncheckedUpdateManyWithoutUserNestedInputObjectSchema } from './WishlistUncheckedUpdateManyWithoutUserNestedInput.schema'
 
 const makeSchema = () => z.object({
   id: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
@@ -18,8 +18,8 @@ const makeSchema = () => z.object({
   createdAt: z.union([z.coerce.date(), z.lazy(() => DateTimeFieldUpdateOperationsInputObjectSchema)]).optional(),
   updatedAt: z.union([z.coerce.date(), z.lazy(() => DateTimeFieldUpdateOperationsInputObjectSchema)]).optional(),
   cart: z.lazy(() => CartUncheckedUpdateOneWithoutUserNestedInputObjectSchema).optional(),
-  wishlists: z.lazy(() => WishlistUncheckedUpdateManyWithoutUserNestedInputObjectSchema).optional(),
-  payments: z.lazy(() => PaymentUncheckedUpdateManyWithoutUserNestedInputObjectSchema).optional()
+  payments: z.lazy(() => PaymentUncheckedUpdateManyWithoutUserNestedInputObjectSchema).optional(),
+  wishlists: z.lazy(() => WishlistUncheckedUpdateManyWithoutUserNestedInputObjectSchema).optional()
 }).strict();
 export const UserUncheckedUpdateWithoutOrdersInputObjectSchema: z.ZodType<Prisma.UserUncheckedUpdateWithoutOrdersInput> = makeSchema() as unknown as z.ZodType<Prisma.UserUncheckedUpdateWithoutOrdersInput>;
 export const UserUncheckedUpdateWithoutOrdersInputObjectZodSchema = makeSchema();

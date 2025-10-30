@@ -3,12 +3,24 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useCreateProduct } from "@/hooks/useProducts";
-import { CreateProductDto, CreateProductSchema } from "@/lib/types/products";
+import {
+  CreateProductDto,
+  CreateProductSchema,
+  Size,
+  Gender,
+} from "@/lib/types/products";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { SizeLimit } from "next";
 
-const ALL_SIZES = ["XS", "S", "M", "L", "XL", "XXL"] as const;
-const GENDERS = ["MENS", "WOMENS", "BOYS", "GIRLS", "UNISEX"] as const;
+const ALL_SIZES: Size[] = ["XS", "S", "M", "L", "XL", "XXL"] as const;
+const GENDERS: Gender[] = [
+  "MENS",
+  "WOMENS",
+  "BOYS",
+  "GIRLS",
+  "UNISEX",
+] as const;
 
 export default function NewProductPage() {
   const router = useRouter();
@@ -35,12 +47,14 @@ export default function NewProductPage() {
   };
 
   const onSubmit = async (values: CreateProductDto) => {
+      const gender = values.gender || null;
     const sizes = Object.entries(sizeQuantities)
       .filter(([_, qty]) => qty > 0)
-      .map(([size, quantity]) => ({ size, quantity }));
+      .map(([size, quantity]) => ({ size: size as Size, quantity }));
 
     await mutateAsync({ ...values, sizes });
     router.push("/products");
+    router.refresh();
   };
 
   return (

@@ -33,9 +33,11 @@ export function useUpdateProduct(id: string) {
   const qc = useQueryClient();
   return useMutation({
     mutationFn: (dto: UpdateProductDto) => productsApi.update(id, dto),
-    onSuccess: () => {
-      qc.invalidateQueries({ queryKey: ["products"] });
-      qc.invalidateQueries({ queryKey: ["product", id] });
+    onSuccess: async () => {
+      await Promise.all([
+        qc.invalidateQueries({ queryKey: ["products"], exact: false }),
+        qc.invalidateQueries({ queryKey: ["product", id] }),
+      ]);
     },
   });
 }

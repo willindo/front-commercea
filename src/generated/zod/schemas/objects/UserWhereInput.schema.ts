@@ -8,8 +8,8 @@ import { DateTimeFilterObjectSchema as DateTimeFilterObjectSchema } from './Date
 import { CartNullableScalarRelationFilterObjectSchema as CartNullableScalarRelationFilterObjectSchema } from './CartNullableScalarRelationFilter.schema';
 import { CartWhereInputObjectSchema as CartWhereInputObjectSchema } from './CartWhereInput.schema';
 import { OrderListRelationFilterObjectSchema as OrderListRelationFilterObjectSchema } from './OrderListRelationFilter.schema';
-import { WishlistListRelationFilterObjectSchema as WishlistListRelationFilterObjectSchema } from './WishlistListRelationFilter.schema';
-import { PaymentListRelationFilterObjectSchema as PaymentListRelationFilterObjectSchema } from './PaymentListRelationFilter.schema'
+import { PaymentListRelationFilterObjectSchema as PaymentListRelationFilterObjectSchema } from './PaymentListRelationFilter.schema';
+import { WishlistListRelationFilterObjectSchema as WishlistListRelationFilterObjectSchema } from './WishlistListRelationFilter.schema'
 
 const userwhereinputSchema = z.object({
   AND: z.union([z.lazy(() => UserWhereInputObjectSchema), z.lazy(() => UserWhereInputObjectSchema).array()]).optional(),
@@ -24,8 +24,8 @@ const userwhereinputSchema = z.object({
   updatedAt: z.union([z.lazy(() => DateTimeFilterObjectSchema), z.coerce.date()]).optional(),
   cart: z.union([z.lazy(() => CartNullableScalarRelationFilterObjectSchema), z.lazy(() => CartWhereInputObjectSchema)]).optional(),
   orders: z.lazy(() => OrderListRelationFilterObjectSchema).optional(),
-  wishlists: z.lazy(() => WishlistListRelationFilterObjectSchema).optional(),
-  payments: z.lazy(() => PaymentListRelationFilterObjectSchema).optional()
+  payments: z.lazy(() => PaymentListRelationFilterObjectSchema).optional(),
+  wishlists: z.lazy(() => WishlistListRelationFilterObjectSchema).optional()
 }).strict();
 export const UserWhereInputObjectSchema: z.ZodType<Prisma.UserWhereInput> = userwhereinputSchema as unknown as z.ZodType<Prisma.UserWhereInput>;
 export const UserWhereInputObjectZodSchema = userwhereinputSchema;

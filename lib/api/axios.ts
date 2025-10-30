@@ -3,26 +3,28 @@ import axios from "axios";
 const isServer = typeof window === "undefined";
 const isProd = process.env.NODE_ENV === "production";
 
+const localBackend = "http://localhost:3001";
+const prodBackend =
+  process.env.NEXT_PUBLIC_API_URL || "https://backnest-vpjt.onrender.com";
+
 export const api = axios.create({
   baseURL: isServer
-    ? process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001"
+    ? isProd
+      ? prodBackend
+      : localBackend // SSR / RSC context
     : isProd
-    ? process.env.NEXT_PUBLIC_API_URL
-    : "http://localhost:3001",
+    ? prodBackend
+    : localBackend, // Browser context
   withCredentials: true,
 });
 
-// Just log 401s — don't redirect here
 api.interceptors.response.use(
   (res) => res,
   (err) => {
     if (err.response?.status === 401) {
-      console.warn("401 unauthorized response — clearing local auth");
-      try {
-        localStorage.removeItem("user");
-      } catch (e) {}
-      // don't import router here; instead emit a simple navigation
+      console.warn("401 unauthorized — redirecting to /auth/login");
       if (typeof window !== "undefined") {
+        localStorage.removeItem("user");
         window.location.href = "/auth/login";
       }
     }

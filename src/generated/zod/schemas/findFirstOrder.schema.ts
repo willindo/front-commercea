@@ -14,14 +14,12 @@ export const OrderFindFirstSelectSchema: z.ZodType<Prisma.OrderSelect> = z.objec
     userId: z.boolean().optional(),
     total: z.boolean().optional(),
     status: z.boolean().optional(),
-    paymentId: z.boolean().optional(),
     paymentStatus: z.boolean().optional(),
-    address: z.boolean().optional(),
-    notes: z.boolean().optional(),
-    user: z.boolean().optional(),
-    items: z.boolean().optional(),
     createdAt: z.boolean().optional(),
     updatedAt: z.boolean().optional(),
+    user: z.boolean().optional(),
+    items: z.boolean().optional(),
+    payments: z.boolean().optional(),
     _count: z.boolean().optional()
   }).strict() as unknown as z.ZodType<Prisma.OrderSelect>;
 
@@ -30,14 +28,12 @@ export const OrderFindFirstSelectZodSchema = z.object({
     userId: z.boolean().optional(),
     total: z.boolean().optional(),
     status: z.boolean().optional(),
-    paymentId: z.boolean().optional(),
     paymentStatus: z.boolean().optional(),
-    address: z.boolean().optional(),
-    notes: z.boolean().optional(),
-    user: z.boolean().optional(),
-    items: z.boolean().optional(),
     createdAt: z.boolean().optional(),
     updatedAt: z.boolean().optional(),
+    user: z.boolean().optional(),
+    items: z.boolean().optional(),
+    payments: z.boolean().optional(),
     _count: z.boolean().optional()
   }).strict();
 

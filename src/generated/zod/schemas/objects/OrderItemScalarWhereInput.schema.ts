@@ -2,7 +2,9 @@ import * as z from 'zod';
 import type { Prisma } from '@prisma/client';
 import { StringFilterObjectSchema as StringFilterObjectSchema } from './StringFilter.schema';
 import { IntFilterObjectSchema as IntFilterObjectSchema } from './IntFilter.schema';
-import { DecimalFilterObjectSchema as DecimalFilterObjectSchema } from './DecimalFilter.schema'
+import { DecimalFilterObjectSchema as DecimalFilterObjectSchema } from './DecimalFilter.schema';
+import { EnumSizeNullableFilterObjectSchema as EnumSizeNullableFilterObjectSchema } from './EnumSizeNullableFilter.schema';
+import { SizeSchema } from '../enums/Size.schema'
 
 const orderitemscalarwhereinputSchema = z.object({
   AND: z.union([z.lazy(() => OrderItemScalarWhereInputObjectSchema), z.lazy(() => OrderItemScalarWhereInputObjectSchema).array()]).optional(),
@@ -12,7 +14,8 @@ const orderitemscalarwhereinputSchema = z.object({
   orderId: z.union([z.lazy(() => StringFilterObjectSchema), z.string()]).optional(),
   productId: z.union([z.lazy(() => StringFilterObjectSchema), z.string()]).optional(),
   quantity: z.union([z.lazy(() => IntFilterObjectSchema), z.number().int()]).optional(),
-  priceAtPurchase: z.union([z.lazy(() => DecimalFilterObjectSchema), z.number()]).optional()
+  priceAtPurchase: z.union([z.lazy(() => DecimalFilterObjectSchema), z.number()]).optional(),
+  size: z.union([z.lazy(() => EnumSizeNullableFilterObjectSchema), SizeSchema]).optional().nullable()
 }).strict();
 export const OrderItemScalarWhereInputObjectSchema: z.ZodType<Prisma.OrderItemScalarWhereInput> = orderitemscalarwhereinputSchema as unknown as z.ZodType<Prisma.OrderItemScalarWhereInput>;
 export const OrderItemScalarWhereInputObjectZodSchema = orderitemscalarwhereinputSchema;

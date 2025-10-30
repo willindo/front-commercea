@@ -3,10 +3,10 @@ export const CartFindManyResultSchema = z.object({
   data: z.array(z.object({
   id: z.string(),
   userId: z.string(),
-  user: z.unknown(),
-  items: z.array(z.unknown()),
   createdAt: z.date(),
-  updatedAt: z.date()
+  updatedAt: z.date(),
+  user: z.unknown(),
+  items: z.array(z.unknown())
 })),
   pagination: z.object({
   page: z.number().int().min(1),

@@ -13,16 +13,16 @@ export const ProductSizeFindFirstSelectSchema: z.ZodType<Prisma.ProductSizeSelec
     id: z.boolean().optional(),
     size: z.boolean().optional(),
     quantity: z.boolean().optional(),
-    product: z.boolean().optional(),
-    productId: z.boolean().optional()
+    productId: z.boolean().optional(),
+    product: z.boolean().optional()
   }).strict() as unknown as z.ZodType<Prisma.ProductSizeSelect>;
 
 export const ProductSizeFindFirstSelectZodSchema = z.object({
     id: z.boolean().optional(),
     size: z.boolean().optional(),
     quantity: z.boolean().optional(),
-    product: z.boolean().optional(),
-    productId: z.boolean().optional()
+    productId: z.boolean().optional(),
+    product: z.boolean().optional()
   }).strict();
 
 export const ProductSizeFindFirstSchema: z.ZodType<Prisma.ProductSizeFindFirstArgs> = z.object({ select: ProductSizeFindFirstSelectSchema.optional(), include: ProductSizeIncludeObjectSchema.optional(), orderBy: z.union([ProductSizeOrderByWithRelationInputObjectSchema, ProductSizeOrderByWithRelationInputObjectSchema.array()]).optional(), where: ProductSizeWhereInputObjectSchema.optional(), cursor: ProductSizeWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), distinct: z.union([ProductSizeScalarFieldEnumSchema, ProductSizeScalarFieldEnumSchema.array()]).optional() }).strict() as unknown as z.ZodType<Prisma.ProductSizeFindFirstArgs>;

@@ -7,8 +7,8 @@ export const ProductSizeGroupByResultSchema = z.array(z.object({
     id: z.number(),
     size: z.number(),
     quantity: z.number(),
-    product: z.number(),
-    productId: z.number()
+    productId: z.number(),
+    product: z.number()
   }).optional(),
   _sum: z.object({
     quantity: z.number().nullable()

@@ -2,6 +2,7 @@
 cat << 'EOF' >> ~/.zshrc
 content 
 EOF
+
 badsha@badsha-VirtualBox:~/dev/payment$ cat reserve.txt
 🔮
 {

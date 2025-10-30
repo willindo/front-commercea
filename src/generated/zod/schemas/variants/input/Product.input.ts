@@ -8,16 +8,16 @@ export const ProductInputSchema = z.object({
     description: z.string().optional().nullable(),
     price: z.number(),
     stock: z.number().int(),
-    images: z.array(z.string()),
-    categoryId: z.string().optional().nullable(),
-    category: z.unknown().optional().nullable(),
-    gender: GenderSchema.optional().nullable(),
-    sizes: z.array(z.unknown()),
     createdAt: z.date(),
     updatedAt: z.date(),
+    images: z.array(z.string()),
+    categoryId: z.string().optional().nullable(),
+    gender: GenderSchema.optional().nullable(),
     cartItems: z.array(z.unknown()),
-    wishlistItems: z.array(z.unknown()),
-    orderItems: z.array(z.unknown())
+    orderItems: z.array(z.unknown()),
+    category: z.unknown().optional().nullable(),
+    sizes: z.array(z.unknown()),
+    wishlistItems: z.array(z.unknown())
 }).strict();
 
 export type ProductInputType = z.infer<typeof ProductInputSchema>;

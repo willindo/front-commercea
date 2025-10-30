@@ -16,8 +16,8 @@ export const UserGroupByResultSchema = z.array(z.object({
     updatedAt: z.number(),
     cart: z.number(),
     orders: z.number(),
-    wishlists: z.number(),
-    payments: z.number()
+    payments: z.number(),
+    wishlists: z.number()
   }).optional(),
   _min: z.object({
     id: z.string().nullable(),

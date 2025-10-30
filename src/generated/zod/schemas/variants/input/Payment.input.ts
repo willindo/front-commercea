@@ -5,15 +5,16 @@ import { PaymentStatusSchema } from '../../enums/PaymentStatus.schema';
 export const PaymentInputSchema = z.object({
     id: z.string(),
     userId: z.string(),
-    orderId: z.string(),
+    orderId: z.string().optional().nullable(),
+    signature: z.string().optional().nullable(),
+    amount: z.number(),
+    currency: z.string(),
+    createdAt: z.date(),
     razorpayOrderId: z.string().optional().nullable(),
     razorpayPaymentId: z.string().optional().nullable(),
-    signature: z.string().optional().nullable(),
-    amount: z.number().int(),
-    currency: z.string(),
     status: PaymentStatusSchema,
-    createdAt: z.date(),
-    user: z.unknown()
+    user: z.unknown(),
+    order: z.unknown().optional().nullable()
 }).strict();
 
 export type PaymentInputType = z.infer<typeof PaymentInputSchema>;

@@ -2,23 +2,24 @@ import * as z from 'zod';
 import type { Prisma } from '@prisma/client';
 import { StringFieldUpdateOperationsInputObjectSchema as StringFieldUpdateOperationsInputObjectSchema } from './StringFieldUpdateOperationsInput.schema';
 import { NullableStringFieldUpdateOperationsInputObjectSchema as NullableStringFieldUpdateOperationsInputObjectSchema } from './NullableStringFieldUpdateOperationsInput.schema';
-import { IntFieldUpdateOperationsInputObjectSchema as IntFieldUpdateOperationsInputObjectSchema } from './IntFieldUpdateOperationsInput.schema';
+import { DecimalFieldUpdateOperationsInputObjectSchema as DecimalFieldUpdateOperationsInputObjectSchema } from './DecimalFieldUpdateOperationsInput.schema';
+import { DateTimeFieldUpdateOperationsInputObjectSchema as DateTimeFieldUpdateOperationsInputObjectSchema } from './DateTimeFieldUpdateOperationsInput.schema';
 import { PaymentStatusSchema } from '../enums/PaymentStatus.schema';
 import { EnumPaymentStatusFieldUpdateOperationsInputObjectSchema as EnumPaymentStatusFieldUpdateOperationsInputObjectSchema } from './EnumPaymentStatusFieldUpdateOperationsInput.schema';
-import { DateTimeFieldUpdateOperationsInputObjectSchema as DateTimeFieldUpdateOperationsInputObjectSchema } from './DateTimeFieldUpdateOperationsInput.schema';
-import { UserUpdateOneRequiredWithoutPaymentsNestedInputObjectSchema as UserUpdateOneRequiredWithoutPaymentsNestedInputObjectSchema } from './UserUpdateOneRequiredWithoutPaymentsNestedInput.schema'
+import { UserUpdateOneRequiredWithoutPaymentsNestedInputObjectSchema as UserUpdateOneRequiredWithoutPaymentsNestedInputObjectSchema } from './UserUpdateOneRequiredWithoutPaymentsNestedInput.schema';
+import { OrderUpdateOneWithoutPaymentsNestedInputObjectSchema as OrderUpdateOneWithoutPaymentsNestedInputObjectSchema } from './OrderUpdateOneWithoutPaymentsNestedInput.schema'
 
 const makeSchema = () => z.object({
   id: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
-  orderId: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
+  signature: z.union([z.string(), z.lazy(() => NullableStringFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
+  amount: z.union([z.number(), z.lazy(() => DecimalFieldUpdateOperationsInputObjectSchema)]).optional(),
+  currency: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
+  createdAt: z.union([z.coerce.date(), z.lazy(() => DateTimeFieldUpdateOperationsInputObjectSchema)]).optional(),
   razorpayOrderId: z.union([z.string(), z.lazy(() => NullableStringFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
   razorpayPaymentId: z.union([z.string(), z.lazy(() => NullableStringFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
-  signature: z.union([z.string(), z.lazy(() => NullableStringFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
-  amount: z.union([z.number().int(), z.lazy(() => IntFieldUpdateOperationsInputObjectSchema)]).optional(),
-  currency: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
   status: z.union([PaymentStatusSchema, z.lazy(() => EnumPaymentStatusFieldUpdateOperationsInputObjectSchema)]).optional(),
-  createdAt: z.union([z.coerce.date(), z.lazy(() => DateTimeFieldUpdateOperationsInputObjectSchema)]).optional(),
-  user: z.lazy(() => UserUpdateOneRequiredWithoutPaymentsNestedInputObjectSchema).optional()
+  user: z.lazy(() => UserUpdateOneRequiredWithoutPaymentsNestedInputObjectSchema).optional(),
+  order: z.lazy(() => OrderUpdateOneWithoutPaymentsNestedInputObjectSchema).optional()
 }).strict();
 export const PaymentUpdateInputObjectSchema: z.ZodType<Prisma.PaymentUpdateInput> = makeSchema() as unknown as z.ZodType<Prisma.PaymentUpdateInput>;
 export const PaymentUpdateInputObjectZodSchema = makeSchema();

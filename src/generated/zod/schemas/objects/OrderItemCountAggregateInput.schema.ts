@@ -8,6 +8,7 @@ const makeSchema = () => z.object({
   productId: z.literal(true).optional(),
   quantity: z.literal(true).optional(),
   priceAtPurchase: z.literal(true).optional(),
+  size: z.literal(true).optional(),
   _all: z.literal(true).optional()
 }).strict();
 export const OrderItemCountAggregateInputObjectSchema: z.ZodType<Prisma.OrderItemCountAggregateInputType> = makeSchema() as unknown as z.ZodType<Prisma.OrderItemCountAggregateInputType>;
