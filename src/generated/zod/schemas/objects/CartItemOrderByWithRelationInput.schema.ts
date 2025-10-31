@@ -11,10 +11,10 @@ const makeSchema = () => z.object({
   productId: SortOrderSchema.optional(),
   quantity: SortOrderSchema.optional(),
   size: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional(),
-  productDescription: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional(),
-  productImage: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional(),
   productName: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional(),
   productPrice: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional(),
+  productImage: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional(),
+  productDescription: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional(),
   cart: z.lazy(() => CartOrderByWithRelationInputObjectSchema).optional(),
   product: z.lazy(() => ProductOrderByWithRelationInputObjectSchema).optional()
 }).strict();

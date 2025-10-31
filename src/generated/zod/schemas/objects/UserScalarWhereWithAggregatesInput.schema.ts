@@ -14,6 +14,7 @@ const userscalarwherewithaggregatesinputSchema = z.object({
   email: z.union([z.lazy(() => StringWithAggregatesFilterObjectSchema), z.string()]).optional(),
   password: z.union([z.lazy(() => StringWithAggregatesFilterObjectSchema), z.string()]).optional(),
   name: z.union([z.lazy(() => StringNullableWithAggregatesFilterObjectSchema), z.string()]).optional().nullable(),
+  phone: z.union([z.lazy(() => StringNullableWithAggregatesFilterObjectSchema), z.string()]).optional().nullable(),
   role: z.union([z.lazy(() => EnumRoleWithAggregatesFilterObjectSchema), RoleSchema]).optional(),
   createdAt: z.union([z.lazy(() => DateTimeWithAggregatesFilterObjectSchema), z.coerce.date()]).optional(),
   updatedAt: z.union([z.lazy(() => DateTimeWithAggregatesFilterObjectSchema), z.coerce.date()]).optional()

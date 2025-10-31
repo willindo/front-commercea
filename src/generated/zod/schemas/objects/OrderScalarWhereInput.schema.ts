@@ -1,6 +1,7 @@
 import * as z from 'zod';
 import type { Prisma } from '@prisma/client';
 import { StringFilterObjectSchema as StringFilterObjectSchema } from './StringFilter.schema';
+import { StringNullableFilterObjectSchema as StringNullableFilterObjectSchema } from './StringNullableFilter.schema';
 import { DecimalFilterObjectSchema as DecimalFilterObjectSchema } from './DecimalFilter.schema';
 import { EnumOrderStatusFilterObjectSchema as EnumOrderStatusFilterObjectSchema } from './EnumOrderStatusFilter.schema';
 import { OrderStatusSchema } from '../enums/OrderStatus.schema';
@@ -14,9 +15,15 @@ const orderscalarwhereinputSchema = z.object({
   NOT: z.union([z.lazy(() => OrderScalarWhereInputObjectSchema), z.lazy(() => OrderScalarWhereInputObjectSchema).array()]).optional(),
   id: z.union([z.lazy(() => StringFilterObjectSchema), z.string()]).optional(),
   userId: z.union([z.lazy(() => StringFilterObjectSchema), z.string()]).optional(),
-  total: z.union([z.lazy(() => DecimalFilterObjectSchema), z.number()]).optional(),
+  addressId: z.union([z.lazy(() => StringNullableFilterObjectSchema), z.string()]).optional().nullable(),
+  latestPaymentId: z.union([z.lazy(() => StringNullableFilterObjectSchema), z.string()]).optional().nullable(),
+  totalAmount: z.union([z.lazy(() => DecimalFilterObjectSchema), z.number()]).optional(),
   status: z.union([z.lazy(() => EnumOrderStatusFilterObjectSchema), OrderStatusSchema]).optional(),
   paymentStatus: z.union([z.lazy(() => EnumPaymentStatusFilterObjectSchema), PaymentStatusSchema]).optional(),
+  currency: z.union([z.lazy(() => StringFilterObjectSchema), z.string()]).optional(),
+  shippingCost: z.union([z.lazy(() => DecimalFilterObjectSchema), z.number()]).optional(),
+  taxAmount: z.union([z.lazy(() => DecimalFilterObjectSchema), z.number()]).optional(),
+  discountAmount: z.union([z.lazy(() => DecimalFilterObjectSchema), z.number()]).optional(),
   createdAt: z.union([z.lazy(() => DateTimeFilterObjectSchema), z.coerce.date()]).optional(),
   updatedAt: z.union([z.lazy(() => DateTimeFilterObjectSchema), z.coerce.date()]).optional()
 }).strict();

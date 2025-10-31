@@ -14,13 +14,18 @@ export const UserFindFirstOrThrowSelectSchema: z.ZodType<Prisma.UserSelect> = z.
     email: z.boolean().optional(),
     password: z.boolean().optional(),
     name: z.boolean().optional(),
+    phone: z.boolean().optional(),
     role: z.boolean().optional(),
     createdAt: z.boolean().optional(),
     updatedAt: z.boolean().optional(),
+    addresses: z.boolean().optional(),
     cart: z.boolean().optional(),
     orders: z.boolean().optional(),
     payments: z.boolean().optional(),
     wishlists: z.boolean().optional(),
+    reviews: z.boolean().optional(),
+    giftCards: z.boolean().optional(),
+    couponUsages: z.boolean().optional(),
     _count: z.boolean().optional()
   }).strict() as unknown as z.ZodType<Prisma.UserSelect>;
 
@@ -29,13 +34,18 @@ export const UserFindFirstOrThrowSelectZodSchema = z.object({
     email: z.boolean().optional(),
     password: z.boolean().optional(),
     name: z.boolean().optional(),
+    phone: z.boolean().optional(),
     role: z.boolean().optional(),
     createdAt: z.boolean().optional(),
     updatedAt: z.boolean().optional(),
+    addresses: z.boolean().optional(),
     cart: z.boolean().optional(),
     orders: z.boolean().optional(),
     payments: z.boolean().optional(),
     wishlists: z.boolean().optional(),
+    reviews: z.boolean().optional(),
+    giftCards: z.boolean().optional(),
+    couponUsages: z.boolean().optional(),
     _count: z.boolean().optional()
   }).strict();
 

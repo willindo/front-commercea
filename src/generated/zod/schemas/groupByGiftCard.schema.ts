@@ -1,0 +1,15 @@
+import type { Prisma } from '@prisma/client';
+import * as z from 'zod';
+import { GiftCardWhereInputObjectSchema as GiftCardWhereInputObjectSchema } from './objects/GiftCardWhereInput.schema';
+import { GiftCardOrderByWithAggregationInputObjectSchema as GiftCardOrderByWithAggregationInputObjectSchema } from './objects/GiftCardOrderByWithAggregationInput.schema';
+import { GiftCardScalarWhereWithAggregatesInputObjectSchema as GiftCardScalarWhereWithAggregatesInputObjectSchema } from './objects/GiftCardScalarWhereWithAggregatesInput.schema';
+import { GiftCardScalarFieldEnumSchema } from './enums/GiftCardScalarFieldEnum.schema';
+import { GiftCardCountAggregateInputObjectSchema as GiftCardCountAggregateInputObjectSchema } from './objects/GiftCardCountAggregateInput.schema';
+import { GiftCardMinAggregateInputObjectSchema as GiftCardMinAggregateInputObjectSchema } from './objects/GiftCardMinAggregateInput.schema';
+import { GiftCardMaxAggregateInputObjectSchema as GiftCardMaxAggregateInputObjectSchema } from './objects/GiftCardMaxAggregateInput.schema';
+import { GiftCardAvgAggregateInputObjectSchema as GiftCardAvgAggregateInputObjectSchema } from './objects/GiftCardAvgAggregateInput.schema';
+import { GiftCardSumAggregateInputObjectSchema as GiftCardSumAggregateInputObjectSchema } from './objects/GiftCardSumAggregateInput.schema';
+
+export const GiftCardGroupBySchema: z.ZodType<Prisma.GiftCardGroupByArgs> = z.object({ where: GiftCardWhereInputObjectSchema.optional(), orderBy: z.union([GiftCardOrderByWithAggregationInputObjectSchema, GiftCardOrderByWithAggregationInputObjectSchema.array()]).optional(), having: GiftCardScalarWhereWithAggregatesInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), by: z.array(GiftCardScalarFieldEnumSchema), _count: z.union([ z.literal(true), GiftCardCountAggregateInputObjectSchema ]).optional(), _min: GiftCardMinAggregateInputObjectSchema.optional(), _max: GiftCardMaxAggregateInputObjectSchema.optional(), _avg: GiftCardAvgAggregateInputObjectSchema.optional(), _sum: GiftCardSumAggregateInputObjectSchema.optional() }).strict() as unknown as z.ZodType<Prisma.GiftCardGroupByArgs>;
+
+export const GiftCardGroupByZodSchema = z.object({ where: GiftCardWhereInputObjectSchema.optional(), orderBy: z.union([GiftCardOrderByWithAggregationInputObjectSchema, GiftCardOrderByWithAggregationInputObjectSchema.array()]).optional(), having: GiftCardScalarWhereWithAggregatesInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), by: z.array(GiftCardScalarFieldEnumSchema), _count: z.union([ z.literal(true), GiftCardCountAggregateInputObjectSchema ]).optional(), _min: GiftCardMinAggregateInputObjectSchema.optional(), _max: GiftCardMaxAggregateInputObjectSchema.optional(), _avg: GiftCardAvgAggregateInputObjectSchema.optional(), _sum: GiftCardSumAggregateInputObjectSchema.optional() }).strict();

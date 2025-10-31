@@ -6,7 +6,7 @@ import { ProductCreateNestedOneWithoutSizesInputObjectSchema as ProductCreateNes
 const makeSchema = () => z.object({
   id: z.string().optional(),
   size: SizeSchema,
-  quantity: z.number().int(),
+  quantity: z.number().int().optional(),
   product: z.lazy(() => ProductCreateNestedOneWithoutSizesInputObjectSchema)
 }).strict();
 export const ProductSizeCreateInputObjectSchema: z.ZodType<Prisma.ProductSizeCreateInput> = makeSchema() as unknown as z.ZodType<Prisma.ProductSizeCreateInput>;

@@ -8,10 +8,10 @@ export const CartItemResultSchema = z.object({
     productId: z.string(),
     quantity: z.number().int(),
     size: SizeSchema.nullable(),
-    productDescription: z.string().nullable(),
-    productImage: z.string().nullable(),
     productName: z.string().nullable(),
     productPrice: z.number().nullable(),
+    productImage: z.string().nullable(),
+    productDescription: z.string().nullable(),
     cart: z.unknown(),
     product: z.unknown()
 }).strict();

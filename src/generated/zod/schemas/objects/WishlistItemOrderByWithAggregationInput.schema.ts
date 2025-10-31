@@ -7,8 +7,8 @@ import { WishlistItemMinOrderByAggregateInputObjectSchema as WishlistItemMinOrde
 
 const makeSchema = () => z.object({
   id: SortOrderSchema.optional(),
-  productId: SortOrderSchema.optional(),
   wishlistId: SortOrderSchema.optional(),
+  productId: SortOrderSchema.optional(),
   _count: z.lazy(() => WishlistItemCountOrderByAggregateInputObjectSchema).optional(),
   _max: z.lazy(() => WishlistItemMaxOrderByAggregateInputObjectSchema).optional(),
   _min: z.lazy(() => WishlistItemMinOrderByAggregateInputObjectSchema).optional()

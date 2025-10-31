@@ -7,7 +7,7 @@ const makeSchema = () => z.object({
   orderId: z.string().optional().nullable(),
   signature: z.string().optional().nullable(),
   amount: z.number(),
-  currency: z.string(),
+  currency: z.string().optional(),
   createdAt: z.coerce.date().optional(),
   razorpayOrderId: z.string().optional().nullable(),
   razorpayPaymentId: z.string().optional().nullable(),

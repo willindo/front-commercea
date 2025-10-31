@@ -4,6 +4,7 @@ import * as z from 'zod';
 export const CategoryInputSchema = z.object({
     id: z.string(),
     name: z.string(),
+    slug: z.string(),
     products: z.array(z.unknown())
 }).strict();
 

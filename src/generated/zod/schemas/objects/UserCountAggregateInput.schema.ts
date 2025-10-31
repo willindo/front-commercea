@@ -7,6 +7,7 @@ const makeSchema = () => z.object({
   email: z.literal(true).optional(),
   password: z.literal(true).optional(),
   name: z.literal(true).optional(),
+  phone: z.literal(true).optional(),
   role: z.literal(true).optional(),
   createdAt: z.literal(true).optional(),
   updatedAt: z.literal(true).optional(),

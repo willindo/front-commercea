@@ -8,10 +8,10 @@ export const CartItemInputSchema = z.object({
     productId: z.string(),
     quantity: z.number().int(),
     size: SizeSchema.optional().nullable(),
-    productDescription: z.string().optional().nullable(),
-    productImage: z.string().optional().nullable(),
     productName: z.string().optional().nullable(),
     productPrice: z.number().optional().nullable(),
+    productImage: z.string().optional().nullable(),
+    productDescription: z.string().optional().nullable(),
     cart: z.unknown(),
     product: z.unknown()
 }).strict();

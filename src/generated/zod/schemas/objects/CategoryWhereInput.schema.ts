@@ -9,6 +9,7 @@ const categorywhereinputSchema = z.object({
   NOT: z.union([z.lazy(() => CategoryWhereInputObjectSchema), z.lazy(() => CategoryWhereInputObjectSchema).array()]).optional(),
   id: z.union([z.lazy(() => StringFilterObjectSchema), z.string()]).optional(),
   name: z.union([z.lazy(() => StringFilterObjectSchema), z.string()]).optional(),
+  slug: z.union([z.lazy(() => StringFilterObjectSchema), z.string()]).optional(),
   products: z.lazy(() => ProductListRelationFilterObjectSchema).optional()
 }).strict();
 export const CategoryWhereInputObjectSchema: z.ZodType<Prisma.CategoryWhereInput> = categorywhereinputSchema as unknown as z.ZodType<Prisma.CategoryWhereInput>;

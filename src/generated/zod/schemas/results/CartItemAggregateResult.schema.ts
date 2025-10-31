@@ -5,10 +5,10 @@ export const CartItemAggregateResultSchema = z.object({  _count: z.object({
     productId: z.number(),
     quantity: z.number(),
     size: z.number(),
-    productDescription: z.number(),
-    productImage: z.number(),
     productName: z.number(),
     productPrice: z.number(),
+    productImage: z.number(),
+    productDescription: z.number(),
     cart: z.number(),
     product: z.number()
   }).optional(),
@@ -25,18 +25,18 @@ export const CartItemAggregateResultSchema = z.object({  _count: z.object({
     cartId: z.string().nullable(),
     productId: z.string().nullable(),
     quantity: z.number().int().nullable(),
-    productDescription: z.string().nullable(),
-    productImage: z.string().nullable(),
     productName: z.string().nullable(),
-    productPrice: z.number().nullable()
+    productPrice: z.number().nullable(),
+    productImage: z.string().nullable(),
+    productDescription: z.string().nullable()
   }).nullable().optional(),
   _max: z.object({
     id: z.string().nullable(),
     cartId: z.string().nullable(),
     productId: z.string().nullable(),
     quantity: z.number().int().nullable(),
-    productDescription: z.string().nullable(),
-    productImage: z.string().nullable(),
     productName: z.string().nullable(),
-    productPrice: z.number().nullable()
+    productPrice: z.number().nullable(),
+    productImage: z.string().nullable(),
+    productDescription: z.string().nullable()
   }).nullable().optional()});

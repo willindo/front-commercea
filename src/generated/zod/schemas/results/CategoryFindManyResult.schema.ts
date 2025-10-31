@@ -3,6 +3,7 @@ export const CategoryFindManyResultSchema = z.object({
   data: z.array(z.object({
   id: z.string(),
   name: z.string(),
+  slug: z.string(),
   products: z.array(z.unknown())
 })),
   pagination: z.object({

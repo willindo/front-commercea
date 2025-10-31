@@ -1,13 +1,22 @@
 import * as z from 'zod';
 export const OrderCreateResultSchema = z.object({
   id: z.string(),
+  user: z.unknown(),
   userId: z.string(),
-  total: z.number(),
+  address: z.unknown().optional(),
+  addressId: z.string().optional(),
+  latestPaymentId: z.string().optional(),
+  items: z.array(z.unknown()),
+  totalAmount: z.number(),
   status: z.unknown(),
   paymentStatus: z.unknown(),
+  currency: z.string(),
+  shippingCost: z.number(),
+  taxAmount: z.number(),
+  discountAmount: z.number(),
   createdAt: z.date(),
   updatedAt: z.date(),
-  user: z.unknown(),
-  items: z.array(z.unknown()),
-  payments: z.array(z.unknown())
+  couponUsages: z.array(z.unknown()),
+  Payment: z.array(z.unknown()),
+  GiftCardUsage: z.array(z.unknown())
 });

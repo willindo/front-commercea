@@ -5,7 +5,7 @@ import { SizeSchema } from '../enums/Size.schema'
 const makeSchema = () => z.object({
   id: z.string().optional(),
   size: SizeSchema,
-  quantity: z.number().int()
+  quantity: z.number().int().optional()
 }).strict();
 export const ProductSizeCreateManyProductInputObjectSchema: z.ZodType<Prisma.ProductSizeCreateManyProductInput> = makeSchema() as unknown as z.ZodType<Prisma.ProductSizeCreateManyProductInput>;
 export const ProductSizeCreateManyProductInputObjectZodSchema = makeSchema();

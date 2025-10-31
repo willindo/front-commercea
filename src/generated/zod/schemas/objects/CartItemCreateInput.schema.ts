@@ -8,10 +8,10 @@ const makeSchema = () => z.object({
   id: z.string().optional(),
   quantity: z.number().int().optional(),
   size: SizeSchema.optional().nullable(),
-  productDescription: z.string().optional().nullable(),
-  productImage: z.string().optional().nullable(),
   productName: z.string().optional().nullable(),
   productPrice: z.number().optional().nullable(),
+  productImage: z.string().optional().nullable(),
+  productDescription: z.string().optional().nullable(),
   cart: z.lazy(() => CartCreateNestedOneWithoutItemsInputObjectSchema),
   product: z.lazy(() => ProductCreateNestedOneWithoutCartItemsInputObjectSchema)
 }).strict();

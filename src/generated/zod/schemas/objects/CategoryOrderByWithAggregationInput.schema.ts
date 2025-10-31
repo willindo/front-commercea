@@ -8,6 +8,7 @@ import { CategoryMinOrderByAggregateInputObjectSchema as CategoryMinOrderByAggre
 const makeSchema = () => z.object({
   id: SortOrderSchema.optional(),
   name: SortOrderSchema.optional(),
+  slug: SortOrderSchema.optional(),
   _count: z.lazy(() => CategoryCountOrderByAggregateInputObjectSchema).optional(),
   _max: z.lazy(() => CategoryMaxOrderByAggregateInputObjectSchema).optional(),
   _min: z.lazy(() => CategoryMinOrderByAggregateInputObjectSchema).optional()

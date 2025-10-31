@@ -20,10 +20,10 @@ const cartitemwhereinputSchema = z.object({
   productId: z.union([z.lazy(() => StringFilterObjectSchema), z.string()]).optional(),
   quantity: z.union([z.lazy(() => IntFilterObjectSchema), z.number().int()]).optional(),
   size: z.union([z.lazy(() => EnumSizeNullableFilterObjectSchema), SizeSchema]).optional().nullable(),
-  productDescription: z.union([z.lazy(() => StringNullableFilterObjectSchema), z.string()]).optional().nullable(),
-  productImage: z.union([z.lazy(() => StringNullableFilterObjectSchema), z.string()]).optional().nullable(),
   productName: z.union([z.lazy(() => StringNullableFilterObjectSchema), z.string()]).optional().nullable(),
   productPrice: z.union([z.lazy(() => DecimalNullableFilterObjectSchema), z.number()]).optional().nullable(),
+  productImage: z.union([z.lazy(() => StringNullableFilterObjectSchema), z.string()]).optional().nullable(),
+  productDescription: z.union([z.lazy(() => StringNullableFilterObjectSchema), z.string()]).optional().nullable(),
   cart: z.union([z.lazy(() => CartScalarRelationFilterObjectSchema), z.lazy(() => CartWhereInputObjectSchema)]).optional(),
   product: z.union([z.lazy(() => ProductScalarRelationFilterObjectSchema), z.lazy(() => ProductWhereInputObjectSchema)]).optional()
 }).strict();

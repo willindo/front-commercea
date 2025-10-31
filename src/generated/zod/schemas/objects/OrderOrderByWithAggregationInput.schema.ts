@@ -1,6 +1,7 @@
 import * as z from 'zod';
 import type { Prisma } from '@prisma/client';
 import { SortOrderSchema } from '../enums/SortOrder.schema';
+import { SortOrderInputObjectSchema as SortOrderInputObjectSchema } from './SortOrderInput.schema';
 import { OrderCountOrderByAggregateInputObjectSchema as OrderCountOrderByAggregateInputObjectSchema } from './OrderCountOrderByAggregateInput.schema';
 import { OrderAvgOrderByAggregateInputObjectSchema as OrderAvgOrderByAggregateInputObjectSchema } from './OrderAvgOrderByAggregateInput.schema';
 import { OrderMaxOrderByAggregateInputObjectSchema as OrderMaxOrderByAggregateInputObjectSchema } from './OrderMaxOrderByAggregateInput.schema';
@@ -10,9 +11,15 @@ import { OrderSumOrderByAggregateInputObjectSchema as OrderSumOrderByAggregateIn
 const makeSchema = () => z.object({
   id: SortOrderSchema.optional(),
   userId: SortOrderSchema.optional(),
-  total: SortOrderSchema.optional(),
+  addressId: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional(),
+  latestPaymentId: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional(),
+  totalAmount: SortOrderSchema.optional(),
   status: SortOrderSchema.optional(),
   paymentStatus: SortOrderSchema.optional(),
+  currency: SortOrderSchema.optional(),
+  shippingCost: SortOrderSchema.optional(),
+  taxAmount: SortOrderSchema.optional(),
+  discountAmount: SortOrderSchema.optional(),
   createdAt: SortOrderSchema.optional(),
   updatedAt: SortOrderSchema.optional(),
   _count: z.lazy(() => OrderCountOrderByAggregateInputObjectSchema).optional(),

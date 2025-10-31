@@ -6,6 +6,7 @@ import { ProductOrderByRelationAggregateInputObjectSchema as ProductOrderByRelat
 const makeSchema = () => z.object({
   id: SortOrderSchema.optional(),
   name: SortOrderSchema.optional(),
+  slug: SortOrderSchema.optional(),
   products: z.lazy(() => ProductOrderByRelationAggregateInputObjectSchema).optional()
 }).strict();
 export const CategoryOrderByWithRelationInputObjectSchema: z.ZodType<Prisma.CategoryOrderByWithRelationInput> = makeSchema() as unknown as z.ZodType<Prisma.CategoryOrderByWithRelationInput>;

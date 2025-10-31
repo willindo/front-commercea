@@ -4,8 +4,8 @@ import { StringFieldUpdateOperationsInputObjectSchema as StringFieldUpdateOperat
 
 const makeSchema = () => z.object({
   id: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
-  productId: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
-  wishlistId: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional()
+  wishlistId: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
+  productId: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional()
 }).strict();
 export const WishlistItemUncheckedUpdateManyInputObjectSchema: z.ZodType<Prisma.WishlistItemUncheckedUpdateManyInput> = makeSchema() as unknown as z.ZodType<Prisma.WishlistItemUncheckedUpdateManyInput>;
 export const WishlistItemUncheckedUpdateManyInputObjectZodSchema = makeSchema();

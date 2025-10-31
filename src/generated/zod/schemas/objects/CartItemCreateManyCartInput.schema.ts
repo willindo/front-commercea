@@ -7,10 +7,10 @@ const makeSchema = () => z.object({
   productId: z.string(),
   quantity: z.number().int().optional(),
   size: SizeSchema.optional().nullable(),
-  productDescription: z.string().optional().nullable(),
-  productImage: z.string().optional().nullable(),
   productName: z.string().optional().nullable(),
-  productPrice: z.number().optional().nullable()
+  productPrice: z.number().optional().nullable(),
+  productImage: z.string().optional().nullable(),
+  productDescription: z.string().optional().nullable()
 }).strict();
 export const CartItemCreateManyCartInputObjectSchema: z.ZodType<Prisma.CartItemCreateManyCartInput> = makeSchema() as unknown as z.ZodType<Prisma.CartItemCreateManyCartInput>;
 export const CartItemCreateManyCartInputObjectZodSchema = makeSchema();

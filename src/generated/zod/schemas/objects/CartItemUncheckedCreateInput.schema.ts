@@ -8,10 +8,10 @@ const makeSchema = () => z.object({
   productId: z.string(),
   quantity: z.number().int().optional(),
   size: SizeSchema.optional().nullable(),
-  productDescription: z.string().optional().nullable(),
-  productImage: z.string().optional().nullable(),
   productName: z.string().optional().nullable(),
-  productPrice: z.number().optional().nullable()
+  productPrice: z.number().optional().nullable(),
+  productImage: z.string().optional().nullable(),
+  productDescription: z.string().optional().nullable()
 }).strict();
 export const CartItemUncheckedCreateInputObjectSchema: z.ZodType<Prisma.CartItemUncheckedCreateInput> = makeSchema() as unknown as z.ZodType<Prisma.CartItemUncheckedCreateInput>;
 export const CartItemUncheckedCreateInputObjectZodSchema = makeSchema();

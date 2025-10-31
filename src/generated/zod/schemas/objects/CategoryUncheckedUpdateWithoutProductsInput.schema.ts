@@ -4,7 +4,8 @@ import { StringFieldUpdateOperationsInputObjectSchema as StringFieldUpdateOperat
 
 const makeSchema = () => z.object({
   id: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
-  name: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional()
+  name: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
+  slug: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional()
 }).strict();
 export const CategoryUncheckedUpdateWithoutProductsInputObjectSchema: z.ZodType<Prisma.CategoryUncheckedUpdateWithoutProductsInput> = makeSchema() as unknown as z.ZodType<Prisma.CategoryUncheckedUpdateWithoutProductsInput>;
 export const CategoryUncheckedUpdateWithoutProductsInputObjectZodSchema = makeSchema();

@@ -7,10 +7,10 @@ const makeSchema = () => z.object({
   id: z.string().optional(),
   quantity: z.number().int().optional(),
   size: SizeSchema.optional().nullable(),
-  productDescription: z.string().optional().nullable(),
-  productImage: z.string().optional().nullable(),
   productName: z.string().optional().nullable(),
   productPrice: z.number().optional().nullable(),
+  productImage: z.string().optional().nullable(),
+  productDescription: z.string().optional().nullable(),
   product: z.lazy(() => ProductCreateNestedOneWithoutCartItemsInputObjectSchema)
 }).strict();
 export const CartItemCreateWithoutCartInputObjectSchema: z.ZodType<Prisma.CartItemCreateWithoutCartInput> = makeSchema() as unknown as z.ZodType<Prisma.CartItemCreateWithoutCartInput>;

@@ -12,6 +12,7 @@ import { CategoryScalarFieldEnumSchema } from './enums/CategoryScalarFieldEnum.s
 export const CategoryFindManySelectSchema: z.ZodType<Prisma.CategorySelect> = z.object({
     id: z.boolean().optional(),
     name: z.boolean().optional(),
+    slug: z.boolean().optional(),
     products: z.boolean().optional(),
     _count: z.boolean().optional()
   }).strict() as unknown as z.ZodType<Prisma.CategorySelect>;
@@ -19,6 +20,7 @@ export const CategoryFindManySelectSchema: z.ZodType<Prisma.CategorySelect> = z.
 export const CategoryFindManySelectZodSchema = z.object({
     id: z.boolean().optional(),
     name: z.boolean().optional(),
+    slug: z.boolean().optional(),
     products: z.boolean().optional(),
     _count: z.boolean().optional()
   }).strict();

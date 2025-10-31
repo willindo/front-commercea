@@ -5,10 +5,10 @@ export const CartItemFindUniqueResultSchema = z.nullable(z.object({
   productId: z.string(),
   quantity: z.number().int(),
   size: z.unknown().optional(),
-  productDescription: z.string().optional(),
-  productImage: z.string().optional(),
   productName: z.string().optional(),
   productPrice: z.number().optional(),
+  productImage: z.string().optional(),
+  productDescription: z.string().optional(),
   cart: z.unknown(),
   product: z.unknown()
 }));

@@ -3,10 +3,11 @@ import type { Prisma } from '@prisma/client';
 
 
 const makeSchema = () => z.object({
+  sizes: z.boolean().optional(),
   cartItems: z.boolean().optional(),
   orderItems: z.boolean().optional(),
-  sizes: z.boolean().optional(),
-  wishlistItems: z.boolean().optional()
+  wishlistItems: z.boolean().optional(),
+  reviews: z.boolean().optional()
 }).strict();
 export const ProductCountOutputTypeSelectObjectSchema: z.ZodType<Prisma.ProductCountOutputTypeSelect> = makeSchema() as unknown as z.ZodType<Prisma.ProductCountOutputTypeSelect>;
 export const ProductCountOutputTypeSelectObjectZodSchema = makeSchema();

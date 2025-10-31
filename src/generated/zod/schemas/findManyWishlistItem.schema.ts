@@ -11,18 +11,18 @@ import { WishlistItemScalarFieldEnumSchema } from './enums/WishlistItemScalarFie
 
 export const WishlistItemFindManySelectSchema: z.ZodType<Prisma.WishlistItemSelect> = z.object({
     id: z.boolean().optional(),
-    productId: z.boolean().optional(),
     wishlistId: z.boolean().optional(),
-    product: z.boolean().optional(),
-    wishlist: z.boolean().optional()
+    productId: z.boolean().optional(),
+    wishlist: z.boolean().optional(),
+    product: z.boolean().optional()
   }).strict() as unknown as z.ZodType<Prisma.WishlistItemSelect>;
 
 export const WishlistItemFindManySelectZodSchema = z.object({
     id: z.boolean().optional(),
-    productId: z.boolean().optional(),
     wishlistId: z.boolean().optional(),
-    product: z.boolean().optional(),
-    wishlist: z.boolean().optional()
+    productId: z.boolean().optional(),
+    wishlist: z.boolean().optional(),
+    product: z.boolean().optional()
   }).strict();
 
 export const WishlistItemFindManySchema: z.ZodType<Prisma.WishlistItemFindManyArgs> = z.object({ select: WishlistItemFindManySelectSchema.optional(), include: WishlistItemIncludeObjectSchema.optional(), orderBy: z.union([WishlistItemOrderByWithRelationInputObjectSchema, WishlistItemOrderByWithRelationInputObjectSchema.array()]).optional(), where: WishlistItemWhereInputObjectSchema.optional(), cursor: WishlistItemWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), distinct: z.union([WishlistItemScalarFieldEnumSchema, WishlistItemScalarFieldEnumSchema.array()]).optional() }).strict() as unknown as z.ZodType<Prisma.WishlistItemFindManyArgs>;

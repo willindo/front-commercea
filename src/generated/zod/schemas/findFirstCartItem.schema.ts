@@ -15,10 +15,10 @@ export const CartItemFindFirstSelectSchema: z.ZodType<Prisma.CartItemSelect> = z
     productId: z.boolean().optional(),
     quantity: z.boolean().optional(),
     size: z.boolean().optional(),
-    productDescription: z.boolean().optional(),
-    productImage: z.boolean().optional(),
     productName: z.boolean().optional(),
     productPrice: z.boolean().optional(),
+    productImage: z.boolean().optional(),
+    productDescription: z.boolean().optional(),
     cart: z.boolean().optional(),
     product: z.boolean().optional()
   }).strict() as unknown as z.ZodType<Prisma.CartItemSelect>;
@@ -29,10 +29,10 @@ export const CartItemFindFirstSelectZodSchema = z.object({
     productId: z.boolean().optional(),
     quantity: z.boolean().optional(),
     size: z.boolean().optional(),
-    productDescription: z.boolean().optional(),
-    productImage: z.boolean().optional(),
     productName: z.boolean().optional(),
     productPrice: z.boolean().optional(),
+    productImage: z.boolean().optional(),
+    productDescription: z.boolean().optional(),
     cart: z.boolean().optional(),
     product: z.boolean().optional()
   }).strict();

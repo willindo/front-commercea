@@ -6,6 +6,7 @@ import { CategoryCountOutputTypeArgsObjectSchema as CategoryCountOutputTypeArgsO
 const makeSchema = () => z.object({
   id: z.boolean().optional(),
   name: z.boolean().optional(),
+  slug: z.boolean().optional(),
   products: z.union([z.boolean(), z.lazy(() => ProductFindManySchema)]).optional(),
   _count: z.union([z.boolean(), z.lazy(() => CategoryCountOutputTypeArgsObjectSchema)]).optional()
 }).strict();

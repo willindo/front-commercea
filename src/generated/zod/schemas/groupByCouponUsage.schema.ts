@@ -1,0 +1,13 @@
+import type { Prisma } from '@prisma/client';
+import * as z from 'zod';
+import { CouponUsageWhereInputObjectSchema as CouponUsageWhereInputObjectSchema } from './objects/CouponUsageWhereInput.schema';
+import { CouponUsageOrderByWithAggregationInputObjectSchema as CouponUsageOrderByWithAggregationInputObjectSchema } from './objects/CouponUsageOrderByWithAggregationInput.schema';
+import { CouponUsageScalarWhereWithAggregatesInputObjectSchema as CouponUsageScalarWhereWithAggregatesInputObjectSchema } from './objects/CouponUsageScalarWhereWithAggregatesInput.schema';
+import { CouponUsageScalarFieldEnumSchema } from './enums/CouponUsageScalarFieldEnum.schema';
+import { CouponUsageCountAggregateInputObjectSchema as CouponUsageCountAggregateInputObjectSchema } from './objects/CouponUsageCountAggregateInput.schema';
+import { CouponUsageMinAggregateInputObjectSchema as CouponUsageMinAggregateInputObjectSchema } from './objects/CouponUsageMinAggregateInput.schema';
+import { CouponUsageMaxAggregateInputObjectSchema as CouponUsageMaxAggregateInputObjectSchema } from './objects/CouponUsageMaxAggregateInput.schema';
+
+export const CouponUsageGroupBySchema: z.ZodType<Prisma.CouponUsageGroupByArgs> = z.object({ where: CouponUsageWhereInputObjectSchema.optional(), orderBy: z.union([CouponUsageOrderByWithAggregationInputObjectSchema, CouponUsageOrderByWithAggregationInputObjectSchema.array()]).optional(), having: CouponUsageScalarWhereWithAggregatesInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), by: z.array(CouponUsageScalarFieldEnumSchema), _count: z.union([ z.literal(true), CouponUsageCountAggregateInputObjectSchema ]).optional(), _min: CouponUsageMinAggregateInputObjectSchema.optional(), _max: CouponUsageMaxAggregateInputObjectSchema.optional() }).strict() as unknown as z.ZodType<Prisma.CouponUsageGroupByArgs>;
+
+export const CouponUsageGroupByZodSchema = z.object({ where: CouponUsageWhereInputObjectSchema.optional(), orderBy: z.union([CouponUsageOrderByWithAggregationInputObjectSchema, CouponUsageOrderByWithAggregationInputObjectSchema.array()]).optional(), having: CouponUsageScalarWhereWithAggregatesInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), by: z.array(CouponUsageScalarFieldEnumSchema), _count: z.union([ z.literal(true), CouponUsageCountAggregateInputObjectSchema ]).optional(), _min: CouponUsageMinAggregateInputObjectSchema.optional(), _max: CouponUsageMaxAggregateInputObjectSchema.optional() }).strict();

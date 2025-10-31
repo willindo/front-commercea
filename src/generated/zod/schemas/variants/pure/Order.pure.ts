@@ -5,15 +5,24 @@ import { PaymentStatusSchema } from '../../enums/PaymentStatus.schema';
 // prettier-ignore
 export const OrderModelSchema = z.object({
     id: z.string(),
+    user: z.unknown(),
     userId: z.string(),
-    total: z.number(),
+    address: z.unknown().nullable(),
+    addressId: z.string().nullable(),
+    latestPaymentId: z.string().nullable(),
+    items: z.array(z.unknown()),
+    totalAmount: z.number(),
     status: OrderStatusSchema,
     paymentStatus: PaymentStatusSchema,
+    currency: z.string(),
+    shippingCost: z.number(),
+    taxAmount: z.number(),
+    discountAmount: z.number(),
     createdAt: z.date(),
     updatedAt: z.date(),
-    user: z.unknown(),
-    items: z.array(z.unknown()),
-    payments: z.array(z.unknown())
+    couponUsages: z.array(z.unknown()),
+    Payment: z.array(z.unknown()),
+    GiftCardUsage: z.array(z.unknown())
 }).strict();
 
 export type OrderPureType = z.infer<typeof OrderModelSchema>;
