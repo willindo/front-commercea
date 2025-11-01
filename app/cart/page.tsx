@@ -1,32 +1,17 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { useCart } from "@/hooks/useCart";
-import { useCheckout } from "@/hooks/useCheckout";
 import { useProtectedRoute } from "@/hooks/useProtectedRoute";
 
 export default function CartPage() {
-  useCheckout();
   useProtectedRoute();
-  const checkout = useCheckout();
-  const { cart, isLoading, addToCart, updateItem, removeItem, clearCart } =
-    useCart();
-
-  const handleCheckout = async () => {
-    try {
-      const result = await checkout.mutateAsync();
-      console.log("Checkout result:", result);
-      alert(`Order ${result.orderId} created! Proceed to payment.`);
-      // optional: redirect to /checkout or /payment/${result.orderId}
-      window.location.href = `/checkout?order=${result.orderId}`;
-    } catch (err: any) {
-      alert(err.response?.data?.message || "Checkout failed");
-    }
-  };
+  const router = useRouter();
+  const { cart, isLoading, updateItem, removeItem, clearCart } = useCart();
 
   if (isLoading) return <p>Loading cart...</p>;
   if (!cart || cart.items.length === 0) return <p>Your cart is empty.</p>;
 
-  // ✅ Compute totals
   const totalQuantity = cart.items.reduce(
     (sum, item) => sum + item.quantity,
     0
@@ -35,6 +20,25 @@ export default function CartPage() {
     (sum, item) => sum + (item.product?.price ?? 0) * item.quantity,
     0
   );
+
+  const handleCheckout = () => {
+    // ✅ Store checkout data in sessionStorage
+    const checkoutData = {
+      items: cart.items.map((i) => ({
+        id: i.id,
+        name: i.product?.name,
+        price: i.product?.price,
+        quantity: i.quantity,
+        size: i.size,
+      })),
+      totalPrice,
+    };
+
+    sessionStorage.setItem("checkoutData", JSON.stringify(checkoutData));
+
+    // ✅ Navigate to /checkout
+    router.push("/checkout");
+  };
 
   return (
     <div className="p-6 max-w-3xl mx-auto">
@@ -48,7 +52,10 @@ export default function CartPage() {
           <div key={item.id} className="flex justify-between py-3 border-b">
             <div>
               <p className="font-medium">{item.product?.name}</p>
-              <p>Price: ₹{itemPrice}</p>
+              <p>
+                Price: ₹{itemPrice}
+                {cart.id}{" "}
+              </p>
               <p className="text-gray-500 text-sm">Subtotal: ₹{itemSubtotal}</p>
             </div>
             <div className="flex flex-col items-end gap-2">
@@ -107,9 +114,8 @@ export default function CartPage() {
           <button
             className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
             onClick={handleCheckout}
-            disabled={checkout.isPending}
           >
-            {checkout.isPending ? "Processing..." : "Checkout"}
+            CHECKOUT
           </button>
         </div>
       </div>
