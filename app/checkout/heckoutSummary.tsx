@@ -46,6 +46,7 @@ export default function CheckoutSummary({
         // include any optional fields (coupon/gift) if you support them
         // send cartId if your endpoint requires it; otherwise server picks from user session
         cartId: cart?.id,
+        address: JSON.parse(sessionStorage.getItem("checkoutAddress") || "{}"),
       });
 
       if (!checkoutResp?.orderId) {
