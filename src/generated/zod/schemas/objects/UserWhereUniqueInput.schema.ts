@@ -5,10 +5,11 @@ import type { Prisma } from '@prisma/client';
 const makeSchema = () => z.object({
   id: z.string().optional(),
   email: z.string().optional(),
-  phone: z.string().optional()
+  phone: z.string().optional(),
+  verificationToken: z.string().optional()
 }).strict().superRefine((obj, ctx) => {
         const presentTop = (k: string) => (obj as any)[k] != null;
-        const singles: string[] = ["id","email","phone"] as string[];
+        const singles: string[] = ["id","email","phone","verificationToken"] as string[];
         const groups: string[][] = [] as string[][];
 
         const anySingle = Array.isArray(singles) && singles.length > 0 ? singles.some(presentTop) : false;

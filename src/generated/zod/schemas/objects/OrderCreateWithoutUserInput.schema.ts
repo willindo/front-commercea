@@ -10,6 +10,9 @@ import { GiftCardUsageCreateNestedManyWithoutOrderInputObjectSchema as GiftCardU
 
 const makeSchema = () => z.object({
   id: z.string().optional(),
+  guestName: z.string().optional().nullable(),
+  guestEmail: z.string().optional().nullable(),
+  guestPhone: z.string().optional().nullable(),
   latestPaymentId: z.string().optional().nullable(),
   totalAmount: z.number().optional(),
   status: OrderStatusSchema.optional(),

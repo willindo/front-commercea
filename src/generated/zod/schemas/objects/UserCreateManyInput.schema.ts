@@ -9,6 +9,9 @@ const makeSchema = () => z.object({
   name: z.string().optional().nullable(),
   phone: z.string().optional().nullable(),
   role: RoleSchema.optional(),
+  isVerified: z.boolean().optional(),
+  verificationToken: z.string().optional().nullable(),
+  verificationExpiry: z.coerce.date().optional().nullable(),
   createdAt: z.coerce.date().optional(),
   updatedAt: z.coerce.date().optional()
 }).strict();

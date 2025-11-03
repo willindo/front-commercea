@@ -5,6 +5,9 @@ export const UserGroupByResultSchema = z.array(z.object({
   password: z.string(),
   name: z.string(),
   phone: z.string(),
+  isVerified: z.boolean(),
+  verificationToken: z.string(),
+  verificationExpiry: z.date(),
   createdAt: z.date(),
   updatedAt: z.date(),
   _count: z.object({
@@ -14,6 +17,9 @@ export const UserGroupByResultSchema = z.array(z.object({
     name: z.number(),
     phone: z.number(),
     role: z.number(),
+    isVerified: z.number(),
+    verificationToken: z.number(),
+    verificationExpiry: z.number(),
     createdAt: z.number(),
     updatedAt: z.number(),
     addresses: z.number(),
@@ -31,6 +37,8 @@ export const UserGroupByResultSchema = z.array(z.object({
     password: z.string().nullable(),
     name: z.string().nullable(),
     phone: z.string().nullable(),
+    verificationToken: z.string().nullable(),
+    verificationExpiry: z.date().nullable(),
     createdAt: z.date().nullable(),
     updatedAt: z.date().nullable()
   }).nullable().optional(),
@@ -40,6 +48,8 @@ export const UserGroupByResultSchema = z.array(z.object({
     password: z.string().nullable(),
     name: z.string().nullable(),
     phone: z.string().nullable(),
+    verificationToken: z.string().nullable(),
+    verificationExpiry: z.date().nullable(),
     createdAt: z.date().nullable(),
     updatedAt: z.date().nullable()
   }).nullable().optional()

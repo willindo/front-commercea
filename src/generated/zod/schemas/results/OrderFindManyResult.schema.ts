@@ -2,8 +2,11 @@ import * as z from 'zod';
 export const OrderFindManyResultSchema = z.object({
   data: z.array(z.object({
   id: z.string(),
-  user: z.unknown(),
-  userId: z.string(),
+  user: z.unknown().optional(),
+  userId: z.string().optional(),
+  guestName: z.string().optional(),
+  guestEmail: z.string().optional(),
+  guestPhone: z.string().optional(),
   address: z.unknown().optional(),
   addressId: z.string().optional(),
   latestPaymentId: z.string().optional(),

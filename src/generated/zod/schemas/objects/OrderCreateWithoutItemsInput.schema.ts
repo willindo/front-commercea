@@ -10,6 +10,9 @@ import { GiftCardUsageCreateNestedManyWithoutOrderInputObjectSchema as GiftCardU
 
 const makeSchema = () => z.object({
   id: z.string().optional(),
+  guestName: z.string().optional().nullable(),
+  guestEmail: z.string().optional().nullable(),
+  guestPhone: z.string().optional().nullable(),
   latestPaymentId: z.string().optional().nullable(),
   totalAmount: z.number().optional(),
   status: OrderStatusSchema.optional(),
@@ -20,7 +23,7 @@ const makeSchema = () => z.object({
   discountAmount: z.number().optional(),
   createdAt: z.coerce.date().optional(),
   updatedAt: z.coerce.date().optional(),
-  user: z.lazy(() => UserCreateNestedOneWithoutOrdersInputObjectSchema),
+  user: z.lazy(() => UserCreateNestedOneWithoutOrdersInputObjectSchema).optional(),
   address: z.lazy(() => AddressCreateNestedOneWithoutOrdersInputObjectSchema).optional(),
   couponUsages: z.lazy(() => CouponUsageCreateNestedManyWithoutOrderInputObjectSchema).optional(),
   Payment: z.lazy(() => PaymentCreateNestedManyWithoutOrderInputObjectSchema).optional(),

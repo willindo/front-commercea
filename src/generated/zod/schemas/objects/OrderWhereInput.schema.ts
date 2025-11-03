@@ -8,7 +8,7 @@ import { OrderStatusSchema } from '../enums/OrderStatus.schema';
 import { EnumPaymentStatusFilterObjectSchema as EnumPaymentStatusFilterObjectSchema } from './EnumPaymentStatusFilter.schema';
 import { PaymentStatusSchema } from '../enums/PaymentStatus.schema';
 import { DateTimeFilterObjectSchema as DateTimeFilterObjectSchema } from './DateTimeFilter.schema';
-import { UserScalarRelationFilterObjectSchema as UserScalarRelationFilterObjectSchema } from './UserScalarRelationFilter.schema';
+import { UserNullableScalarRelationFilterObjectSchema as UserNullableScalarRelationFilterObjectSchema } from './UserNullableScalarRelationFilter.schema';
 import { UserWhereInputObjectSchema as UserWhereInputObjectSchema } from './UserWhereInput.schema';
 import { AddressNullableScalarRelationFilterObjectSchema as AddressNullableScalarRelationFilterObjectSchema } from './AddressNullableScalarRelationFilter.schema';
 import { AddressWhereInputObjectSchema as AddressWhereInputObjectSchema } from './AddressWhereInput.schema';
@@ -22,7 +22,10 @@ const orderwhereinputSchema = z.object({
   OR: z.lazy(() => OrderWhereInputObjectSchema).array().optional(),
   NOT: z.union([z.lazy(() => OrderWhereInputObjectSchema), z.lazy(() => OrderWhereInputObjectSchema).array()]).optional(),
   id: z.union([z.lazy(() => StringFilterObjectSchema), z.string()]).optional(),
-  userId: z.union([z.lazy(() => StringFilterObjectSchema), z.string()]).optional(),
+  userId: z.union([z.lazy(() => StringNullableFilterObjectSchema), z.string()]).optional().nullable(),
+  guestName: z.union([z.lazy(() => StringNullableFilterObjectSchema), z.string()]).optional().nullable(),
+  guestEmail: z.union([z.lazy(() => StringNullableFilterObjectSchema), z.string()]).optional().nullable(),
+  guestPhone: z.union([z.lazy(() => StringNullableFilterObjectSchema), z.string()]).optional().nullable(),
   addressId: z.union([z.lazy(() => StringNullableFilterObjectSchema), z.string()]).optional().nullable(),
   latestPaymentId: z.union([z.lazy(() => StringNullableFilterObjectSchema), z.string()]).optional().nullable(),
   totalAmount: z.union([z.lazy(() => DecimalFilterObjectSchema), z.number()]).optional(),
@@ -34,7 +37,7 @@ const orderwhereinputSchema = z.object({
   discountAmount: z.union([z.lazy(() => DecimalFilterObjectSchema), z.number()]).optional(),
   createdAt: z.union([z.lazy(() => DateTimeFilterObjectSchema), z.coerce.date()]).optional(),
   updatedAt: z.union([z.lazy(() => DateTimeFilterObjectSchema), z.coerce.date()]).optional(),
-  user: z.union([z.lazy(() => UserScalarRelationFilterObjectSchema), z.lazy(() => UserWhereInputObjectSchema)]).optional(),
+  user: z.union([z.lazy(() => UserNullableScalarRelationFilterObjectSchema), z.lazy(() => UserWhereInputObjectSchema)]).optional(),
   address: z.union([z.lazy(() => AddressNullableScalarRelationFilterObjectSchema), z.lazy(() => AddressWhereInputObjectSchema)]).optional(),
   items: z.lazy(() => OrderItemListRelationFilterObjectSchema).optional(),
   couponUsages: z.lazy(() => CouponUsageListRelationFilterObjectSchema).optional(),

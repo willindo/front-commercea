@@ -4,6 +4,8 @@ import { StringFilterObjectSchema as StringFilterObjectSchema } from './StringFi
 import { StringNullableFilterObjectSchema as StringNullableFilterObjectSchema } from './StringNullableFilter.schema';
 import { EnumRoleFilterObjectSchema as EnumRoleFilterObjectSchema } from './EnumRoleFilter.schema';
 import { RoleSchema } from '../enums/Role.schema';
+import { BoolFilterObjectSchema as BoolFilterObjectSchema } from './BoolFilter.schema';
+import { DateTimeNullableFilterObjectSchema as DateTimeNullableFilterObjectSchema } from './DateTimeNullableFilter.schema';
 import { DateTimeFilterObjectSchema as DateTimeFilterObjectSchema } from './DateTimeFilter.schema';
 import { AddressListRelationFilterObjectSchema as AddressListRelationFilterObjectSchema } from './AddressListRelationFilter.schema';
 import { CartNullableScalarRelationFilterObjectSchema as CartNullableScalarRelationFilterObjectSchema } from './CartNullableScalarRelationFilter.schema';
@@ -25,6 +27,9 @@ const userwhereinputSchema = z.object({
   name: z.union([z.lazy(() => StringNullableFilterObjectSchema), z.string()]).optional().nullable(),
   phone: z.union([z.lazy(() => StringNullableFilterObjectSchema), z.string()]).optional().nullable(),
   role: z.union([z.lazy(() => EnumRoleFilterObjectSchema), RoleSchema]).optional(),
+  isVerified: z.union([z.lazy(() => BoolFilterObjectSchema), z.boolean()]).optional(),
+  verificationToken: z.union([z.lazy(() => StringNullableFilterObjectSchema), z.string()]).optional().nullable(),
+  verificationExpiry: z.union([z.lazy(() => DateTimeNullableFilterObjectSchema), z.coerce.date()]).optional().nullable(),
   createdAt: z.union([z.lazy(() => DateTimeFilterObjectSchema), z.coerce.date()]).optional(),
   updatedAt: z.union([z.lazy(() => DateTimeFilterObjectSchema), z.coerce.date()]).optional(),
   addresses: z.lazy(() => AddressListRelationFilterObjectSchema).optional(),

@@ -12,7 +12,7 @@ const paymentscalarwhereinputSchema = z.object({
   OR: z.lazy(() => PaymentScalarWhereInputObjectSchema).array().optional(),
   NOT: z.union([z.lazy(() => PaymentScalarWhereInputObjectSchema), z.lazy(() => PaymentScalarWhereInputObjectSchema).array()]).optional(),
   id: z.union([z.lazy(() => StringFilterObjectSchema), z.string()]).optional(),
-  userId: z.union([z.lazy(() => StringFilterObjectSchema), z.string()]).optional(),
+  userId: z.union([z.lazy(() => StringNullableFilterObjectSchema), z.string()]).optional().nullable(),
   orderId: z.union([z.lazy(() => StringNullableFilterObjectSchema), z.string()]).optional().nullable(),
   signature: z.union([z.lazy(() => StringNullableFilterObjectSchema), z.string()]).optional().nullable(),
   amount: z.union([z.lazy(() => DecimalFilterObjectSchema), z.number()]).optional(),

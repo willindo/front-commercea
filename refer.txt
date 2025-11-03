@@ -90,6 +90,8 @@ find /home/badsha/dev/front-commerce/app \
 /home/badsha/dev/mono-commerce/src/users \
   -type f -exec sh -c 'echo "==== {} ===="; cat "{}"; echo' \;
 
+coerce
+
 Appropriate – fitting for the situation
 
 Compatible – works well together
@@ -160,3 +162,5 @@ Next	Description	Goal
 🧰 Error/Retry Resilience	Add retry logic for upsert failures, logging for partial payments	Robust recovery
 💬 User Notifications	Trigger email/SMS/notification on successful payment	Better UX
 💡 Test → Live mode transition	Switch to live keys, update webhook secrets, enable HTTPS URLs
+
+app/admin/order/page   app/admin/analytics/page   app/dashboard/page . 

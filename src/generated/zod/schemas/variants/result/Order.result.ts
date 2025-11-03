@@ -5,8 +5,11 @@ import { PaymentStatusSchema } from '../../enums/PaymentStatus.schema';
 // prettier-ignore
 export const OrderResultSchema = z.object({
     id: z.string(),
-    user: z.unknown(),
-    userId: z.string(),
+    user: z.unknown().nullable(),
+    userId: z.string().nullable(),
+    guestName: z.string().nullable(),
+    guestEmail: z.string().nullable(),
+    guestPhone: z.string().nullable(),
     address: z.unknown().nullable(),
     addressId: z.string().nullable(),
     latestPaymentId: z.string().nullable(),

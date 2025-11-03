@@ -4,7 +4,7 @@ import { PaymentStatusSchema } from '../../enums/PaymentStatus.schema';
 // prettier-ignore
 export const PaymentInputSchema = z.object({
     id: z.string(),
-    userId: z.string(),
+    userId: z.string().optional().nullable(),
     orderId: z.string().optional().nullable(),
     signature: z.string().optional().nullable(),
     amount: z.number(),
@@ -13,7 +13,7 @@ export const PaymentInputSchema = z.object({
     razorpayOrderId: z.string().optional().nullable(),
     razorpayPaymentId: z.string().optional().nullable(),
     status: PaymentStatusSchema,
-    user: z.unknown(),
+    user: z.unknown().optional().nullable(),
     order: z.unknown().optional().nullable()
 }).strict();
 

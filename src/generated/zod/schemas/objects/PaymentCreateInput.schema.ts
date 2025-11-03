@@ -13,7 +13,7 @@ const makeSchema = () => z.object({
   razorpayOrderId: z.string().optional().nullable(),
   razorpayPaymentId: z.string().optional().nullable(),
   status: PaymentStatusSchema.optional(),
-  user: z.lazy(() => UserCreateNestedOneWithoutPaymentsInputObjectSchema),
+  user: z.lazy(() => UserCreateNestedOneWithoutPaymentsInputObjectSchema).optional(),
   order: z.lazy(() => OrderCreateNestedOneWithoutPaymentInputObjectSchema).optional()
 }).strict();
 export const PaymentCreateInputObjectSchema: z.ZodType<Prisma.PaymentCreateInput> = makeSchema() as unknown as z.ZodType<Prisma.PaymentCreateInput>;

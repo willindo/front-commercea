@@ -7,7 +7,7 @@ import { OrderOrderByWithRelationInputObjectSchema as OrderOrderByWithRelationIn
 
 const makeSchema = () => z.object({
   id: SortOrderSchema.optional(),
-  userId: SortOrderSchema.optional(),
+  userId: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional(),
   orderId: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional(),
   signature: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional(),
   amount: SortOrderSchema.optional(),

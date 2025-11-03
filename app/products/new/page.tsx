@@ -47,12 +47,13 @@ export default function NewProductPage() {
   };
 
   const onSubmit = async (values: CreateProductDto) => {
-      const gender = values.gender || null;
+    const gender = values.gender || null;
     const sizes = Object.entries(sizeQuantities)
       .filter(([_, qty]) => qty > 0)
       .map(([size, quantity]) => ({ size: size as Size, quantity }));
+    const totalStock = Object.values(sizeQuantities).reduce((a, b) => a + b, 0);
 
-    await mutateAsync({ ...values, sizes });
+    await mutateAsync({ ...values, sizes, stock: totalStock });
     router.push("/products");
     router.refresh();
   };

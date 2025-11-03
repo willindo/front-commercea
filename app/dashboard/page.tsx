@@ -24,10 +24,16 @@ export default function DashboardPage() {
       {user.role === "ADMIN" ? (
         <div className="grid grid-cols-2 gap-4 mt-6">
           <Link
-            href="/users"
+            href="/admin/orders"
             className="p-6 border rounded bg-gray-50 hover:bg-gray-100"
           >
-            Manage Users
+            Manage Orders
+          </Link>
+          <Link
+            href="/admin/analytics"
+            className="p-6 border rounded bg-gray-50 hover:bg-gray-100"
+          >
+            View Analytics
           </Link>
           <Link
             href="/admin/products"

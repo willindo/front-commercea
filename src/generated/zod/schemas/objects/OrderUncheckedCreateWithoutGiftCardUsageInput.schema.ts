@@ -8,7 +8,10 @@ import { PaymentUncheckedCreateNestedManyWithoutOrderInputObjectSchema as Paymen
 
 const makeSchema = () => z.object({
   id: z.string().optional(),
-  userId: z.string(),
+  userId: z.string().optional().nullable(),
+  guestName: z.string().optional().nullable(),
+  guestEmail: z.string().optional().nullable(),
+  guestPhone: z.string().optional().nullable(),
   addressId: z.string().optional().nullable(),
   latestPaymentId: z.string().optional().nullable(),
   totalAmount: z.number().optional(),

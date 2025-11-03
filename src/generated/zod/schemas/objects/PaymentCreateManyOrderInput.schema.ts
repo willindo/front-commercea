@@ -4,7 +4,7 @@ import { PaymentStatusSchema } from '../enums/PaymentStatus.schema'
 
 const makeSchema = () => z.object({
   id: z.string().optional(),
-  userId: z.string(),
+  userId: z.string().optional().nullable(),
   signature: z.string().optional().nullable(),
   amount: z.number(),
   currency: z.string().optional(),

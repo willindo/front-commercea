@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { api } from "@/lib/api/axios"; // adjust import path if needed
+import { api } from "@/lib/api/axios";
 import ConfirmButton from "./ConfirmButton";
 import { useCart } from "@/hooks/useCart";
 
@@ -25,9 +25,27 @@ export default function CheckoutSummary({
     totalPrice: number;
   };
 }) {
-  console.log("Checkout data:", checkoutData);
   const [loading, setLoading] = useState(false);
+  const [user, setUser] = useState<any>(null); // will hold logged-in user or null
+  const [guest, setGuest] = useState({
+    name: "",
+    email: "",
+    contact: "",
+  });
   const { cart } = useCart();
+
+  // Try fetching user info from backend (JWT authenticated)
+  useEffect(() => {
+    (async () => {
+      try {
+        const res = await api.get("/auth/me"); // backend route returns {id, name, email, phone}
+        setUser(res.data);
+      } catch {
+        setUser(null); // not logged in
+      }
+    })();
+  }, []);
+
   const handlePayment = async () => {
     try {
       setLoading(true);
@@ -40,90 +58,81 @@ export default function CheckoutSummary({
       // ---------------------------
       // STEP A: Create internal order
       // ---------------------------
-      // The backend startCheckout uses the user's cart (server-side) and returns orderId & finalAmount.
-      // If your /checkout endpoint accepts coupon/gift fields, include them here if needed.
       let checkoutResp;
       try {
         const res = await api.post("/checkout", {
-          // If your backend expects anything in body, pass it.
-          // The controller currently ignores the body and uses server cart for userId,
-          // but sending an empty object is OK.
           cartId: cart?.id,
-          // totalAmount,
+          customer: user
+            ? undefined
+            : {
+                name: guest.name,
+                email: guest.email,
+                contact: guest.contact,
+              },
         });
-        console.log("Checkout response:", res.data);
         checkoutResp = res.data;
       } catch (err: any) {
-        console.error(
-          "Failed to create internal order (/checkout)",
-          err?.response?.data ?? err
+        console.error("Failed to create internal order:", err);
+        throw new Error(
+          err?.response?.data?.message || "Failed to create internal order"
         );
-        const msg =
-          err?.response?.data?.message ||
-          err?.message ||
-          "Failed to create internal order";
-        throw new Error(msg);
       }
 
       const internalOrderId = checkoutResp.orderId;
       const finalAmount = checkoutResp.finalAmount;
 
       if (!internalOrderId || finalAmount == null) {
-        console.error("Unexpected /checkout response:", checkoutResp);
-        throw new Error("Invalid response from server when creating order");
+        throw new Error("Invalid response from /checkout");
       }
 
       // ---------------------------
-      // STEP B: Create Razorpay order linked to internal order
+      // STEP B: Create Razorpay order
       // ---------------------------
-      // PaymentsController expects { orderId, amount }
       let rpOrder;
       try {
-        // amount parameter expected in rupees by your PaymentsController.createOrder
-        // createOrderForInternalOrder converts to paise internally.
         const { data } = await api.post("/payments/create-order", {
           orderId: internalOrderId,
           amount: finalAmount,
         });
         rpOrder = data;
       } catch (err: any) {
-        console.error(
-          "Failed creating razorpay order (/payments/create-order)",
-          err?.response?.data ?? err
+        throw new Error(
+          err?.response?.data?.message ||
+            err?.message ||
+            "Failed to create Razorpay order"
         );
-        const serverMsg =
-          err?.response?.data?.message || err?.response?.data || err?.message;
-        throw new Error(serverMsg || "Failed to create Razorpay order");
       }
 
-      // rpOrder should contain razorpayOrderId or id depending on implementation.
-      // Your PaymentsService returns { razorpayOrderId, amount, currency }
       const razorpayOrderId =
         rpOrder.razorpayOrderId ?? rpOrder.id ?? rpOrder.order_id;
       const rpAmount =
         rpOrder.amount ?? rpOrder.amountInPaise ?? finalAmount * 100;
       const rpCurrency = rpOrder.currency ?? "INR";
 
-      if (!razorpayOrderId) {
-        console.error("Unexpected payments/create-order response:", rpOrder);
-        throw new Error("Invalid response from payments/create-order");
-      }
-
       // ---------------------------
       // STEP C: Open Razorpay checkout
       // ---------------------------
+      const prefillUser = user
+        ? {
+            name: user.name || "User",
+            email: user.email || "",
+            contact: user.phone || "",
+          }
+        : {
+            name: guest.name || "Guest",
+            email: guest.email || "",
+            contact: guest.contact || "",
+          };
+
       const options = {
         key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID!,
-        amount: rpAmount, // amount in paise
+        amount: rpAmount,
         currency: rpCurrency,
         name: "Front Commerce",
         description: "Order Payment",
         order_id: razorpayOrderId,
-        // pass internal order id in notes or handler payload as needed
-        // (Razorpay will return razorpay_order_id + razorpay_payment_id + razorpay_signature)
         handler: async function (response: any) {
           try {
-            // Add internal order id to the verify payload
             const payload = {
               orderId: internalOrderId,
               razorpay_order_id: response.razorpay_order_id,
@@ -137,26 +146,17 @@ export default function CheckoutSummary({
             );
 
             if (verify.success) {
-              // Clear checkout state and redirect to order success
               sessionStorage.removeItem("checkoutData");
               window.location.href = `/orders/${internalOrderId}?status=success`;
             } else {
-              console.error("Verification returned false:", verify);
               alert("Payment verification failed on server.");
             }
-          } catch (err: any) {
-            console.error(
-              "Error verifying payment:",
-              err?.response?.data ?? err
-            );
+          } catch (err) {
+            console.error("Error verifying payment:", err);
             alert("Payment verification failed.");
           }
         },
-        prefill: {
-          name: "Badsha Noordeen",
-          email: "badsha@example.com",
-          contact: "9999999999",
-        },
+        prefill: prefillUser,
         theme: { color: "#3399cc" },
       };
 
@@ -176,12 +176,7 @@ export default function CheckoutSummary({
       }
     } catch (err: any) {
       console.error("Payment initiation failed:", err);
-      // show the server message if provided
-      const userMsg =
-        err?.response?.data?.message ||
-        err?.message ||
-        "Payment initiation failed";
-      alert(userMsg);
+      alert(err?.message || "Payment initiation failed");
     } finally {
       setLoading(false);
     }
@@ -209,6 +204,33 @@ export default function CheckoutSummary({
           <span>₹{checkoutData.totalPrice}</span>
         </div>
       </div>
+
+      {!user && (
+        <div className="space-y-2 border p-3 rounded-md bg-white">
+          <h3 className="font-semibold text-gray-700">Guest Checkout</h3>
+          <input
+            type="text"
+            placeholder="Full name"
+            value={guest.name}
+            onChange={(e) => setGuest({ ...guest, name: e.target.value })}
+            className="border p-2 rounded w-full"
+          />
+          <input
+            type="email"
+            placeholder="Email"
+            value={guest.email}
+            onChange={(e) => setGuest({ ...guest, email: e.target.value })}
+            className="border p-2 rounded w-full"
+          />
+          <input
+            type="tel"
+            placeholder="Phone number"
+            value={guest.contact}
+            onChange={(e) => setGuest({ ...guest, contact: e.target.value })}
+            className="border p-2 rounded w-full"
+          />
+        </div>
+      )}
 
       <ConfirmButton onClick={handlePayment} loading={loading} />
     </div>

@@ -8,7 +8,7 @@ import { EnumOrderStatusFieldUpdateOperationsInputObjectSchema as EnumOrderStatu
 import { PaymentStatusSchema } from '../enums/PaymentStatus.schema';
 import { EnumPaymentStatusFieldUpdateOperationsInputObjectSchema as EnumPaymentStatusFieldUpdateOperationsInputObjectSchema } from './EnumPaymentStatusFieldUpdateOperationsInput.schema';
 import { DateTimeFieldUpdateOperationsInputObjectSchema as DateTimeFieldUpdateOperationsInputObjectSchema } from './DateTimeFieldUpdateOperationsInput.schema';
-import { UserUpdateOneRequiredWithoutOrdersNestedInputObjectSchema as UserUpdateOneRequiredWithoutOrdersNestedInputObjectSchema } from './UserUpdateOneRequiredWithoutOrdersNestedInput.schema';
+import { UserUpdateOneWithoutOrdersNestedInputObjectSchema as UserUpdateOneWithoutOrdersNestedInputObjectSchema } from './UserUpdateOneWithoutOrdersNestedInput.schema';
 import { AddressUpdateOneWithoutOrdersNestedInputObjectSchema as AddressUpdateOneWithoutOrdersNestedInputObjectSchema } from './AddressUpdateOneWithoutOrdersNestedInput.schema';
 import { CouponUsageUpdateManyWithoutOrderNestedInputObjectSchema as CouponUsageUpdateManyWithoutOrderNestedInputObjectSchema } from './CouponUsageUpdateManyWithoutOrderNestedInput.schema';
 import { PaymentUpdateManyWithoutOrderNestedInputObjectSchema as PaymentUpdateManyWithoutOrderNestedInputObjectSchema } from './PaymentUpdateManyWithoutOrderNestedInput.schema';
@@ -16,6 +16,9 @@ import { GiftCardUsageUpdateManyWithoutOrderNestedInputObjectSchema as GiftCardU
 
 const makeSchema = () => z.object({
   id: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
+  guestName: z.union([z.string(), z.lazy(() => NullableStringFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
+  guestEmail: z.union([z.string(), z.lazy(() => NullableStringFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
+  guestPhone: z.union([z.string(), z.lazy(() => NullableStringFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
   latestPaymentId: z.union([z.string(), z.lazy(() => NullableStringFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
   totalAmount: z.union([z.number(), z.lazy(() => DecimalFieldUpdateOperationsInputObjectSchema)]).optional(),
   status: z.union([OrderStatusSchema, z.lazy(() => EnumOrderStatusFieldUpdateOperationsInputObjectSchema)]).optional(),
@@ -26,7 +29,7 @@ const makeSchema = () => z.object({
   discountAmount: z.union([z.number(), z.lazy(() => DecimalFieldUpdateOperationsInputObjectSchema)]).optional(),
   createdAt: z.union([z.coerce.date(), z.lazy(() => DateTimeFieldUpdateOperationsInputObjectSchema)]).optional(),
   updatedAt: z.union([z.coerce.date(), z.lazy(() => DateTimeFieldUpdateOperationsInputObjectSchema)]).optional(),
-  user: z.lazy(() => UserUpdateOneRequiredWithoutOrdersNestedInputObjectSchema).optional(),
+  user: z.lazy(() => UserUpdateOneWithoutOrdersNestedInputObjectSchema).optional(),
   address: z.lazy(() => AddressUpdateOneWithoutOrdersNestedInputObjectSchema).optional(),
   couponUsages: z.lazy(() => CouponUsageUpdateManyWithoutOrderNestedInputObjectSchema).optional(),
   Payment: z.lazy(() => PaymentUpdateManyWithoutOrderNestedInputObjectSchema).optional(),

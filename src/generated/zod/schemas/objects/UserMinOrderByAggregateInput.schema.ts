@@ -9,6 +9,9 @@ const makeSchema = () => z.object({
   name: SortOrderSchema.optional(),
   phone: SortOrderSchema.optional(),
   role: SortOrderSchema.optional(),
+  isVerified: SortOrderSchema.optional(),
+  verificationToken: SortOrderSchema.optional(),
+  verificationExpiry: SortOrderSchema.optional(),
   createdAt: SortOrderSchema.optional(),
   updatedAt: SortOrderSchema.optional()
 }).strict();

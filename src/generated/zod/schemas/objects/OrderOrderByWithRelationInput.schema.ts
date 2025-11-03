@@ -11,7 +11,10 @@ import { GiftCardUsageOrderByRelationAggregateInputObjectSchema as GiftCardUsage
 
 const makeSchema = () => z.object({
   id: SortOrderSchema.optional(),
-  userId: SortOrderSchema.optional(),
+  userId: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional(),
+  guestName: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional(),
+  guestEmail: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional(),
+  guestPhone: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional(),
   addressId: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional(),
   latestPaymentId: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional(),
   totalAmount: SortOrderSchema.optional(),

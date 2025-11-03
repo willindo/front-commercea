@@ -2,7 +2,7 @@ import * as z from 'zod';
 export const PaymentFindManyResultSchema = z.object({
   data: z.array(z.object({
   id: z.string(),
-  userId: z.string(),
+  userId: z.string().optional(),
   orderId: z.string().optional(),
   signature: z.string().optional(),
   amount: z.number(),
@@ -11,7 +11,7 @@ export const PaymentFindManyResultSchema = z.object({
   razorpayOrderId: z.string().optional(),
   razorpayPaymentId: z.string().optional(),
   status: z.unknown(),
-  user: z.unknown(),
+  user: z.unknown().optional(),
   order: z.unknown().optional()
 })),
   pagination: z.object({
