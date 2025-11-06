@@ -46,7 +46,21 @@ export default function CheckoutSummary({
         // include any optional fields (coupon/gift) if you support them
         // send cartId if your endpoint requires it; otherwise server picks from user session
         cartId: cart?.id,
-        address: JSON.parse(sessionStorage.getItem("checkoutAddress") || "{}"),
+        address: (() => {
+          const raw = JSON.parse(
+            sessionStorage.getItem("checkoutAddress") || "{}"
+          );
+          return {
+            line1: raw.addressLine1,
+            line2: raw.addressLine2 ?? "",
+            city: raw.city,
+            state: raw.state,
+            postalCode: raw.pincode,
+            country: "India",
+          };
+        })(),
+        items: cart?.items,
+        paymentMethod: "razorpay", // ✅ required
       });
 
       if (!checkoutResp?.orderId) {

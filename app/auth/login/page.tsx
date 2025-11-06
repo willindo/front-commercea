@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { useAuth } from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import toast from "react-hot-toast";
 
 type LoginForm = {
   email: string;
@@ -26,7 +27,12 @@ export default function LoginPage() {
     setLoading(true);
     setServerError(null);
     try {
-      await login(data);
+      const user = await login(data); // 👈 user now returned from login()
+
+      if (!user.isVerified) {
+        toast("Please verify your email for full access.");
+      }
+
       router.push("/dashboard");
     } catch (err: any) {
       setServerError(err.response?.data?.message || "Invalid credentials");

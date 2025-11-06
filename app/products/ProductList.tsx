@@ -14,7 +14,7 @@ export default function ProductList() {
     <div className="p-6">
       <h1 className="text-2xl font-semibold mb-4">Products</h1>
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-        {data.data.map((p) => (
+        {data.items.map((p) => (
           <div key={p.id} className="border rounded-lg p-4">
             <h2 className="font-bold">{p.name}</h2>
             <p>₹{p.price}</p>

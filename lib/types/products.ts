@@ -37,3 +37,12 @@ export type CreateProductDto = z.infer<typeof CreateProductSchema>;
 export type UpdateProductDto = z.infer<typeof UpdateProductSchema>;
 export type Size = z.infer<typeof SizeEnum>;
 export type Gender = z.infer<typeof GenderEnum>;
+
+// ✅ Unified paginated response type (matches backend)
+export type PaginatedProducts = {
+  items: Product[]; // 🔹 changed `data` → `items` for clarity
+  total: number;
+  page: number;
+  limit: number;
+  hasNextPage?: boolean; // optional convenience field
+};

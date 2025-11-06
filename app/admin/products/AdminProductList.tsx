@@ -36,7 +36,7 @@ export default function AdminProductList() {
           </tr>
         </thead>
         <tbody>
-          {data.data.map((p) => (
+          {data.items.map((p) => (
             <tr key={p.id} className="border-t">
               <td className="p-2">{p.name}</td>
               <td className="p-2">₹{p.price}</td>

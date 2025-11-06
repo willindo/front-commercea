@@ -1,0 +1,15 @@
+Filter & Pagination Enhancements (Production-Ready)
+
+Full URL-state sync: ?page=2&sort=price-asc&color=red — shareable, refresh-safe, and back/forward compatible
+
+SSR prefill for filters and products — correct state shown instantly before hydration, SEO-friendly with canonical URLs
+
+Shallow routing with diff-based updates to avoid full rerenders or infinite loops
+
+Debounced URL updates for smooth UX
+
+Page reset on filter change, but preserved during normal navigation
+
+React Query caching in useProducts() for efficient data reuse
+
+Optimized rendering using React.memo and useCallback for large filter lists

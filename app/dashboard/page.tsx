@@ -4,6 +4,7 @@ import { useProtectedRoute } from "@/hooks/useProtectedRoute";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import Link from "next/link";
+import { ResendVerificationButton } from "@/components/RecentVerificationButton";
 
 export default function DashboardPage() {
   const { user, loading } = useProtectedRoute();
@@ -47,6 +48,12 @@ export default function DashboardPage() {
           <Link href="/orders" className="text-blue-600 underline">
             View My Orders
           </Link>
+        </div>
+      )}
+      {!user.isVerified && (
+        <div className="bg-yellow-100 text-yellow-800 border p-3 rounded-md mt-6">
+          Your email is not verified.
+          <ResendVerificationButton />
         </div>
       )}
     </div>

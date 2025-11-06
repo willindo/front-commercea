@@ -1,21 +1,44 @@
 import { api } from "./axios";
+import { PaginatedProducts } from "@/lib/types/products";
 import {
   CreateProductDto,
   UpdateProductDto,
   Product,
 } from "@/lib/types/products";
 
-export type PaginatedProducts = {
-  data: Product[];
-  total: number;
-  page: number;
-  limit: number;
-};
-
 export const productsApi = {
-  async getAll(page = 1, limit = 10): Promise<PaginatedProducts> {
-    const res = await api.get(`/products`, { params: { page, limit } });
-    return res.data;
+  async getAll(
+    page: number = 1,
+    limit: number = 10,
+    params?: Record<string, string[] | string>
+  ): Promise<PaginatedProducts> {
+    const query = new URLSearchParams({
+      page: String(page),
+      limit: String(limit),
+    });
+
+    if (params) {
+      Object.entries(params).forEach(([key, val]) => {
+        if (Array.isArray(val)) {
+          val.forEach((v) => query.append(key, v));
+        } else if (val) {
+          query.set(key, String(val));
+        }
+      });
+    }
+
+    const { data } = await api.get(`/products?${query.toString()}`);
+
+    return {
+      items: data.items || data.data || [],
+      total: data.total ?? 0,
+      page: data.page ?? page,
+      limit: data.limit ?? limit,
+      hasNextPage:
+        data.total && data.limit
+          ? data.page * data.limit < data.total
+          : data.hasNextPage ?? false,
+    };
   },
 
   async getOne(id: string): Promise<Product> {

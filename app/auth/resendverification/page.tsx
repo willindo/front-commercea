@@ -1,5 +1,5 @@
 "use client";
-// apps/frontend/pages/resend-verification.tsx
+import { api } from "@/lib/api/axios";
 import { useState } from "react";
 
 export default function ResendVerification() {
@@ -12,18 +12,14 @@ export default function ResendVerification() {
     setStatus("loading");
     setMessage("");
 
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/auth/resend-verification`,
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email }),
-      }
-    );
-
-    const data = await res.json();
-    setStatus("done");
-    setMessage(data.message || "Check your inbox.");
+    try {
+      const res = await api.post("/auth/resend-verification", { email });
+      setMessage(res.data.message || "Check your inbox.");
+    } catch (err: any) {
+      setMessage(err.response?.data?.message || "Failed to send email");
+    } finally {
+      setStatus("done");
+    }
   };
 
   return (

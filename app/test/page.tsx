@@ -6,9 +6,6 @@ import Filters from "@/components/shop/Filters";
 import { useProducts } from "@/hooks/useProducts";
 import ProductCard from "@/components/shop/ProductCard";
 import { useCart } from "@/hooks/useCart";
-import SortSelect from "@/components/shop/SortSelect";
-
-export const dynamic = "force-dynamic";
 
 export default function ProductsPage() {
   const router = useRouter();
@@ -24,7 +21,6 @@ export default function ProductsPage() {
     return obj;
   }, [searchParams]);
 
-  const sort = searchParams.get("sort") || "";
   const [filters, setFilters] =
     useState<Record<string, string[]>>(currentFilters);
   const [page, setPage] = useState(1);
@@ -46,17 +42,10 @@ export default function ProductsPage() {
       Object.entries(filters).forEach(([key, vals]) =>
         vals.forEach((v) => params.append(key, v))
       );
-
-      // append sorting
-      if (sort) params.set("sort", sort);
-
-      // append pagination
-      if (page > 1) params.set("page", String(page));
-
-      router.replace(`?${params.toString()}`, { scroll: false });
+      router.replace(`?${params.toString()}`);
     }, 300);
     return () => clearTimeout(id);
-  }, [filters, router, sort, page]);
+  }, [filters, router]);
 
   const handleFiltersChange = useCallback(
     (newFilters: Record<string, string[]>) => {
@@ -65,19 +54,9 @@ export default function ProductsPage() {
     },
     []
   );
-  // 🔹 Sort update handler — controlled by SortSelect
-  const handleSortChange = (newSort: string) => {
-    const params = new URLSearchParams(searchParams);
-    if (newSort) params.set("sort", newSort);
-    else params.delete("sort");
-    router.push(`?${params.toString()}`);
-  };
 
   // 🔹 Fetch products
-  const { data, isLoading, isError } = useProducts(page, limit, {
-    ...filters,
-    sort,
-  });
+  const { data, isLoading, isError } = useProducts(page, limit, filters);
   const products = data?.items || [];
   const total = data?.total || 0;
   const totalPages = Math.ceil(total / limit);
@@ -110,18 +89,18 @@ export default function ProductsPage() {
         <p className="text-sm text-gray-600 mb-6">
           Current filters: {JSON.stringify(filters)}
         </p>
-        <SortSelect />
+
         {isLoading && <p>Loading...</p>}
         {/* Product Grid */}
         <main className="md:col-span-3">
           <div className="flex justify-between items-center mb-4">
             <h1 className="text-xl font-bold">🛍️ Shop Products</h1>
             <div className="flex items-center gap-4">
-              {/* <select className="border p-2 rounded">
+              <select className="border p-2 rounded">
                 <option>Sort: Newest</option>
                 <option>Price: Low → High</option>
                 <option>Price: High → Low</option>
-              </select> */}
+              </select>
               <button
                 className="relative bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
                 onClick={() => setCartOpen(!cartOpen)}

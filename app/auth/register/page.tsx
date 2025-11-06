@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { useAuth } from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import toast from "react-hot-toast";
 
 type RegisterForm = {
   email: string;
@@ -29,6 +30,7 @@ export default function RegisterPage() {
     try {
       await registerUser(data);
       router.push("/dashboard"); // redirect to authenticated area
+      toast.success("Welcome! Check your email to verify your account.");
     } catch (err: any) {
       // Expect backend to return message in err.response.data.message
       setServerError(err.response?.data?.message || "Registration failed");

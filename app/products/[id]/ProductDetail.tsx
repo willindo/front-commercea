@@ -6,7 +6,7 @@ export default function ProductDetail({ id }: { id: string }) {
   const { data, isLoading } = useProduct(id);
 
   if (isLoading) return <p>Loading...</p>;
-  if (!data) return <p>Product not found.</p>;
+  if (!data) return <p>Product not found</p>;
 
   return (
     <div className="p-6">

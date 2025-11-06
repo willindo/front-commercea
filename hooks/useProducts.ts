@@ -1,15 +1,28 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { productsApi, PaginatedProducts } from "@/lib/api/products";
+import { productsApi } from "@/lib/api/products";
 import {
   CreateProductDto,
   UpdateProductDto,
+  PaginatedProducts,
   Product,
 } from "@/lib/types/products";
 
-export function useProducts(page = 1, limit = 10) {
+/**
+ * Enhanced useProducts hook
+ * - Supports pagination
+ * - Supports optional filters
+ * - Backward compatible with existing calls (no breaking changes)
+ */
+
+export function useProducts(
+  page = 1,
+  limit = 10,
+  params?: Record<string, string[] | string>
+) {
   return useQuery<PaginatedProducts>({
-    queryKey: ["products", page, limit],
-    queryFn: () => productsApi.getAll(page, limit),
+    queryKey: ["products", page, limit, params],
+    queryFn: () => productsApi.getAll(page, limit, params),
+    // keepPreviousData: true, // ✅ Smooth pagination transitions
   });
 }
 

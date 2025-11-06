@@ -13,7 +13,7 @@ type AuthContextValue = {
     password: string;
     name?: string;
   }) => Promise<void>;
-  login: (d: { email: string; password: string }) => Promise<void>;
+  login: (d: { email: string; password: string }) => Promise<User>; // ✅ FIX
   logout: () => Promise<void>;
 };
 
@@ -81,11 +81,15 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   const login = async (data: { email: string; password: string }) => {
-    await api.post("/auth/login", data);
-    const res = await api.get("/auth/me");
-    setUser(res.data.user);
-    localStorage.setItem("user", JSON.stringify(res.data.user));
-    router.replace("/"); // stay or navigate as needed
+    const loginRes = await api.post("/auth/login", data);
+    const meRes = await api.get("/auth/me");
+
+    const loggedInUser = meRes.data.user;
+    localStorage.setItem("token", loginRes.data.token);
+    localStorage.setItem("user", JSON.stringify(loggedInUser));
+    setUser(loggedInUser);
+
+    return loggedInUser; // ✅ return actual updated user
   };
 
   const logout = async () => {

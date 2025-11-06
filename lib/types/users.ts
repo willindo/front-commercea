@@ -6,6 +6,7 @@ export type User = {
   email: string;
   name?: string | null;
   role: Role;
+  isVerified?: boolean;
   createdAt: string; // Prisma DateTime -> ISO string
   updatedAt?: string; // optional if you include it later
 };
