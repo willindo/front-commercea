@@ -13,3 +13,12 @@ Page reset on filter change, but preserved during normal navigation
 React Query caching in useProducts() for efficient data reuse
 
 Optimized rendering using React.memo and useCallback for large filter lists
+
+
+| Layer              | File                          | Purpose                              | Sort status                       |
+| ------------------ | ----------------------------- | ------------------------------------ | --------------------------------- |
+| **Backend**        | `/products` endpoint (NestJS) | Supports `?sort=price-asc`           | must already sort in Prisma query |
+| **API Client**     | `productsApi.getAll()`        | Builds query params                  | ✅ now supports `sort`             |
+| **Hook**           | `useProducts()`               | React Query fetch wrapper            | ✅ already compatible              |
+| **Page Component** | `ProductsPage`                | Collects filters + sort + pagination | ✅ fully integrated                |
+| **UI**             | `SortSelect`                  | Updates `?sort=` in URL              | ✅ works fine                      |

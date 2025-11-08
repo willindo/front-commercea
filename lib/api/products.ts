@@ -1,15 +1,15 @@
 import { api } from "./axios";
-import { PaginatedProducts } from "@/lib/types/products";
 import {
   CreateProductDto,
   UpdateProductDto,
   Product,
+  PaginatedProducts,
 } from "@/lib/types/products";
 
 export const productsApi = {
   async getAll(
-    page: number = 1,
-    limit: number = 10,
+    page = 1,
+    limit = 10,
     params?: Record<string, string[] | string>
   ): Promise<PaginatedProducts> {
     const query = new URLSearchParams({
@@ -19,18 +19,15 @@ export const productsApi = {
 
     if (params) {
       Object.entries(params).forEach(([key, val]) => {
-        if (Array.isArray(val)) {
-          val.forEach((v) => query.append(key, v));
-        } else if (val) {
-          query.set(key, String(val));
-        }
+        if (Array.isArray(val)) val.forEach((v) => query.append(key, v));
+        else if (val) query.set(key, String(val));
       });
     }
 
     const { data } = await api.get(`/products?${query.toString()}`);
 
     return {
-      items: data.items || data.data || [],
+      items: data.data || data.items || [],
       total: data.total ?? 0,
       page: data.page ?? page,
       limit: data.limit ?? limit,

@@ -5,6 +5,7 @@ import "./globals.css";
 import ClientLayout from "@/components/ClientLayout";
 import Nav from "@/components/Nav";
 import Script from "next/script";
+import ProductSearch from "@/components/ProductSearch";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -33,6 +34,7 @@ export default function RootLayout({
       >
         <ClientLayout>
           <Nav />
+          <ProductSearch />
           {children}
           <Script
             src="https://checkout.razorpay.com/v1/checkout.js"
