@@ -164,3 +164,9 @@ Next	Description	Goal
 💡 Test → Live mode transition	Switch to live keys, update webhook secrets, enable HTTPS URLs
 
 app/admin/order/page   app/admin/analytics/page   app/dashboard/page . 
+
+✅ Registration → any valid email + custom password
+✅ Verification → ensures email is real
+✅ Login → uses your DB password, not Gmail’s
+✅ SMTP App Password → only used internally for sending emails
+

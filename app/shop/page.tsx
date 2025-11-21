@@ -2,10 +2,10 @@
 
 import { useState, useMemo, useEffect, useCallback } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import Filters from "@/components/shop/Filters";
 import { useProducts } from "@/hooks/useProducts";
-import ProductCard from "@/components/shop/ProductCard";
 import { useCart } from "@/hooks/useCart";
+import Filters from "@/components/shop/Filters";
+import ProductCard from "@/components/shop/ProductCard";
 import SortSelect from "@/components/shop/SortSelect";
 
 export const dynamic = "force-dynamic";

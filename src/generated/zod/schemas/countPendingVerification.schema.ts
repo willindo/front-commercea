@@ -1,0 +1,10 @@
+import type { Prisma } from '@prisma/client';
+import * as z from 'zod';
+import { PendingVerificationOrderByWithRelationInputObjectSchema as PendingVerificationOrderByWithRelationInputObjectSchema } from './objects/PendingVerificationOrderByWithRelationInput.schema';
+import { PendingVerificationWhereInputObjectSchema as PendingVerificationWhereInputObjectSchema } from './objects/PendingVerificationWhereInput.schema';
+import { PendingVerificationWhereUniqueInputObjectSchema as PendingVerificationWhereUniqueInputObjectSchema } from './objects/PendingVerificationWhereUniqueInput.schema';
+import { PendingVerificationCountAggregateInputObjectSchema as PendingVerificationCountAggregateInputObjectSchema } from './objects/PendingVerificationCountAggregateInput.schema';
+
+export const PendingVerificationCountSchema: z.ZodType<Prisma.PendingVerificationCountArgs> = z.object({ orderBy: z.union([PendingVerificationOrderByWithRelationInputObjectSchema, PendingVerificationOrderByWithRelationInputObjectSchema.array()]).optional(), where: PendingVerificationWhereInputObjectSchema.optional(), cursor: PendingVerificationWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), select: z.union([ z.literal(true), PendingVerificationCountAggregateInputObjectSchema ]).optional() }).strict() as unknown as z.ZodType<Prisma.PendingVerificationCountArgs>;
+
+export const PendingVerificationCountZodSchema = z.object({ orderBy: z.union([PendingVerificationOrderByWithRelationInputObjectSchema, PendingVerificationOrderByWithRelationInputObjectSchema.array()]).optional(), where: PendingVerificationWhereInputObjectSchema.optional(), cursor: PendingVerificationWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), select: z.union([ z.literal(true), PendingVerificationCountAggregateInputObjectSchema ]).optional() }).strict();

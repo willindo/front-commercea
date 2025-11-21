@@ -8,12 +8,12 @@ import { User } from "@/lib/types/users";
 type AuthContextValue = {
   user: User | null;
   loading: boolean;
-  register: (d: {
+  register: (data: {
     email: string;
     password: string;
     name?: string;
   }) => Promise<void>;
-  login: (d: { email: string; password: string }) => Promise<User>; // ✅ FIX
+  login: (data: { email: string; password: string }) => Promise<User | null>;
   logout: () => Promise<void>;
 };
 
@@ -22,10 +22,11 @@ const AuthContext = createContext<AuthContextValue | undefined>(undefined);
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
   const pathname = usePathname();
+
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
 
-  // 🔹 Load from localStorage immediately (avoid flash logout)
+  // Restore cached login quickly
   useEffect(() => {
     const stored = localStorage.getItem("user");
     if (stored) {
@@ -37,67 +38,83 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     }
   }, []);
 
-  // 🔹 Sync from backend once (to confirm session still valid)
+  // Validate session unless inside /auth/*
   useEffect(() => {
     if (pathname.startsWith("/auth")) {
       setLoading(false);
       return;
     }
 
-    let mounted = true;
+    let active = true;
+
     api
       .get("/auth/me")
       .then((res) => {
-        if (!mounted) return;
+        if (!active) return;
         setUser(res.data.user);
         localStorage.setItem("user", JSON.stringify(res.data.user));
       })
       .catch(() => {
-        if (!mounted) return;
+        if (!active) return;
         setUser(null);
         localStorage.removeItem("user");
       })
       .finally(() => {
-        if (!mounted) return;
+        if (!active) return;
         setLoading(false);
       });
 
     return () => {
-      mounted = false;
+      active = false;
     };
   }, [pathname]);
 
-  // 🔹 Auth actions
+  // REGISTER
   const register = async (data: {
     email: string;
     password: string;
     name?: string;
   }) => {
     await api.post("/auth/register", data);
-    const res = await api.get("/auth/me");
-    setUser(res.data.user);
-    localStorage.setItem("user", JSON.stringify(res.data.user));
-    router.replace("/"); // soft redirect to home or dashboard
+    localStorage.removeItem("user");
+
+    router.replace(
+      `/auth/verify-pending?email=${encodeURIComponent(data.email)}`
+    );
   };
 
+  // LOGIN — fully fixed 🚀
   const login = async (data: { email: string; password: string }) => {
-    const loginRes = await api.post("/auth/login", data);
-    const meRes = await api.get("/auth/me");
+    try {
+      const { data: loginData } = await api.post("/auth/login", data);
 
-    const loggedInUser = meRes.data.user;
-    localStorage.setItem("token", loginRes.data.token);
-    localStorage.setItem("user", JSON.stringify(loggedInUser));
-    setUser(loggedInUser);
+      const { data: meData } = await api.get("/auth/me");
+      const loggedUser = meData.user;
 
-    return loggedInUser; // ✅ return actual updated user
+      // Save user
+      setUser(loggedUser);
+      localStorage.setItem("user", JSON.stringify(loggedUser));
+
+      // ❗ If user is NOT verified → redirect to verify-pending
+      if (loggedUser.needsVerification) {
+        router.replace(
+          `/auth/verify-pending?email=${encodeURIComponent(data.email)}`
+        );
+        return null;
+      }
+
+      // Otherwise → proceed to dashboard
+      router.replace("/dashboard");
+      return loggedUser;
+    } catch (err) {
+      throw err;
+    }
   };
 
+  // LOGOUT
   const logout = async () => {
     try {
       await api.post("/auth/logout");
-    } catch (err) {
-      // still continue to clear client state even if the request fails
-      console.warn("Logout request failed", err);
     } finally {
       setUser(null);
       localStorage.removeItem("user");

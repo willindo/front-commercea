@@ -1,0 +1,12 @@
+import type { Prisma } from '@prisma/client';
+import * as z from 'zod';
+import { PendingVerificationOrderByWithRelationInputObjectSchema as PendingVerificationOrderByWithRelationInputObjectSchema } from './objects/PendingVerificationOrderByWithRelationInput.schema';
+import { PendingVerificationWhereInputObjectSchema as PendingVerificationWhereInputObjectSchema } from './objects/PendingVerificationWhereInput.schema';
+import { PendingVerificationWhereUniqueInputObjectSchema as PendingVerificationWhereUniqueInputObjectSchema } from './objects/PendingVerificationWhereUniqueInput.schema';
+import { PendingVerificationCountAggregateInputObjectSchema as PendingVerificationCountAggregateInputObjectSchema } from './objects/PendingVerificationCountAggregateInput.schema';
+import { PendingVerificationMinAggregateInputObjectSchema as PendingVerificationMinAggregateInputObjectSchema } from './objects/PendingVerificationMinAggregateInput.schema';
+import { PendingVerificationMaxAggregateInputObjectSchema as PendingVerificationMaxAggregateInputObjectSchema } from './objects/PendingVerificationMaxAggregateInput.schema';
+
+export const PendingVerificationAggregateSchema: z.ZodType<Prisma.PendingVerificationAggregateArgs> = z.object({ orderBy: z.union([PendingVerificationOrderByWithRelationInputObjectSchema, PendingVerificationOrderByWithRelationInputObjectSchema.array()]).optional(), where: PendingVerificationWhereInputObjectSchema.optional(), cursor: PendingVerificationWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), _count: z.union([ z.literal(true), PendingVerificationCountAggregateInputObjectSchema ]).optional(), _min: PendingVerificationMinAggregateInputObjectSchema.optional(), _max: PendingVerificationMaxAggregateInputObjectSchema.optional() }).strict() as unknown as z.ZodType<Prisma.PendingVerificationAggregateArgs>;
+
+export const PendingVerificationAggregateZodSchema = z.object({ orderBy: z.union([PendingVerificationOrderByWithRelationInputObjectSchema, PendingVerificationOrderByWithRelationInputObjectSchema.array()]).optional(), where: PendingVerificationWhereInputObjectSchema.optional(), cursor: PendingVerificationWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), _count: z.union([ z.literal(true), PendingVerificationCountAggregateInputObjectSchema ]).optional(), _min: PendingVerificationMinAggregateInputObjectSchema.optional(), _max: PendingVerificationMaxAggregateInputObjectSchema.optional() }).strict();

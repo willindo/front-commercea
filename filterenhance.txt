@@ -1,3 +1,4 @@
+
 Filter & Pagination Enhancements (Production-Ready)
 
 Full URL-state sync: ?page=2&sort=price-asc&color=red — shareable, refresh-safe, and back/forward compatible
@@ -22,3 +23,55 @@ Optimized rendering using React.memo and useCallback for large filter lists
 | **Hook**           | `useProducts()`               | React Query fetch wrapper            | ✅ already compatible              |
 | **Page Component** | `ProductsPage`                | Collects filters + sort + pagination | ✅ fully integrated                |
 | **UI**             | `SortSelect`                  | Updates `?sort=` in URL              | ✅ works fine                      |
+
+
+| Step | User Action                  | Backend                                                            | Frontend                                       |
+| ---- | ---------------------------- | ------------------------------------------------------------------ | ---------------------------------------------- |
+| 1    | Registers new account        | Generates a verification token and sends email via `MailerService` | Shows “Check your email for verification link” |
+| 2    | Clicks link in email         | `/auth/verify-email?token=...` endpoint validates token            | `verifyemail/page.tsx` updates status          |
+| 3    | Verified successfully        | Marks user as `isVerified = true`                                  | Redirects to login automatically               |
+| 4    | Tries login before verifying | Backend rejects with “Email not verified”                          | Shows toast + “Resend verification link”       |
+| 5    | Resends email                | `/auth/resend-verification` endpoint sends new link                | Toast success / failure feedback               |
+
+e-commerce flow is supposed to behave.
+
+| Action               | Allowed Without Login | Allowed Without Verification |
+| -------------------- | --------------------- | ---------------------------- |
+| View/search products | ✅                     | ✅                            |
+| Add to cart          | ❌                     | ❌                            |
+| Add to wishlist      | ❌                     | ❌                            |
+| Register             | ✅                     | ✅ (starts verification flow) |
+| Login                | ✅                     | Only if verified             |
+| Resend verification  | ✅                     | (only if not verified yet)   |
+| Checkout/order       | ❌                     | ❌                            |
+
+| Layer        | Enforcement                                                     |
+| ------------ | --------------------------------------------------------------- |
+| **Frontend** | Disable buttons / show “Verify your email to use this feature.” |
+| **Backend**  | Guard routes: only allow if `req.user.isVerified === true`      |
+
+| Stage                               | Who                 | Backend                  | Frontend               | Purpose        |
+| ----------------------------------- | ------------------- | ------------------------ | ---------------------- | -------------- |
+| Browse products                     | Public              | `@Public()`              | Open access            | Discovery      |
+| Register                            | Public              | Create user + send email | Inform user to verify  | Entry          |
+| Verify email                        | Public              | Mark verified            | Show success UI        | Activation     |
+| Login                               | Verified users      | JWT issue                | Check `isVerified`     | Access gate    |
+| Resend verification                 | Unverified users    | New token + email        | Retry mechanism        | Recovery       |
+| Use features (wishlist, cart, etc.) | Verified users only | Guard by `isVerified`    | Hook-based enforcement | Secure actions |
+
+| Guard           | Purpose                         | Typical Use                     |
+| --------------- | ------------------------------- | ------------------------------- |
+| `JwtAuthGuard`  | Checks JWT token validity       | Any protected user route        |
+| `RolesGuard`    | Checks if user has proper role  | Admin or staff-only             |
+| `VerifiedGuard` | Checks if user’s email verified | Cart, wishlist, checkout, etc.  |
+| `@Public()`     | Skips all guards                | Product listing, homepage, etc. |
+
+| Action               | Allowed Without Login | Allowed Without Verification |
+| -------------------- | --------------------- | ---------------------------- |
+| Register             | ✅                     | ✅ (starts verification flow) |
+| Login                | ✅                     | Only if verified             |
+| Resend verification  | ✅                     | (only if not verified yet)   |
+| View/search products | ✅                     | ✅                            |
+| Add to cart          | ❌                     | ❌                            |
+| Add to wishlist      | ❌                     | ❌                            |
+| Checkout/order       | ❌                     | ❌                            |

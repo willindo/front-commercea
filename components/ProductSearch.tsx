@@ -10,7 +10,12 @@ export default function ProductSearch() {
     Record<string, string | string[]>
   >({});
 
-  const { data, isLoading } = useProducts(1, 10, searchParams);
+  // Only fetch when query exists
+  const { data, isLoading } = useProducts(
+    query.trim().length > 1 ? 1 : undefined,
+    query.trim().length > 1 ? 10 : undefined,
+    query.trim().length > 1 ? searchParams : undefined
+  );
 
   useEffect(() => {
     const delay = setTimeout(() => {
@@ -32,7 +37,7 @@ export default function ProductSearch() {
         className="mb-4"
       />
 
-      {isLoading ? (
+      {query.trim().length <= 1 ? null : isLoading ? (
         <p>Loading...</p>
       ) : (
         <ul className="space-y-2">

@@ -1,100 +1,72 @@
 "use client";
 
-import { useForm } from "react-hook-form";
-import { useAuth } from "@/context/AuthContext";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { useAuth } from "@/context/AuthContext";
 import toast from "react-hot-toast";
 
-type RegisterForm = {
-  email: string;
-  password: string;
-  name?: string;
-};
-
 export default function RegisterPage() {
-  const { register: registerUser } = useAuth();
-  const router = useRouter();
-  const [serverError, setServerError] = useState<string | null>(null);
+  const { register } = useAuth();
+
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
   const [loading, setLoading] = useState(false);
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<RegisterForm>();
+  const handleChange = (e: any) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
 
-  const onSubmit = async (data: RegisterForm) => {
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
+    if (loading) return;
     setLoading(true);
-    setServerError(null);
+
     try {
-      await registerUser(data);
-      router.push("/dashboard"); // redirect to authenticated area
-      toast.success("Welcome! Check your email to verify your account.");
+      await register(form);
+      toast.success("Verification email sent!");
     } catch (err: any) {
-      // Expect backend to return message in err.response.data.message
-      setServerError(err.response?.data?.message || "Registration failed");
+      toast.error(err.response?.data?.message || "Registration failed");
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-50">
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className="w-full max-w-md space-y-4 rounded-xl bg-white p-6 shadow-lg"
-      >
-        <h1 className="text-2xl font-bold">Create an Account</h1>
+    <div className="max-w-md mx-auto py-16">
+      <h1 className="text-2xl font-semibold mb-6">Create Account</h1>
 
-        {serverError && (
-          <p className="rounded bg-red-100 p-2 text-sm text-red-700">
-            {serverError}
-          </p>
-        )}
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <input
+          name="name"
+          placeholder="Full Name"
+          className="w-full border px-4 py-2 rounded"
+          onChange={handleChange}
+        />
 
-        <div>
-          <label className="block text-sm font-medium">Name</label>
-          <input
-            {...register("name")}
-            type="text"
-            className="mt-1 w-full rounded border px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            placeholder="Your name"
-          />
-        </div>
+        <input
+          name="email"
+          type="email"
+          placeholder="Email"
+          className="w-full border px-4 py-2 rounded"
+          onChange={handleChange}
+        />
 
-        <div>
-          <label className="block text-sm font-medium">Email</label>
-          <input
-            {...register("email", { required: "Email is required" })}
-            type="email"
-            className="mt-1 w-full rounded border px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            placeholder="you@example.com"
-          />
-          {errors.email && (
-            <p className="text-sm text-red-500">{errors.email.message}</p>
-          )}
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium">Password</label>
-          <input
-            {...register("password", { required: "Password is required" })}
-            type="password"
-            className="mt-1 w-full rounded border px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            placeholder="********"
-          />
-          {errors.password && (
-            <p className="text-sm text-red-500">{errors.password.message}</p>
-          )}
-        </div>
+        <input
+          name="password"
+          type="password"
+          placeholder="Password"
+          className="w-full border px-4 py-2 rounded"
+          onChange={handleChange}
+        />
 
         <button
           type="submit"
           disabled={loading}
-          className="w-full rounded bg-blue-600 py-2 text-white hover:bg-blue-700 disabled:opacity-50"
+          className="w-full py-2 bg-black text-white rounded disabled:opacity-40"
         >
-          {loading ? "Registering..." : "Register"}
+          {loading ? "Creating..." : "Register"}
         </button>
       </form>
     </div>

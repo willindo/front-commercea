@@ -4,6 +4,7 @@
  */
 
 export { UserInputSchema } from './User.input';
+export { PendingVerificationInputSchema } from './PendingVerification.input';
 export { AddressInputSchema } from './Address.input';
 export { CategoryInputSchema } from './Category.input';
 export { ProductInputSchema } from './Product.input';

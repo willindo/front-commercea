@@ -4,6 +4,7 @@
  */
 
 export { UserModelSchema } from './User.pure';
+export { PendingVerificationModelSchema } from './PendingVerification.pure';
 export { AddressModelSchema } from './Address.pure';
 export { CategoryModelSchema } from './Category.pure';
 export { ProductModelSchema } from './Product.pure';

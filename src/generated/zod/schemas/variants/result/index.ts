@@ -4,6 +4,7 @@
  */
 
 export { UserResultSchema } from './User.result';
+export { PendingVerificationResultSchema } from './PendingVerification.result';
 export { AddressResultSchema } from './Address.result';
 export { CategoryResultSchema } from './Category.result';
 export { ProductResultSchema } from './Product.result';

@@ -1,92 +1,65 @@
 "use client";
 
-import { useForm } from "react-hook-form";
 import { useAuth } from "@/context/AuthContext";
-import { useRouter } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
 
-type LoginForm = {
-  email: string;
-  password: string;
-};
-
 export default function LoginPage() {
   const { login } = useAuth();
-  const router = useRouter();
-  const [serverError, setServerError] = useState<string | null>(null);
+  const params = useSearchParams();
+  const verified = params.get("verified");
+
+  const [form, setForm] = useState({ email: "", password: "" });
   const [loading, setLoading] = useState(false);
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<LoginForm>();
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
+    if (loading) return;
 
-  const onSubmit = async (data: LoginForm) => {
     setLoading(true);
-    setServerError(null);
     try {
-      const user = await login(data); // 👈 user now returned from login()
-
-      if (!user.isVerified) {
-        toast("Please verify your email for full access.");
-      }
-
-      router.push("/dashboard");
+      await login(form);
+      toast.success("Logged in!");
     } catch (err: any) {
-      setServerError(err.response?.data?.message || "Invalid credentials");
+      toast.error(err.response?.data?.message || "Login failed");
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-50">
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className="w-full max-w-md space-y-4 rounded-xl bg-white p-6 shadow-lg"
-      >
-        <h1 className="text-2xl font-bold">Sign In</h1>
-
-        {serverError && (
-          <p className="rounded bg-red-100 p-2 text-sm text-red-700">
-            {serverError}
-          </p>
-        )}
-
-        <div>
-          <label className="block text-sm font-medium">Email</label>
-          <input
-            {...register("email", { required: "Email is required" })}
-            type="email"
-            className="mt-1 w-full rounded border px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            placeholder="you@example.com"
-          />
-          {errors.email && (
-            <p className="text-sm text-red-500">{errors.email.message}</p>
-          )}
+    <div className="max-w-md mx-auto py-16">
+      {verified && (
+        <div className="mb-4 p-3 bg-green-100 text-green-700 rounded">
+          Email verified! You may now log in.
         </div>
+      )}
 
-        <div>
-          <label className="block text-sm font-medium">Password</label>
-          <input
-            {...register("password", { required: "Password is required" })}
-            type="password"
-            className="mt-1 w-full rounded border px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            placeholder="********"
-          />
-          {errors.password && (
-            <p className="text-sm text-red-500">{errors.password.message}</p>
-          )}
-        </div>
+      <h1 className="text-2xl font-semibold mb-6">Sign In</h1>
+
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <input
+          name="email"
+          placeholder="Email"
+          className="w-full border px-4 py-2 rounded"
+          onChange={(e) => setForm({ ...form, email: e.target.value })}
+        />
+
+        <input
+          name="password"
+          type="password"
+          placeholder="Password"
+          className="w-full border px-4 py-2 rounded"
+          onChange={(e) => setForm({ ...form, password: e.target.value })}
+        />
 
         <button
           type="submit"
           disabled={loading}
-          className="w-full rounded bg-blue-600 py-2 text-white hover:bg-blue-700 disabled:opacity-50"
+          className="w-full py-2 bg-black text-white rounded disabled:opacity-40"
         >
-          {loading ? "Logging in..." : "Login"}
+          {loading ? "Checking..." : "Login"}
         </button>
       </form>
     </div>

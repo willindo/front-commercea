@@ -4,7 +4,7 @@ import { useProtectedRoute } from "@/hooks/useProtectedRoute";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import Link from "next/link";
-import { ResendVerificationButton } from "@/components/RecentVerificationButton";
+import { ResendVerificationButton } from "@/components/ResendVerificationButton";
 
 export default function DashboardPage() {
   const { user, loading } = useProtectedRoute();
